@@ -538,6 +538,44 @@
             //    locationHash: true
             //});
 
+            $("#SendAPIZalo").click(function () {
+
+
+                //alert('123');
+
+                if ($("#phone_sendzalo").val().substring(0, 2) != "84") {
+                    alert("Số điện thoại gửi zalo phải bắt đầu bằng 84");
+                    return;
+                }
+                var phone = "";
+                var number = "";
+                var schedule_time = "";
+                var phone_number = "";
+                var customer_name = "";
+                var product_name = "";
+                var customer_code = "";
+                //e.preventDefault();
+                $.ajax({
+                    url: '/NhomBaiViet/SendAPIZalo',
+                    data: {
+                        phone: $("#phone_sendzalo").val(),
+                        number: $("#number").val(),
+                        schedule_time: $("#schedule_time").val(),
+                        phone_number: $("#phone_number").val(),
+                        customer_name: $("#customer_name").val(),
+                        product_name: $("#product_name").val(),
+                        customer_code: $("#customer_code").val(),
+                        token: $("#code").val()
+
+                    },
+                    contentData: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        alert(res);
+                    }
+                });
+            });
+
 
 
         });

@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "SendZalo";
+    Layout = "~/Views/Shared/_Layout-Home.cshtml";
+}
+
+<div class="checkout-area pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <form id="formInfo">
+
+                    <div class="billing">
+                        <h3>Thông Tin Trên Form ZALO khách hàng</h3>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label style="color:crimson">Họ Và Tên Người đặt lịch khám</label>
+                                    <input id="customer_name" value="Họ Và Tên" type="text" class="form-control" required minlength="5">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label style="color:crimson">Năm Sinh*</label>
+                                    <input id="number" value="1990" type="text" class="form-control" required minlength="4" maxlength="20">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Ngày đặt lịch khám</label>
+                                    <input value="21/12/2023" id="schedule_time" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label style="color:crimson">Số điện thoại*</label>
+                                    <input id="phone_number" type="text" class="form-control" value="" required minlength="9">
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Mã khách hàng (nếu có)</label>
+                                    <input required id="customer_code" type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Chi tiết dịch vụ khám</label>
+                                    <textarea id="product_name" rows="8" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Mã Code</label>
+                                    <textarea id="code" rows="8" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @*<label style="color:crimson">Số điện thoại gửi Zalo</label>*@
+                                    <input value="84941845992" placeholder="Số điện thoại gửi Zalo" id="phone_sendzalo" type="text" class="form-control" required minlength="9">
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <button type='button' id="SendAPIZalo" class="common-btn">
+                                    <span class="one"></span>
+                                    <span class="two"></span>
+                                    Gửi Zalo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
