@@ -1,0 +1,41 @@
+﻿@using TLBD.Areas.admin.Models.BaiViet;
+@using TLBD.Functions
+@{
+    var bvClss = new BaiViet_Class();
+    var item = bvClss.LayDSSanPham();
+}
+
+<link href="/static/fontawesome/fontawesome-all.css" rel="stylesheet">
+<div class="container">
+    <div class="product-carousel">
+        <div class="box-body">
+            <div class="row">
+                <div class="owl-carousel owl-five owl-theme">
+                    @foreach (var item_baiviet in item)
+                    {
+                         <!-- product -->
+                        <div class="item">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="product-block">
+                                    <div class="product-img">
+                                        <a href="@Url.RouteUrl("BaiViet_Route", new {TenBV = cUrlHelper.ToFriendlyUrl(item_baiviet.TIEU_DE), id = item_baiviet.ID })">
+                                            <img src="@Url.Content(string.Format("~/content/BaiViet/" + item_baiviet.IMAGE_URL))" alt="" style="height:200px;object-fit:cover">
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h5 style="font-weight:bold;color:black">
+                                            <a href="@Url.RouteUrl("BaiViet_Route", new {TenBV = cUrlHelper.ToFriendlyUrl(item_baiviet.TIEU_DE), id = item_baiviet.ID })" class="product-title">@item_baiviet.TIEU_DE</a>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.product -->
+                        </div>
+                    <!-- product -->
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.seller products -->

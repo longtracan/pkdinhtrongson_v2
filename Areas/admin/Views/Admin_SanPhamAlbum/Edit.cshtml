@@ -1,0 +1,104 @@
+﻿@using Kendo.Mvc.UI;
+@model TLBD.Areas.admin.Models.AlbumDetail.AlbumDetail_Model
+
+@{
+    ViewBag.Title = "Cập nhật hình ảnh";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        var url = "@Url.Action("CapNhat", "Admin_SanPhamAlbum")/?id=@(Model==null ? "0" : Model.sID.ToString())";
+        $("#form").attr("action", url);
+        //FillData();
+    });
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }
+</script>
+
+<script>
+    function FillData() {
+        var stateId = $('#sID_NHOM').val();
+        $.ajax({
+            url: '/Admin_SanPhamAlbum/FillData',
+            type: "GET",
+            dataType: "JSON",
+            data: { nsp_id: stateId },
+            success: function (data) {
+                $("#sID_ALBUM").html(""); // clear before appending new list
+                $.each(data, function (i, item) {
+                    $("#sID_ALBUM").append(
+                        $('<option></option>').val(item.sID).html(item.sTIEU_DE));
+                });
+            }
+        });
+    }
+</script>
+
+@using (Html.BeginForm("CapNhat", "Admin_SanPhamAlbum", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin chi tiết hình ảnh sản phẩm</legend>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px" id="">
+                        Hình ảnh
+                    </td>
+                    <td class="hinh">
+                        <input type="file" name="ImageUrl" id="ImageUrl" />
+                        @if (Model != null)
+                        {
+                            <img src="@Url.Content("~/content/Album/")@Model.sIMAGE_URL">
+                        }
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Nhóm sản phẩm
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.sID_NHOM
+                        , (IEnumerable<SelectListItem>)ViewData["NHOM_SANPHAM"]
+                        , new { @class = "form-control" , @onchange = "FillData()" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Sản phẩm
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.sID_ALBUM
+                       , (IEnumerable<SelectListItem>)ViewData["SANPHAM"]
+                       , new { style = "width:250px; color: #000000;" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" style="width:130px" value="Cập nhật" />
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+}

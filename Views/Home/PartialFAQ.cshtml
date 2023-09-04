@@ -1,0 +1,40 @@
+﻿@using TLBD.Areas.admin.Models.BaiViet;
+@using TLBD.Functions;
+@model List<BaiViet_Model>
+
+
+<div class="faq-area ptb-100">
+    <div class="container">
+        <div class="faq-img">
+            <img src="~/Content/uploads/images/FAQ/faq.png" alt="FAQ">
+        </div>
+        <div class="faq-item">
+            <div class="section-title">
+                <div class="top">
+                    <span class="top-title">KHÁCH HÀNG</span>
+                    <span class="sub-title">HỖ TRỢ</span>
+                </div>
+                <h2>NHỮNG THẮC MẮC THƯỜNG GẶP</h2>
+            </div>
+            <ul class="accordion">
+                @{ 
+                    for (int i = 0; i < Model.Count(); i++)
+                    { 
+                         <li>
+                            <h3 class="faq-head"><span>@string.Format("{0:00}", i + 1)</span> @Model[i].TIEU_DE</h3>
+                            <div class="faq-content">
+                                <p>@Html.Raw(Model[i].TOM_TAT) 
+                               
+                                
+                                </p>
+                            </div>
+                         </li>
+
+                    }
+                }
+               
+            
+            </ul>
+        </div>
+    </div>
+</div>

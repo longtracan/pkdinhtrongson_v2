@@ -1,0 +1,170 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("./flaticon.ttf?e31b43487ffbe4625880a8cb2ea71c5c") format("truetype"),
+url("./flaticon.woff?e31b43487ffbe4625880a8cb2ea71c5c") format("woff"),
+url("./flaticon.woff2?e31b43487ffbe4625880a8cb2ea71c5c") format("woff2"),
+url("./flaticon.eot?e31b43487ffbe4625880a8cb2ea71c5c#iefix") format("embedded-opentype"),
+url("./flaticon.svg?e31b43487ffbe4625880a8cb2ea71c5c#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-mother:before {
+    content: "\f101";
+}
+.flaticon-research:before {
+    content: "\f102";
+}
+.flaticon-pain:before {
+    content: "\f103";
+}
+.flaticon-dental-insurance:before {
+    content: "\f104";
+}
+.flaticon-ultrasound:before {
+    content: "\f105";
+}
+.flaticon-standing-male-silhouette-with-x-ray-view-of-the-lungs:before {
+    content: "\f106";
+}
+.flaticon-x-rays:before {
+    content: "\f107";
+}
+.flaticon-child:before {
+    content: "\f108";
+}
+.flaticon-sore-throat:before {
+    content: "\f109";
+}
+.flaticon-gastric:before {
+    content: "\f10a";
+}
+.flaticon-stethoscope:before {
+    content: "\f10b";
+}
+.flaticon-sonography:before {
+    content: "\f10c";
+}
+.flaticon-liver:before {
+    content: "\f10d";
+}
+.flaticon-heart-rate:before {
+    content: "\f10e";
+}
+.flaticon-cervical-cancer:before {
+    content: "\f10f";
+}
+.flaticon-medical-checkup:before {
+    content: "\f110";
+}
+.flaticon-lifeline:before {
+    content: "\f111";
+}
+.flaticon-heart:before {
+    content: "\f112";
+}
+.flaticon-give:before {
+    content: "\f113";
+}
+.flaticon-respect:before {
+    content: "\f114";
+}
+.flaticon-children:before {
+    content: "\f115";
+}
+.flaticon-heart-1:before {
+    content: "\f116";
+}
+.flaticon-insurance:before {
+    content: "\f117";
+}
+.flaticon-card:before {
+    content: "\f118";
+}
+.flaticon-lasik:before {
+    content: "\f119";
+}
+.flaticon-bone:before {
+    content: "\f11a";
+}
+.flaticon-mri:before {
+    content: "\f11b";
+}
+.flaticon-medical:before {
+    content: "\f11c";
+}
+.flaticon-giving:before {
+    content: "\f11d";
+}
+.flaticon-male:before {
+    content: "\f11e";
+}
+.flaticon-attention:before {
+    content: "\f11f";
+}
+.flaticon-nurse:before {
+    content: "\f120";
+}
+.flaticon-phone:before {
+    content: "\f121";
+}
+.flaticon-location:before {
+    content: "\f122";
+}
+.flaticon-fast-time:before {
+    content: "\f123";
+}
+.flaticon-pregnant:before {
+    content: "\f124";
+}
+.flaticon-pregnant-1:before {
+    content: "\f125";
+}
+.flaticon-baby-shower:before {
+    content: "\f126";
+}
+.flaticon-test-tube:before {
+    content: "\f127";
+}
+.flaticon-dna:before {
+    content: "\f128";
+}
+.flaticon-family:before {
+    content: "\f129";
+}
+.flaticon-heart-2:before {
+    content: "\f12a";
+}
+.flaticon-heart-3:before {
+    content: "\f12b";
+}
+.flaticon-lung-cancer:before {
+    content: "\f12c";
+}
+.flaticon-ribbon:before {
+    content: "\f12d";
+}
+.flaticon-medical-research:before {
+    content: "\f12e";
+}
+.flaticon-breast-cancer:before {
+    content: "\f12f";
+}
+.flaticon-heart-4:before {
+    content: "\f130";
+}
+.flaticon-spine-bone:before {
+    content: "\f131";
+}
+.flaticon-large-intestine:before {
+    content: "\f132";
+}

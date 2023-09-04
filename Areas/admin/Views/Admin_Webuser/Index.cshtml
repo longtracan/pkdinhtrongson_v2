@@ -1,0 +1,102 @@
+﻿@using Kendo.Mvc.UI;
+@model IEnumerable<TLBD.Models.DangkyThanhvienModel>
+@{
+    ViewBag.Title = "Quản trị thành viên";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    function filter() {
+        var val = $("#txtKeyword").val();       
+        return {
+            keyword: val
+        };
+    }    
+
+    function Them() {
+        var url = "@Url.Action("Add", "Admin_Khoahoc")?loaihinhId=" + $("#cbo_Loaihinhdaotao").val();
+        window.location = url;
+        return false;
+    }
+
+    function load_thanhvien() {
+
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+        grid.refresh();
+    }
+</script>
+
+<div style="height: 50px; margin-top: 20px;">
+    <div style="float: left;">
+        @Html.TextBox("txtKeyword", "", new { style="height:26px;"})
+    </div>
+    
+    <div>
+        <input class="k-button k-button-icontext k-grid-Edit" type="button" onclick="load_thanhvien()" value="Xem"/>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("LayDuLieu", "Admin_Webuser", FormMethod.Post, new { id = "form" }))
+    {    
+        @(
+            Html.Kendo().Grid<TLBD.Models.DangkyThanhvienModel>(Model)
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.UserId).Title("ID").Width(30);          
+                c.Bound(m => m.HoTen).Title("Tên").Width(200);                
+                c.Bound(m => m.Ngaysinh).Title("Ngày sinh").Format("{0:dd/MM/yyyy}").Width(100);
+                c.Bound(m => m.Gioitinh).Title("Giới tính").Width(40);
+                c.Bound(m => m.CMND).Title("CMND").Width(90);      
+                c.Bound(m => m.Ngaycap).Title("Ngày cấp").Format("{0:dd/MM/yyyy}").Width(100);
+                c.Bound(m => m.Sodienthoai).Title("Điện thoại").Width(120);
+                c.Bound(m => m.UserName).Title("Email").Width(120); 
+                //c.Template(m => { }).Width(50).Title("")
+                //    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_Khoahoc", new { area = "admin" }) + "/#= KhoahocId #'>Chỉnh sửa</a>");                    
+                //c.Template(m => { }).Width(50).Title("")
+                //    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_Khoahoc", new { area = "admin" }) + "/#= KhoahocId #'>Xóa</a>");  
+
+            })
+    .ToolBar(tb =>
+        {
+            //tb.Custom().Text("Thêm").HtmlAttributes(new { @class = "button_them", href = "javascript:Them();", onclick = "Them()" });                                
+        })
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(n => n.UserId);
+        })
+        .PageSize(100)
+        .Read(r => r.Action("Read", "Admin_Webuser").Data("filter"))
+        
+    )
+    .Events(e=>e.DataBound("onDataBound"))
+    )
+    }

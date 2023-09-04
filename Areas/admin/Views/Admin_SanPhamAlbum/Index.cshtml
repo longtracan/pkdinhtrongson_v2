@@ -1,0 +1,137 @@
+﻿@using Kendo.Mvc.UI;
+@model IEnumerable<TLBD.Areas.admin.Models.AlbumDetail.AlbumDetail_Model>
+@{
+    ViewBag.Title = "Hỉnh ảnh sản phẩm";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    function filter() {
+        var val = $("#cbo_SanPham").val();
+        if (val == "")
+            val = "0";
+        return {
+            id_sanpham: val
+        };
+    }
+
+    function filter_chuyenmuc() {
+        return {
+            id_nhomsanpham: $("#cbo_NhomSanPham").val()
+        };
+    }
+
+    function Them() {
+        console.log("id = " + $("#cbo_SanPham").val());
+        var url = "@Url.Action("Add", "Admin_SanPhamAlbum")/?id=" + $("#cbo_SanPham").val();
+        window.location = url;
+        return false;
+    }
+
+    function load_bai_viet() {
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+        grid.refresh();
+    }
+
+    function onDataBound() {
+        console.log("event: " + $("#cbo_SanPham").val());
+    }
+
+    function onSelChange() {
+        console.log("event: " + $("#cbo_NhomSanPham").val());
+    }
+</script>
+
+<div style="height: 50px; margin-top: 20px;">
+    <div style="float: left;">
+        @(Html.Kendo().DropDownList()
+            .Name("cbo_NhomSanPham")
+            .BindTo((IEnumerable<SelectListItem>)ViewData["NHOM_SANPHAM"])
+            .DataTextField("Text")
+            .DataValueField("Value")
+            )
+
+    </div>
+
+    <div style="float: left;">
+        @(Html.Kendo().DropDownList()
+            .Name("cbo_SanPham")
+            .HtmlAttributes(new { style = "margin-left: 10px;" })
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .DataSource(source =>
+            {
+                source.Read(read =>
+                {
+                    read.Action("GetSanPham", "Admin_SanPhamAlbum")
+                        .Data("filter_chuyenmuc");
+                })
+                .ServerFiltering(true);
+            })
+            .Enable(false)
+            .AutoBind(false)
+            .CascadeFrom("cbo_NhomSanPham")
+            .Events(e => e.Change("load_bai_viet"))
+            )
+
+    </div>
+    <div>
+        <input class="k-button k-button-icontext k-grid-Edit" type="button" onclick="load_bai_viet()" value="Xem" />
+    </div>
+</div>
+
+
+@using (Html.BeginForm("LayDuLieu", "Admin_SanPhamAlbum", FormMethod.Post, new { id = "form" }))
+{
+    @(Html.Kendo().Grid<TLBD.Areas.admin.Models.AlbumDetail.AlbumDetail_Model>(Model)
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.sID).Title("ID").Width(30);
+                c.Bound(m => m.sIMAGE_URL).Title("Hình ảnh").Width(200)
+                    .ClientTemplate("<img style='height:60px' src='" + Url.Content("~/Content/Album/") + "#= sIMAGE_URL #' />");
+                c.Template(m => { }).Width(10).Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_SanPhamAlbum", new { area = "admin" }) + "/#= sID #'>Chỉnh sửa</a>");
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_SanPhamAlbum") + "/#= sID #'>Xóa</a>");
+            })
+                .ToolBar(tb =>
+            {
+                tb.Custom().Text("Thêm").HtmlAttributes(new { @class = "button_them", href = "javascript:Them();", onclick = "Them()" });
+            })
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .Model(m =>
+            {
+                m.Id(n => n.sID);
+            })
+        .PageSize(10)
+        .Read(r => r.Action("Read", "Admin_SanPhamAlbum").Data("filter"))
+
+    ))
+}

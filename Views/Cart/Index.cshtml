@@ -1,0 +1,147 @@
+﻿@model List<TLBD.Areas.admin.Models.CartItem.CartItem_Model>
+
+@{
+    ViewBag.Title = "Giỏ hàng";
+    Layout = "~/Views/Shared/_LayoutBoostrap.cshtml";
+
+    var total = 0;
+    var giasp = 0;
+}
+
+@section jsFooter{
+    <script src="@Url.Content("/js/Controller/cartController.js")"></script>
+}
+
+<script src="http://sieuthiwebsitedep.com/templates/nicewebmarket/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.blink').each(function () {
+            var elem = $(this);
+            setInterval(function () {
+                if (elem.css('visibility') == 'hidden') {
+                    elem.css('visibility', 'visible');
+                } else {
+                    elem.css('visibility', 'hidden');
+                }
+            }, 800);
+        });
+    });
+</script>
+
+<!-- page-header -->
+<div class="page-header">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="page-breadcrumb">
+                <ol class="breadcrumb">
+                    <li><a href="~/Home">Trang chủ</a></li>
+                    <li>Giỏ hàng</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.page-header-->
+<!-- cart-section -->
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="box">
+                <div class="box-head" style="border-bottom:0px">
+                    <h3 class="tieu-de">Giỏ hàng</h3>
+                </div>
+                <!-- cart-table-section -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <div class="cart">
+                            <table class="table table-bordered ">
+                                <thead style="text-align:center">
+                                    <tr>
+                                        <th style="text-align:center">
+                                            <span>Sản phẩm</span>
+                                        </th>
+                                        <th style="text-align:center">
+                                            <span>Giá</span>
+                                        </th>
+                                        <th style="text-align:center">
+                                            <span>Số lượng</span>
+                                        </th>
+                                        <th style="text-align:center">
+                                            <span>Thành tiền</span>
+                                        </th>
+                                        <th>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbsody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <a href="#"><img src=@Url.Content(string.Format("~/content/BaiViet/" + item.Product.IMAGE_URL)) alt="" style="width:60px"></a>
+
+                                                @if (item.Quantity > item.Product.SP_SOLUONG)
+                                                { <span><a href="#" style="color:red">@item.Product.TIEU_DE</a></span>
+                                                    <p style="margin: 0px; color: red; text-align: left; font-style:italic" class="blink">(Không đủ số lượng)</p>
+                                                }
+                                                else
+                                                {
+                                                    <span><a href="#">@item.Product.TIEU_DE</a></span>
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.Product.SP_GIAKM != null && item.Product.SP_GIA != null)
+                                                {
+                                                    giasp = item.Product.SP_GIAKM.Value;
+                                                }
+                                                else if (item.Product.SP_GIA != null)
+                                                {
+                                                    giasp = item.Product.SP_GIA.Value;
+                                                }
+                                                else if (item.Product.SP_GIAKM != null)
+                                                {
+                                                    giasp = item.Product.SP_GIAKM.Value;
+                                                }
+                                                else
+                                                {
+                                                    giasp = 0;
+                                                }
+
+                                                @(giasp > 0 ? giasp.ToString("N0") : "---")
+                                            </td>
+                                            <td>
+                                                <div class="product-quantity">
+                                                    <div class="quantity">
+                                                        <input type="number" class="txt-quantity" data-id="@item.Product.ID" min="1" name="quantity" value="@item.Quantity" title="Qty" size="4" pattern="[0-9]*" style="width:50px">
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @(giasp > 0 ? (giasp * @item.Quantity).ToString("N0") : "---")
+                                            </td>
+                                            <th scope="row"><a href="#" data-id="@item.Product.ID" class="btn-delete"><i class="fa fa-times-circle-o"></i></a></th>
+                                            @{
+                                        total += (giasp * item.Quantity);
+                                            }
+                                        </tr>
+                                    }
+                                </tbsody>
+                            </table>
+                            <div style="text-align:right;font-size:20px"><b>Tổng cộng: @total.ToString("N0") đồng</b></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="col-md-3 col-sm-6 col-xs-12 btn btn-primary" id="btnContinue">Tiếp tục mua hàng</button>
+                    <button class="col-md-3 col-sm-6 col-xs-12 btn btn-primary" id="btnUpdate">Cập nhật giỏ hàng</button>
+                    <button class="col-md-3 col-sm-6 col-xs-12 btn btn-primary" id="btnDeleteAll">Xóa giỏ hàng</button>
+                    <button class="col-md-3 col-sm-6 col-xs-12 btn btn-primary" id="btnPayment">Thanh toán</button>
+                </div>
+            </div>
+
+        </div>
+        <!-- cart-total -->
+    </div>
+    <!-- /.cart-total -->
+</div>
+<!-- /.cart-section -->

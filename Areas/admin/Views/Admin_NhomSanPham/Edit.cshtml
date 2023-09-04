@@ -1,0 +1,132 @@
+﻿ @model TLBD.Areas.admin.Models.NhomBaiViet.NhomBaiViet_Model
+
+@{
+    ViewBag.Title = "Cập nhật nhóm bài viết";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#form").submit(function (e) {
+            var run = true;
+            run = kiemtra("Tennhombaiviet", "sTEN_NHOM_BAIVIET", run);
+
+            if (!run) {
+                e.preventDefault();
+
+            }
+        });
+
+        var url = '@Url.Action("CapNhat", "Admin_NhomSanPham")/@(Model==null ? "0" : Model.sID.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");
+            alert("Chưa nhập đủ thông tin " + label);
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }      
+</script>
+
+
+
+@using (Html.BeginForm("CapNhat", "Admin_NhomSanPham", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin nhóm bài viết</legend>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px" id ="Tennhombaiviet">
+                        Tên nhóm bài viết      
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sTEN_NHOM_BAIVIET, new { style ="width:100%" })
+                        @Html.ValidationMessageFor(m => m.sTEN_NHOM_BAIVIET)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>               
+                
+                @*<tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Chuyên mục
+                    </td>
+                    <td>
+                        @Html.DropDownList("sID_CHUYENMUC", (IEnumerable<SelectListItem>)ViewData["CHUYEN_MUC"], new { style = "width:250px" })
+                        @Html.ValidationMessageFor(m => m.sID_CHUYENMUC)
+                    </td>         
+                    <td style="width:10%"></td>          
+                </tr>   
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Loại hiển thị
+                    </td>
+                    <td>
+                        @Html.DropDownList("sLOAI_HIENTHI", (IEnumerable<SelectListItem>)ViewData["LOAI_HIENTHI"], new { style = "width:250px" })
+                    </td>         
+                    <td style="width:10%"></td>          
+                </tr>*@                             
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px" id="Link">
+                        Link
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sLINK, new { style = "width:100%" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px" id="ThuTu">
+                        Thứ tự:
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sTHUTU, new { style = "width:100%" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px" id="ThuTu">
+                        Menu bài viết
+                    </td>
+                    <td>
+                       @Html.CheckBoxFor(m => m.sHIENTHI_BAIVIET_MENU, new { })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" style="width:130px" value="Cập nhật" />                        
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>     
+                    <td style="width:10%"></td>              
+                </tr>                              
+            </table>
+        </fieldset>
+    </div>
+}

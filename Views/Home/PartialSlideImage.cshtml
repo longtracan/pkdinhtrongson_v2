@@ -1,0 +1,47 @@
+﻿@using TLBD.Areas.admin.Models.BaiViet;
+@using TLBD.Functions;
+@using TLBD.Areas.admin.Models.AlbumDetail;
+@model List<AlbumDetail_Model>
+
+<section class="services-area three pt-100 pb-70">
+    <div class="container">
+        <div class="section-title">
+            <div class="top">
+                <span class="top-title">HÌNH ẢNH</span>
+                <span class="sub-title">HÌNH ẢNH</span>
+            </div>
+            <h2>CƠ SỞ VẬT CHẤT</h2>
+            <p>chúng tôi không những đầu tư vào môi trường vật chất giúp khách hàng cảm thấy dễ chịu nhất khi đến khám chữa bệnh và chăm sóc sức khỏe, 
+            mà còn theo đuổi những phương pháp tầm soát bệnh lý và điều trị tiên tiến trên thế giới nhằm mang đến chất lượng khám chữa bệnh tốt nhất.</p>
+        </div>
+        <div class="row justify-content-center">
+
+            <div class="item">
+                <div class="clearfix" style="">
+                    <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                        @{ foreach (var item in Model)
+                            {
+                                <li data-thumb="@Url.Content(string.Format("~/content/Album/" + item.sIMAGE_URL))">
+                                    <img src="@Url.Content(string.Format("~/content/Album/" + item.sIMAGE_URL))" />
+                                </li>
+                            }
+                        }
+
+
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+
+
+
+
+

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<SelectListItem>
+@{
+    ViewBag.Title = "Quản trị đơn hàng";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    //$(function () {
+    //    $("#cbo_TrangThai").change(function () {
+    //        var grid = $("#grid").data("kendoGrid");
+    //        grid.dataSource.read();
+    //        grid.refresh();
+    //    });
+    //});
+
+    function load_bai_viet() {
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+        grid.refresh();
+    }
+
+    function filter() {
+        return {
+            id_trangthai: $("#cbo_TrangThai").val(),
+            start_date: kendo.toString($("#dtpkr_NgayBatDau").data("kendoDatePicker").value(), 'dd-MM-yyyy'),
+            end_date: kendo.toString($("#dtpkr_NgayKetThuc").data("kendoDatePicker").value(), 'dd-MM-yyyy')
+        };
+    }
+</script>
+<div style="height: 50px; margin-top: 20px;">
+  
+
+    <div style="float: left;">
+        @(Html.Kendo().DropDownList()
+            .Name("cbo_TrangThai")
+            .BindTo((IEnumerable<SelectListItem>)ViewData["TRANG_THAI"])
+            .DataTextField("Text")
+            .DataValueField("Value"))
+    </div>
+
+    <div style="float: left">
+        @(Html.Kendo().DatePicker().Name("dtpkr_NgayBatDau")
+                .HtmlAttributes(new { style = "margin-left: 10px;", @readonly = "readonly" })
+                .Min(new DateTime(1900, 1, 1))
+                .Max(new DateTime(2099, 12, 31))
+                .Format("yyyy-MM-dd")
+                .Value(DateTime.Today.AddMonths(-1))
+        )
+    </div>
+
+    <div style="float: left">
+        @(Html.Kendo().DatePicker().Name("dtpkr_NgayKetThuc")
+                .HtmlAttributes(new { style = "margin-left: 10px;", @readonly = "readonly" })
+                .Min(new DateTime(1900, 1, 1))
+                .Max(new DateTime(2099, 12, 31))
+                .Format("yyyy-MM-dd")
+                .Value(DateTime.Today)
+        )
+    </div>
+
+    <div>
+        <input class="k-button k-button-icontext k-grid-Edit" type="button" onclick="load_bai_viet()" style="margin-left: 10px;" value="Xem" />
+    </div>
+</div>
+
+@using Kendo.Mvc.UI;
+@using (Html.BeginForm("LayDuLieu", "Admin_Order", FormMethod.Post, new { id = "form" }))
+{
+    @(
+ Html.Kendo().Grid<TLBD.Areas.admin.Models.OrderItem.OrderItem_Model>()
+        .Name("grid")
+        .Columns(
+            c =>
+            {
+                c.Bound(m => m.OrderID)
+                    .Title("Mã đơn hàng")
+                    .Width(200);
+                c.Bound(m => m.Date)
+                    .Title("Ngày đặt hàng")
+                    .Width(200)
+                    .ClientTemplate("#= kendo.toString(Date, \"HH:mm dd/MM/yyyy\") #");
+                c.Bound(m => m.FullName)
+                    .Title("Người đặt hàng")
+                    .Width(200);
+                c.Template(m => { })
+                    .Width(10)
+                    .Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_Order", new { area = "admin" }) + "/#= OrderID #'>Chỉnh sửa</a>");
+            })
+        .Pageable()
+        .DataSource(ds => ds
+            .Ajax()
+            .Model(m =>
+            {
+                m.Id(n => n.OrderID);
+            })
+            .PageSize(10)
+            .Read(r => r.Action("Read", "Admin_Order").Data("filter"))
+
+        )
+        .Events(e => e.DataBound("onDataBound"))
+    )
+}

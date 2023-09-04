@@ -1,0 +1,106 @@
+﻿@model TLBD.Areas.admin.Models.Banner.Banner_Model
+
+@{
+    ViewBag.Title = "Cập nhật Banner";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#form").submit(function (e) {
+            var run = true;
+            run = kiemtra("tieude", "sTIEUDE", run);
+
+            if (!run) {
+                e.preventDefault();
+
+            }
+        });
+
+        var url = '@Url.Action("CapNhat", "Admin_Banner")/@(Model==null ? "0" : Model.ID.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");
+            alert("Chưa nhập đủ thông tin!");
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_Banner", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin banner</legend>
+            <table style="width:100%">
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px" id="tieude">
+                        Link 
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.TIEUDE, new { style = "width:100%" })
+                        @Html.ValidationMessageFor(m => m.TIEUDE)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                @*Hình ảnh*@
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Hình ảnh
+                    </td>
+                    <td class="hinh">
+                        <input type="file" name="ImageUrl" id="ImageUrl" />
+                        @if (Model != null)
+                        {
+                            <img src="@Url.Content("~/content/Banner/")@Model.IMG_URL">
+                        }
+                        @Html.ValidationMessageFor(m => m.IMG_URL)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                @*<tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Hiển thị
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(m => m.HIENTHI, new { })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>*@
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" style="width:130px" value="Cập nhật" />
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+}

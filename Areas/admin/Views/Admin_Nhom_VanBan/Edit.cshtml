@@ -1,0 +1,77 @@
+﻿@model TLBD.Areas.admin.Models.Nhom_VanBan.Nhom_VanBan_Model
+
+@{
+    ViewBag.Title = "Cập nhật nhóm văn bản";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#form").submit(function (e) {
+            var run = true;
+            run = kiemtra("tennhom", "sTEN_NHOM_VANBAN", run);
+
+            if (!run) {
+                e.preventDefault();
+
+            }
+        });
+
+        var url = '@Url.Action("CapNhat", "Admin_Nhom_VanBan")/@(Model==null ? "0" : Model.sID.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");
+            alert("Chưa nhập đủ thông tin!");
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }      
+
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_Nhom_VanBan", FormMethod.Post, new { id = "form"}))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin nhóm văn bản</legend>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px" id="tennhom">
+                        Tên nhóm văn bản
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sTEN_NHOM_VANBAN, new { style ="width:100%" })
+                        @Html.ValidationMessageFor(m => m.sTEN_NHOM_VANBAN)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>               
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" style="width:130px" value="Cập nhật" />                        
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>     
+                    <td style="width:10%"></td>              
+                </tr>                 
+            </table>
+        </fieldset>
+    </div>
+}

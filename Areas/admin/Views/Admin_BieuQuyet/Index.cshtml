@@ -1,0 +1,112 @@
+﻿
+@model IEnumerable<TLBD.Areas.admin.Models.BieuQuyet.BieuQuyet_Model>
+@{
+    ViewBag.Title = "Quản trị hình ảnh";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+
+        $("#cbo_DanhMuc_BieuQuyet").change(function () {
+            var grid = $("#grid").data("kendoGrid");
+            grid.dataSource.read();
+            grid.refresh();
+        });
+
+    });
+
+    function search_DangKy() {
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+        grid.refresh();
+    }
+
+    function filter() {
+        return {
+            Id_DanhMuc_BieuQuyet: $("#cbo_DanhMuc_BieuQuyet").val()
+        };
+    }
+
+    function Them() {
+        var url = "@Url.Action("Add", "Admin_BieuQuyet")/" + $("#cbo_DanhMuc_BieuQuyet").val();
+        window.location = url;
+        return false;
+    }
+
+
+</script>
+
+<div>
+@Html.DropDownList("cbo_DanhMuc_BieuQuyet", (IEnumerable<SelectListItem>)ViewData["DANHMUC_BIEUQUYET"], new { style = "width:500px;border: 1px solid #ccc;border-radius: 3px;overflow: hidden;height: 30px;background: #e6f2f7; font-family: 'Times New Roman';font-weight: bold; font-size: 14px; margin: 10px 0" }) 
+</div>
+
+@*@(Html.Kendo().DropDownList().HtmlAttributes(new { style = "width:300px" })          
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .Name("cbo_Trang_Thai")
+            .Items(i =>
+            {
+                i.Add().Text("---Chọn nhóm sản phẩm---").Value("10");
+                //          
+            })
+                        
+            .Events(e => e.Change("search_DangKy"))
+            )     *@
+
+@using Kendo.Mvc.UI
+@using (Html.BeginForm("LayDuLieu", "Admin_BieuQuyet", FormMethod.Post, new { id = "form" }))
+    {    
+        @(
+ Html.Kendo().Grid<TLBD.Areas.admin.Models.BieuQuyet.BieuQuyet_Model>()
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.sID).Title("ID").Width(30);
+                c.Bound(m => m.sBIEUQUYET).Title("Biểu quyết").Width(200);
+                c.Bound(m => m.sSO_LUONG).Title("Số lượng").Width(50);
+                c.Bound(m => m.sTHU_TU).Title("Thứ tự").Width(50);
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_BieuQuyet", new { area = "admin" }) + "/#= sID #'>Chỉnh sửa</a>");
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_BieuQuyet", new { area = "admin" }) + "/#= sID #'>Xóa</a>");  
+
+            })
+    .ToolBar(tb =>
+        {
+            tb.Custom().Text("Thêm").HtmlAttributes(new { @class = "button_them", href = "javascript:Them();", onclick = "Them()" });                              
+        })
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(n => n.sID);
+        })
+        .PageSize(20)
+        .Read(r => r.Action("Read", "Admin_BieuQuyet").Data("filter"))
+        
+    )
+    .Events(e=>e.DataBound("onDataBound"))
+    )
+    }
+

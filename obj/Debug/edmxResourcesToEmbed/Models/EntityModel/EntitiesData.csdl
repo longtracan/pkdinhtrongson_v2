@@ -1,0 +1,1279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_web_muoithuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ACTIONLOG">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="36" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Action" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ActionDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ALBUM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TIEU_DE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_DANG" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ALBUMDETAIL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ALBUM" Type="Int32" Nullable="false" />
+    <Property Name="IMAGE_URL" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <Property Name="DAI_DIEN" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BACKGROUND">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IMG" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="TRANG_THAI" Type="Int32" />
+  </EntityType>
+  <EntityType Name="BAI_VIET">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_NHOM_BAIVIET" Type="Int32" Nullable="false" />
+    <Property Name="TIEU_DE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NOI_BAT" Type="Boolean" Nullable="false" />
+    <Property Name="TOM_TAT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NOI_DUNG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IMAGE_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="FILE_DOWNLOAD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ID_NGUOIVIETBAI" Type="Int32" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <Property Name="SP_GIA" Type="Int32" />
+    <Property Name="SP_GIAKM" Type="Int32" />
+    <Property Name="SP_BAOHANH" Type="Int32" />
+    <Property Name="SP_NHASANXUAT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SP_IMGCHITIET" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SP_THONGSO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SP_SOLUONG" Type="Int32" />
+    <Property Name="HOT" Type="Boolean" Nullable="false" />
+    <Property Name="GIAMGIA" Type="Boolean" Nullable="false" />
+    <Property Name="DANHGIACAO" Type="Boolean" Nullable="false" />
+    <Property Name="MATHANG_PHOBIEN" Type="Boolean" Nullable="false" />
+    <Property Name="BANCHAYNHAT" Type="Boolean" Nullable="false" />
+    <Property Name="SP_SETUP" Type="Int32" />
+    <Property Name="NGAY_DANG" Type="DateTime" Precision="3" />
+    <Property Name="MAU_SAC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DIADIEM_BAOHANH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="XUATXU" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="THOIGIANKM_BEGIN" Type="DateTime" Precision="3" />
+    <Property Name="THOIGIANKM_END" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="BAIVIET_LIENQUAN">
+    <Key>
+      <PropertyRef Name="ID" />
+      <PropertyRef Name="ID_LIENQUAN" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ID_LIENQUAN" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BANNER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TIEUDE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IMG_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HIENTHI" Type="Boolean" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_TAO" Type="DateTime" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" />
+    <Property Name="IMG_URL_MB" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="SET_UP" Type="Int32" />
+  </EntityType>
+  <EntityType Name="BIEU_QUYET">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_DANHMUC_BIEUQUYET" Type="Int32" Nullable="false" />
+    <Property Name="BIEUQUYET" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="THU_TU" Type="Int32" Nullable="false" />
+    <Property Name="SO_LUONG" Type="Int32" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DANHMUC_BIEUQUYET" Relationship="Self.FK_BIEU_QUYET_DANHMUC_BIEUQUYET" FromRole="BIEU_QUYET" ToRole="DANHMUC_BIEUQUYET" />
+  </EntityType>
+  <EntityType Name="CART">
+    <Key>
+      <PropertyRef Name="UserID" />
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int64" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CART_STATUS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="CHUNGNHAN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TIEU_DE" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IMG" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CHUYEN_MUC">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TEN_CHUYENMUC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MENU_TREN" Type="Boolean" Nullable="false" />
+    <Property Name="THUTU_TREN" Type="Int32" />
+    <Property Name="HIENTHI_TRAI" Type="Boolean" Nullable="false" />
+    <Property Name="THUTU_TRAI" Type="Int32" />
+    <Property Name="HIENTHI_TRANGCHU" Type="Boolean" Nullable="false" />
+    <Property Name="THUTU_TRANGCHU" Type="Int32" />
+    <Property Name="LINK" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_TAO" Type="DateTime" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" />
+  </EntityType>
+  <EntityType Name="COMMENT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProductID" Type="Int32" Nullable="false" />
+    <Property Name="Comment1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="COQUAN_BANHANH">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TEN_COQUAN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="VANBANs" Relationship="Self.FK_VANBAN_COQUAN_BANHANH" FromRole="COQUAN_BANHANH" ToRole="VANBAN" />
+  </EntityType>
+  <EntityType Name="DANGKY">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HOTEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DIACHI" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SODIENTHOAI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IDLOPHOC" Type="Int32" Nullable="false" />
+    <Property Name="NOIDUNG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NGAYDANGKY" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TRANGTHAI" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DANGKYHOC">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="KhoahocId" Type="Int32" />
+    <Property Name="SoGPLX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="HangGPLXId" Type="Int32" />
+    <Property Name="NgayTT" Type="DateTime" Precision="3" />
+    <Property Name="Ngaycap" Type="DateTime" Precision="3" />
+    <Property Name="Ngayhethan" Type="DateTime" Precision="3" />
+    <Property Name="Donvicap" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Ghichu" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Ngaydangky" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DaChuyen" Type="Boolean" />
+    <Property Name="DaThanhtoan" Type="Boolean" />
+    <Property Name="NgayThanhtoan" Type="DateTime" Precision="3" />
+    <Property Name="NganluongToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DANGKYHOC_SYN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HoTen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HKTTruId" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NgayNhanHSo" Type="DateTime" Precision="3" />
+    <Property Name="NgaySinh" Type="DateTime" Precision="3" />
+    <Property Name="GioiTinh" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="KhoahocId" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DANHMUC_BIEUQUYET">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TEN_BIEUQUYET" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HIEN_THI" Type="Boolean" Nullable="false" />
+    <Property Name="GHI_CHU" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BIEU_QUYET" Relationship="Self.FK_BIEU_QUYET_DANHMUC_BIEUQUYET" FromRole="DANHMUC_BIEUQUYET" ToRole="BIEU_QUYET" />
+  </EntityType>
+  <EntityType Name="DM_DVHC">
+    <Key>
+      <PropertyRef Name="MaDvhc" />
+      <PropertyRef Name="MaDVQL" />
+    </Key>
+    <Property Name="MaDvhc" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MaDVQL" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MaDV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenDvhc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenNganGon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenDayDu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LoaiDvhc" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="GhiChu" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TrangThai" Type="Boolean" Nullable="false" />
+    <Property Name="NguoiTao" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NguoiSua" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="NgaySua" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="DM_GIOITINH">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GIOITINH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DM_HANGDT">
+    <Key>
+      <PropertyRef Name="MaHangDT" />
+    </Key>
+    <Property Name="MaHangDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenHangDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HangGPLX" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SoVBPL" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="TuoiHV" Type="Int32" />
+    <Property Name="ThamNien" Type="Int32" />
+    <Property Name="KmLXAT" Type="Int32" />
+    <Property Name="DKSH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MucTieuDT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="GhiChu" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TrangThai" Type="Boolean" Nullable="false" />
+    <Property Name="NguoiTao" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NguoiSua" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="NgaySua" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="DM_HANGGP">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HangGP" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="DM_QUOCTICH">
+    <Key>
+      <PropertyRef Name="Ma" />
+    </Key>
+    <Property Name="Ma" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenEN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TenVN" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="GhiChu" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="TrangThai" Type="Boolean" Nullable="false" />
+    <Property Name="NguoiTao" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NguoiSua" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NgayTao" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="NgaySua" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="HOI_DAP">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HIEN_THI" Type="Boolean" Nullable="false" />
+    <Property Name="NGUOI_HOI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CAU_HOI" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TRA_LOI" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_DANG" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <Property Name="DIA_CHI" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="PHONE" Type="String" MaxLength="64" FixedLength="true" Unicode="true" />
+  </EntityType>
+  <EntityType Name="KHOAHOC">
+    <Key>
+      <PropertyRef Name="KhoaId" />
+    </Key>
+    <Property Name="KhoaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ten" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="HangGPId" Type="Int32" />
+    <Property Name="LoaihinhDaotaoId" Type="Int32" />
+    <Property Name="Khaigiang" Type="DateTime" Precision="3" />
+    <Property Name="Begiang" Type="DateTime" Precision="3" />
+    <Property Name="Ngaythi" Type="DateTime" Precision="3" />
+    <Property Name="Sathach" Type="DateTime" Precision="3" />
+    <Property Name="SoHVien" Type="Int32" />
+    <Property Name="Tuoitoithieu" Type="Int32" />
+    <Property Name="Hocphi" Type="Double" />
+    <Property Name="MAPID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Trangthai" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="LIEN_KET">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TIEU_DE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LIEN_KET_HEF" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IMG_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HIENTHI_PHAI" Type="Boolean" Nullable="false" />
+    <Property Name="THUTU_PHAI" Type="Int32" Nullable="false" />
+    <Property Name="HIENTHI_TRAI" Type="Boolean" Nullable="false" />
+    <Property Name="THUTU_TRAI" Type="Int32" Nullable="false" />
+    <Property Name="GHI_CHU" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOAI_HIENTHI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TEN_LOAI_HIENTHI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="NHOM_BAIVIET" Relationship="Self.FK_NHOM_BAIVIET_LOAI_HIENTHI" FromRole="LOAI_HIENTHI" ToRole="NHOM_BAIVIET" />
+  </EntityType>
+  <EntityType Name="LOAIHINHDAOTAO">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="HangSId" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Thoigian" Type="Int32" Nullable="false" />
+    <Property Name="HangSId" Type="Int32" Nullable="false" />
+    <Property Name="HangDId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LOGO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TIEUDE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IMG_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HIENTHI" Type="Boolean" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_TAO" Type="DateTime" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" />
+  </EntityType>
+  <EntityType Name="LUOT_TRUY_CAP">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="so_luong" Type="Int32" Nullable="false" />
+    <Property Name="NGAY_THANG" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="MENU">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TEN_MENU" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="THU_TU" Type="Int32" Nullable="false" />
+    <Property Name="MENU_CHA" Type="Int32" Nullable="false" />
+    <Property Name="CONTROLLER" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="VIEW" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="PHANQUYEN_MENU" Relationship="Self.FK_PHANQUYEN_MENU_MENU" FromRole="MENU" ToRole="PHANQUYEN_MENU" />
+  </EntityType>
+  <EntityType Name="NGUOI_VIETBAI">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TEN" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NHOM_BAIVIET">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_CHUYENMUC" Type="Int32" Nullable="false" />
+    <Property Name="TEN_BAIVIET" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LOAI_HIENTHI" Type="Int32" Nullable="false" />
+    <Property Name="LINK" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <Property Name="THUTU" Type="Int32" Nullable="false" />
+    <Property Name="LICHSU_SOLUONG" Type="Int32" />
+    <Property Name="HIENTHI_BAIVIET_MENU" Type="Boolean" Nullable="false" />
+    <Property Name="ICON" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="LOAI_HIENTHI1" Relationship="Self.FK_NHOM_BAIVIET_LOAI_HIENTHI" FromRole="NHOM_BAIVIET" ToRole="LOAI_HIENTHI" />
+  </EntityType>
+  <EntityType Name="NHOM_VANBAN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TEN_NHOM_VANBAN" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="VANBANs" Relationship="Self.FK_VANBAN_NHOM_VANBAN" FromRole="NHOM_VANBAN" ToRole="VANBAN" />
+  </EntityType>
+  <EntityType Name="ORDER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="36" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="IsPaid" Type="Boolean" />
+    <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ORDER_DETAIL">
+    <Key>
+      <PropertyRef Name="OrderID" />
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="OrderID" Type="String" MaxLength="36" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="ProductID" Type="Int64" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ORDER_STATUS">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="PHANQUYEN_CHUYENMUC">
+    <Key>
+      <PropertyRef Name="ID_USER" />
+      <PropertyRef Name="ID_CHUYENMUC" />
+    </Key>
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="ID_CHUYENMUC" Type="Int32" Nullable="false" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PHANQUYEN_MENU">
+    <Key>
+      <PropertyRef Name="ID_USER" />
+      <PropertyRef Name="ID_MENU" />
+    </Key>
+    <Property Name="ID_USER" Type="Int32" Nullable="false" />
+    <Property Name="ID_MENU" Type="Int32" Nullable="false" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MENU" Relationship="Self.FK_PHANQUYEN_MENU_MENU" FromRole="PHANQUYEN_MENU" ToRole="MENU" />
+  </EntityType>
+  <EntityType Name="PRODUCT">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="PromotionPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="IncludeVAT" Type="Boolean" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="ProductCatelogyID" Type="Int64" />
+    <Property Name="Warranty" Type="Int32" />
+    <Property Name="Producer" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="PRODUCTCATELOGY">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="RATING">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" MaxLength="36" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="ProductID" Type="Int64" Nullable="false" />
+    <Property Name="Value" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ROLEINGROUP">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="SRoleID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SAN_PHAM_ALBUM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_ALBUM" Type="Int32" Nullable="false" />
+    <Property Name="IMAGE_URL" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SLIDE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TIEUDE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IMG_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="LINK" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HIENTHI" Type="Boolean" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_TAO" Type="DateTime" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SLIDEBANNER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TIEUDE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IMG_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LINK" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HIENTHI" Type="Boolean" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SLOGAN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="LINK" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IMG_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="HIENTHI" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SPECIFICROLE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SRoleName" Type="String" MaxLength="256" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SUB_BANNER">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TIEUDE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IMG_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HIENTHI" Type="Boolean" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_TAO" Type="DateTime" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" />
+    <Property Name="IMG_URL_MB" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SUB_BANNER_">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TIEUDE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IMG_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="HIENTHI" Type="Boolean" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_TAO" Type="DateTime" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" />
+  </EntityType>
+  <EntityType Name="TOKEN">
+    <Key>
+      <PropertyRef Name="TokenId" />
+    </Key>
+    <Property Name="TokenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="TokenValue" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IssueOn" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="USERDETAIL">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="USERNAME" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NAME" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="IMG_URL" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="SEX" Type="Int32" />
+    <Property Name="BIRTHDAY" Type="DateTime" Precision="3" />
+    <Property Name="PHONE" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="EMAIL" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="ADDRESS" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="SYS_ACC" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VANBAN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_NHOM_VANBAN" Type="Int32" Nullable="false" />
+    <Property Name="ID_COQUAN_BANHANH" Type="Int32" Nullable="false" />
+    <Property Name="SO_KYHIEU" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NOIDUNG_TRICHYEU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="FILE_DOWNLOAD" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_BANHANH" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LINH_VUC" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="GHI_CHU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="COQUAN_BANHANH" Relationship="Self.FK_VANBAN_COQUAN_BANHANH" FromRole="VANBAN" ToRole="COQUAN_BANHANH" />
+    <NavigationProperty Name="NHOM_VANBAN" Relationship="Self.FK_VANBAN_NHOM_VANBAN" FromRole="VANBAN" ToRole="NHOM_VANBAN" />
+  </EntityType>
+  <EntityType Name="VIDEO">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TEN_VIDEO" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="GHI_CHU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FILE_LOGO" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="FILE_VIDEO" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="NOIBAT" Type="Boolean" Nullable="false" />
+    <Property Name="IP_TAO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="NGAY_TAO" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="IP_XOA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_XOA" Type="DateTime" Precision="3" />
+    <Property Name="TRANG_THAI" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordSalt" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderUserId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="webpages_UsersInRoles" Relationship="Self.fk_RoleId" FromRole="webpages_Roles" ToRole="webpages_UsersInRoles" />
+  </EntityType>
+  <EntityType Name="webpages_UserProfile">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="56" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_UsersInRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="webpages_Roles" Relationship="Self.fk_RoleId" FromRole="webpages_UsersInRoles" ToRole="webpages_Roles" />
+  </EntityType>
+  <Association Name="FK_BIEU_QUYET_DANHMUC_BIEUQUYET">
+    <End Role="DANHMUC_BIEUQUYET" Type="Self.DANHMUC_BIEUQUYET" Multiplicity="1" />
+    <End Role="BIEU_QUYET" Type="Self.BIEU_QUYET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DANHMUC_BIEUQUYET">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BIEU_QUYET">
+        <PropertyRef Name="ID_DANHMUC_BIEUQUYET" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VANBAN_COQUAN_BANHANH">
+    <End Role="COQUAN_BANHANH" Type="Self.COQUAN_BANHANH" Multiplicity="1" />
+    <End Role="VANBAN" Type="Self.VANBAN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COQUAN_BANHANH">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VANBAN">
+        <PropertyRef Name="ID_COQUAN_BANHANH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NHOM_BAIVIET_LOAI_HIENTHI">
+    <End Role="LOAI_HIENTHI" Type="Self.LOAI_HIENTHI" Multiplicity="1" />
+    <End Role="NHOM_BAIVIET" Type="Self.NHOM_BAIVIET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOAI_HIENTHI">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="NHOM_BAIVIET">
+        <PropertyRef Name="LOAI_HIENTHI" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PHANQUYEN_MENU_MENU">
+    <End Role="MENU" Type="Self.MENU" Multiplicity="1" />
+    <End Role="PHANQUYEN_MENU" Type="Self.PHANQUYEN_MENU" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MENU">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="PHANQUYEN_MENU">
+        <PropertyRef Name="ID_MENU" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VANBAN_NHOM_VANBAN">
+    <End Role="NHOM_VANBAN" Type="Self.NHOM_VANBAN" Multiplicity="1" />
+    <End Role="VANBAN" Type="Self.VANBAN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHOM_VANBAN">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="VANBAN">
+        <PropertyRef Name="ID_NHOM_VANBAN" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoleId">
+    <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+    <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="webpages_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="webpages_UsersInRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EntitiesData" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ACTIONLOGs" EntityType="Self.ACTIONLOG" />
+    <EntitySet Name="ALBUMs" EntityType="Self.ALBUM" />
+    <EntitySet Name="ALBUMDETAILs" EntityType="Self.ALBUMDETAIL" />
+    <EntitySet Name="BACKGROUNDs" EntityType="Self.BACKGROUND" />
+    <EntitySet Name="BAI_VIET" EntityType="Self.BAI_VIET" />
+    <EntitySet Name="BAIVIET_LIENQUAN" EntityType="Self.BAIVIET_LIENQUAN" />
+    <EntitySet Name="BANNERs" EntityType="Self.BANNER" />
+    <EntitySet Name="BIEU_QUYET" EntityType="Self.BIEU_QUYET" />
+    <EntitySet Name="CARTs" EntityType="Self.CART" />
+    <EntitySet Name="CART_STATUS" EntityType="Self.CART_STATUS" />
+    <EntitySet Name="CHUNGNHANs" EntityType="Self.CHUNGNHAN" />
+    <EntitySet Name="CHUYEN_MUC" EntityType="Self.CHUYEN_MUC" />
+    <EntitySet Name="COMMENTs" EntityType="Self.COMMENT" />
+    <EntitySet Name="COQUAN_BANHANH" EntityType="Self.COQUAN_BANHANH" />
+    <EntitySet Name="DANGKies" EntityType="Self.DANGKY" />
+    <EntitySet Name="DANGKYHOCs" EntityType="Self.DANGKYHOC" />
+    <EntitySet Name="DANGKYHOC_SYN" EntityType="Self.DANGKYHOC_SYN" />
+    <EntitySet Name="DANHMUC_BIEUQUYET" EntityType="Self.DANHMUC_BIEUQUYET" />
+    <EntitySet Name="DM_DVHC" EntityType="Self.DM_DVHC" />
+    <EntitySet Name="DM_GIOITINH" EntityType="Self.DM_GIOITINH" />
+    <EntitySet Name="DM_HANGDT" EntityType="Self.DM_HANGDT" />
+    <EntitySet Name="DM_HANGGP" EntityType="Self.DM_HANGGP" />
+    <EntitySet Name="DM_QUOCTICH" EntityType="Self.DM_QUOCTICH" />
+    <EntitySet Name="HOI_DAP" EntityType="Self.HOI_DAP" />
+    <EntitySet Name="KHOAHOCs" EntityType="Self.KHOAHOC" />
+    <EntitySet Name="LIEN_KET" EntityType="Self.LIEN_KET" />
+    <EntitySet Name="LOAI_HIENTHI" EntityType="Self.LOAI_HIENTHI" />
+    <EntitySet Name="LOAIHINHDAOTAOs" EntityType="Self.LOAIHINHDAOTAO" />
+    <EntitySet Name="LOGOes" EntityType="Self.LOGO" />
+    <EntitySet Name="LUOT_TRUY_CAP" EntityType="Self.LUOT_TRUY_CAP" />
+    <EntitySet Name="MENUs" EntityType="Self.MENU" />
+    <EntitySet Name="NGUOI_VIETBAI" EntityType="Self.NGUOI_VIETBAI" />
+    <EntitySet Name="NHOM_BAIVIET" EntityType="Self.NHOM_BAIVIET" />
+    <EntitySet Name="NHOM_VANBAN" EntityType="Self.NHOM_VANBAN" />
+    <EntitySet Name="ORDERs" EntityType="Self.ORDER" />
+    <EntitySet Name="ORDER_DETAIL" EntityType="Self.ORDER_DETAIL" />
+    <EntitySet Name="ORDER_STATUS" EntityType="Self.ORDER_STATUS" />
+    <EntitySet Name="PHANQUYEN_CHUYENMUC" EntityType="Self.PHANQUYEN_CHUYENMUC" />
+    <EntitySet Name="PHANQUYEN_MENU" EntityType="Self.PHANQUYEN_MENU" />
+    <EntitySet Name="PRODUCTs" EntityType="Self.PRODUCT" />
+    <EntitySet Name="PRODUCTCATELOGies" EntityType="Self.PRODUCTCATELOGY" />
+    <EntitySet Name="RATINGs" EntityType="Self.RATING" />
+    <EntitySet Name="ROLEINGROUPs" EntityType="Self.ROLEINGROUP" />
+    <EntitySet Name="SAN_PHAM_ALBUM" EntityType="Self.SAN_PHAM_ALBUM" />
+    <EntitySet Name="SLIDEs" EntityType="Self.SLIDE" />
+    <EntitySet Name="SLIDEBANNERs" EntityType="Self.SLIDEBANNER" />
+    <EntitySet Name="SLOGANs" EntityType="Self.SLOGAN" />
+    <EntitySet Name="SPECIFICROLEs" EntityType="Self.SPECIFICROLE" />
+    <EntitySet Name="SUB_BANNER" EntityType="Self.SUB_BANNER" />
+    <EntitySet Name="SUB_BANNER_" EntityType="Self.SUB_BANNER_" />
+    <EntitySet Name="TOKENs" EntityType="Self.TOKEN" />
+    <EntitySet Name="USERDETAILS" EntityType="Self.USERDETAIL" />
+    <EntitySet Name="VANBANs" EntityType="Self.VANBAN" />
+    <EntitySet Name="VIDEOs" EntityType="Self.VIDEO" />
+    <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" />
+    <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
+    <EntitySet Name="webpages_UserProfile" EntityType="Self.webpages_UserProfile" />
+    <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" />
+    <AssociationSet Name="FK_BIEU_QUYET_DANHMUC_BIEUQUYET" Association="Self.FK_BIEU_QUYET_DANHMUC_BIEUQUYET">
+      <End Role="DANHMUC_BIEUQUYET" EntitySet="DANHMUC_BIEUQUYET" />
+      <End Role="BIEU_QUYET" EntitySet="BIEU_QUYET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VANBAN_COQUAN_BANHANH" Association="Self.FK_VANBAN_COQUAN_BANHANH">
+      <End Role="COQUAN_BANHANH" EntitySet="COQUAN_BANHANH" />
+      <End Role="VANBAN" EntitySet="VANBANs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NHOM_BAIVIET_LOAI_HIENTHI" Association="Self.FK_NHOM_BAIVIET_LOAI_HIENTHI">
+      <End Role="LOAI_HIENTHI" EntitySet="LOAI_HIENTHI" />
+      <End Role="NHOM_BAIVIET" EntitySet="NHOM_BAIVIET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PHANQUYEN_MENU_MENU" Association="Self.FK_PHANQUYEN_MENU_MENU">
+      <End Role="MENU" EntitySet="MENUs" />
+      <End Role="PHANQUYEN_MENU" EntitySet="PHANQUYEN_MENU" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VANBAN_NHOM_VANBAN" Association="Self.FK_VANBAN_NHOM_VANBAN">
+      <End Role="NHOM_VANBAN" EntitySet="NHOM_VANBAN" />
+      <End Role="VANBAN" EntitySet="VANBANs" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
+    <FunctionImport Name="Capnhat_Baiviet_Lienquan">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="id_bv_lq" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Insert_HocVien_Syn">
+      <Parameter Name="Hoten" Mode="In" Type="String" />
+      <Parameter Name="HKTTruId" Mode="In" Type="String" />
+      <Parameter Name="NgaySinh" Mode="In" Type="DateTime" />
+      <Parameter Name="NgayNhanHSo" Mode="In" Type="DateTime" />
+      <Parameter Name="GioiTinh" Mode="In" Type="String" />
+      <Parameter Name="MaKh" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Insert_HocVien_Syn1">
+      <Parameter Name="Hoten" Mode="In" Type="String" />
+      <Parameter Name="HKTTruId" Mode="In" Type="String" />
+      <Parameter Name="NgaySinh" Mode="In" Type="DateTime" />
+      <Parameter Name="NgayNhanHSo" Mode="In" Type="DateTime" />
+      <Parameter Name="GioiTinh" Mode="In" Type="String" />
+      <Parameter Name="MaKh" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="Insert_PhanQuyen_Menu">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Insert_PhanQuyen_NhomBaiViet">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="luottruycap_homnay" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="Reset_Baiviet_Lienquan">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Reset_Hienthi_Banner">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Reset_Hienthi_Logo">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_LAY_DS_BACKGROUND" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_BACKGROUND_Result)" />
+    <FunctionImport Name="sp_LAY_DS_BANNER" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_BANNER_Result)" />
+    <FunctionImport Name="sp_LAY_DS_CHUNG_NHAN" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_CHUNG_NHAN_Result)" />
+    <FunctionImport Name="sp_LAY_DS_COMMENT" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_COMMENT_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_LAY_DS_DANHMUC_SANPHAM" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_DANHMUC_SANPHAM_Result)" />
+    <FunctionImport Name="sp_LAY_DS_LIEN_KET" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_LIEN_KET_Result)" />
+    <FunctionImport Name="sp_LAY_DS_LIEN_QUAN" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_LIEN_QUAN_Result)">
+      <Parameter Name="id_nbv" Mode="In" Type="Int32" />
+      <Parameter Name="id_bv" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_LAY_DS_LOGO" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_LOGO_Result)" />
+    <FunctionImport Name="sp_LAY_DS_MENU_CHA" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_MENU_CHA_Result)" />
+    <FunctionImport Name="sp_LAY_DS_MENU_CON_THEO_MENU_CHA" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_MENU_CON_THEO_MENU_CHA_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_LAY_DS_SAN_PHAM" ReturnType="Collection(db_web_muoithuModel.sp_LAY_DS_SAN_PHAM_Result)" />
+    <FunctionImport Name="sp_lay_luot_truycap" ReturnType="Collection(Int32)" />
+    <FunctionImport Name="sp_tang_luot_truycap" />
+    <FunctionImport Name="sp_TimKiem" ReturnType="Collection(db_web_muoithuModel.sp_TimKiem_Result)">
+      <Parameter Name="searchtext" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_TimKiem_VanBan" ReturnType="Collection(db_web_muoithuModel.sp_TimKiem_VanBan_Result)">
+      <Parameter Name="searchtext" Mode="In" Type="String" />
+      <Parameter Name="combo" Mode="In" Type="Int32" />
+      <Parameter Name="year" Mode="In" Type="Int32" />
+      <Parameter Name="combo_coquan" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Update_PhanQuyen_Menu">
+      <Parameter Name="id_user" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Update_PhanQuyen_Nhombaiviet">
+      <Parameter Name="id_user" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="UU_DIEM" EntityType="db_web_muoithuModel.UU_DIEM" />
+    <EntitySet Name="THONG_TIN" EntityType="db_web_muoithuModel.THONG_TIN" />
+  </EntityContainer>
+  <ComplexType Name="sp_LAY_DS_BACKGROUND_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="IMG" Nullable="true" MaxLength="256" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_BANNER_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="TIEUDE" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="IMG_URL" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="HIENTHI" Nullable="false" />
+    <Property Type="String" Name="IP_TAO" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_TAO" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_SUA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_SUA" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_XOA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_XOA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="true" />
+    <Property Type="String" Name="IMG_URL_MB" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="SET_UP" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_CHUNG_NHAN_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="TIEU_DE" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="IMG" Nullable="true" MaxLength="256" />
+    <Property Type="DateTime" Name="NGAY" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_COMMENT_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="Int32" Name="ProductID" Nullable="false" />
+    <Property Type="String" Name="Comment" Nullable="true" />
+    <Property Type="DateTime" Name="Date" Nullable="false" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_DANHMUC_SANPHAM_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="ID_CHUYENMUC" Nullable="false" />
+    <Property Type="String" Name="TEN_BAIVIET" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="LOAI_HIENTHI" Nullable="false" />
+    <Property Type="String" Name="LINK" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="IP_TAO" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_TAO" Nullable="false" Precision="23" />
+    <Property Type="String" Name="IP_SUA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_SUA" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_XOA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_XOA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="false" />
+    <Property Type="Int32" Name="THUTU" Nullable="false" />
+    <Property Type="Int32" Name="LICHSU_SOLUONG" Nullable="true" />
+    <Property Type="Boolean" Name="HIENTHI_BAIVIET_MENU" Nullable="false" />
+    <Property Type="String" Name="ICON" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_LIEN_KET_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="TIEU_DE" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="LIEN_KET_HEF" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="IMG_URL" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="HIENTHI_PHAI" Nullable="false" />
+    <Property Type="Int32" Name="THUTU_PHAI" Nullable="false" />
+    <Property Type="Boolean" Name="HIENTHI_TRAI" Nullable="false" />
+    <Property Type="Int32" Name="THUTU_TRAI" Nullable="false" />
+    <Property Type="String" Name="GHI_CHU" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="IP_TAO" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_TAO" Nullable="false" Precision="23" />
+    <Property Type="String" Name="IP_SUA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_SUA" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_XOA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_XOA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_LIEN_QUAN_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="ID_NHOM_BAIVIET" Nullable="false" />
+    <Property Type="String" Name="TIEU_DE" Nullable="false" />
+    <Property Type="Boolean" Name="NOI_BAT" Nullable="false" />
+    <Property Type="String" Name="TOM_TAT" Nullable="true" />
+    <Property Type="String" Name="NOI_DUNG" Nullable="true" />
+    <Property Type="String" Name="IMAGE_URL" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="FILE_DOWNLOAD" Nullable="true" />
+    <Property Type="Int32" Name="ID_NGUOIVIETBAI" Nullable="false" />
+    <Property Type="String" Name="IP_TAO" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_TAO" Nullable="false" Precision="23" />
+    <Property Type="String" Name="IP_SUA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_SUA" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_XOA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_XOA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="false" />
+    <Property Type="Int32" Name="SP_GIA" Nullable="true" />
+    <Property Type="Int32" Name="SP_GIAKM" Nullable="true" />
+    <Property Type="Int32" Name="SP_BAOHANH" Nullable="true" />
+    <Property Type="String" Name="SP_NHASANXUAT" Nullable="true" />
+    <Property Type="String" Name="SP_IMGCHITIET" Nullable="true" />
+    <Property Type="String" Name="SP_THONGSO" Nullable="true" />
+    <Property Type="Int32" Name="SP_SOLUONG" Nullable="true" />
+    <Property Type="Boolean" Name="HOT" Nullable="false" />
+    <Property Type="Boolean" Name="GIAMGIA" Nullable="false" />
+    <Property Type="Boolean" Name="DANHGIACAO" Nullable="false" />
+    <Property Type="Boolean" Name="MATHANG_PHOBIEN" Nullable="false" />
+    <Property Type="Boolean" Name="BANCHAYNHAT" Nullable="false" />
+    <Property Type="Int32" Name="SP_SETUP" Nullable="true" />
+    <Property Type="DateTime" Name="NGAY_DANG" Nullable="true" Precision="23" />
+    <Property Type="String" Name="MAU_SAC" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DIADIEM_BAOHANH" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="XUATXU" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="THOIGIANKM_BEGIN" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="THOIGIANKM_END" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_LOGO_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="TIEUDE" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="IMG_URL" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="HIENTHI" Nullable="false" />
+    <Property Type="String" Name="IP_TAO" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_TAO" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_SUA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_SUA" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_XOA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_XOA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_MENU_CHA_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="TEN_CHUYENMUC" Nullable="true" MaxLength="500" />
+    <Property Type="Boolean" Name="MENU_TREN" Nullable="false" />
+    <Property Type="Int32" Name="THUTU_TREN" Nullable="true" />
+    <Property Type="Boolean" Name="HIENTHI_TRAI" Nullable="false" />
+    <Property Type="Int32" Name="THUTU_TRAI" Nullable="true" />
+    <Property Type="Boolean" Name="HIENTHI_TRANGCHU" Nullable="false" />
+    <Property Type="Int32" Name="THUTU_TRANGCHU" Nullable="true" />
+    <Property Type="String" Name="LINK" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="IP_TAO" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_TAO" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_SUA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_SUA" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_XOA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_XOA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_MENU_CON_THEO_MENU_CHA_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="ID_CHUYENMUC" Nullable="false" />
+    <Property Type="String" Name="TEN_BAIVIET" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="LOAI_HIENTHI" Nullable="false" />
+    <Property Type="String" Name="LINK" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="IP_TAO" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_TAO" Nullable="false" Precision="23" />
+    <Property Type="String" Name="IP_SUA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_SUA" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_XOA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_XOA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="false" />
+    <Property Type="Int32" Name="THUTU" Nullable="false" />
+    <Property Type="Int32" Name="LICHSU_SOLUONG" Nullable="true" />
+    <Property Type="Boolean" Name="HIENTHI_BAIVIET_MENU" Nullable="false" />
+    <Property Type="String" Name="ICON" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_LAY_DS_SAN_PHAM_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="Int32" Name="ID_NHOM_BAIVIET" Nullable="false" />
+    <Property Type="String" Name="TIEU_DE" Nullable="false" />
+    <Property Type="Boolean" Name="NOI_BAT" Nullable="false" />
+    <Property Type="String" Name="TOM_TAT" Nullable="true" />
+    <Property Type="String" Name="NOI_DUNG" Nullable="true" />
+    <Property Type="String" Name="IMAGE_URL" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="FILE_DOWNLOAD" Nullable="true" />
+    <Property Type="Int32" Name="ID_NGUOIVIETBAI" Nullable="false" />
+    <Property Type="String" Name="IP_TAO" Nullable="false" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_TAO" Nullable="false" Precision="23" />
+    <Property Type="String" Name="IP_SUA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_SUA" Nullable="true" Precision="23" />
+    <Property Type="String" Name="IP_XOA" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="NGAY_XOA" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="false" />
+    <Property Type="Int32" Name="SP_GIA" Nullable="true" />
+    <Property Type="Int32" Name="SP_GIAKM" Nullable="true" />
+    <Property Type="Int32" Name="SP_BAOHANH" Nullable="true" />
+    <Property Type="String" Name="SP_NHASANXUAT" Nullable="true" />
+    <Property Type="String" Name="SP_IMGCHITIET" Nullable="true" />
+    <Property Type="String" Name="SP_THONGSO" Nullable="true" />
+    <Property Type="Int32" Name="SP_SOLUONG" Nullable="true" />
+    <Property Type="Boolean" Name="HOT" Nullable="false" />
+    <Property Type="Boolean" Name="GIAMGIA" Nullable="false" />
+    <Property Type="Boolean" Name="DANHGIACAO" Nullable="false" />
+    <Property Type="Boolean" Name="MATHANG_PHOBIEN" Nullable="false" />
+    <Property Type="Boolean" Name="BANCHAYNHAT" Nullable="false" />
+    <Property Type="Int32" Name="SP_SETUP" Nullable="true" />
+    <Property Type="DateTime" Name="NGAY_DANG" Nullable="true" Precision="23" />
+    <Property Type="String" Name="MAU_SAC" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DIADIEM_BAOHANH" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="XUATXU" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="THOIGIANKM_BEGIN" Nullable="true" Precision="23" />
+    <Property Type="DateTime" Name="THOIGIANKM_END" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_TimKiem_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="TEN" Nullable="false" />
+    <Property Type="String" Name="ANH" Nullable="true" MaxLength="500" />
+    <Property Type="String" Name="TOM_TAT" Nullable="true" />
+    <Property Type="String" Name="NOIDUNG" Nullable="true" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="false" />
+    <Property Type="DateTime" Name="NGAY_TAO" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="SP" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_TimKiem_VanBan_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="SO_KYHIEU" Nullable="false" MaxLength="500" />
+    <Property Type="String" Name="NOIDUNG_TRICHYEU" Nullable="false" />
+    <Property Type="DateTime" Name="NGAY_BANHANH" Nullable="false" Precision="23" />
+    <Property Type="String" Name="TEN_NHOM_VANBAN" Nullable="false" MaxLength="500" />
+    <Property Type="Int32" Name="TRANG_THAI" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="UU_DIEM">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NOI_DUNG" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="HIEN_THI" Type="Boolean" Nullable="false" />
+    <Property Name="TRANG_THAI" Type="Int32" />
+  </EntityType>
+  <EntityType Name="THONG_TIN">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TEN_DONVI" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DIACHI_DONVI" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="GIAY_PHEP" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DIDONG" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="FAX" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LATITUDE" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="LONGTITUDE" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="THIET_KE" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IP_SUA" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="NGAY_SUA" Type="DateTime" Precision="3" />
+    <Property Name="FACEBOOK" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="CHAOMUNG" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="MAP_IMG" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="MAP_LINK" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="VIDEO_LINK" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

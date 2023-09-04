@@ -1,0 +1,63 @@
+﻿@{
+    ViewBag.Title = "Quản trị danh sách đăng ký";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@using Kendo.Mvc.UI;
+
+
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script>
+
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
+
+<div style="min-height:20px;"></div>
+
+@(
+        Html.Kendo().Grid<TLBD.Areas.admin.Models.DangKy.DangKy_Model>()
+        .Name("grid")        
+        .Columns(
+            c =>
+            {
+                c.Bound(m => m.ID).Title("ID").Width(30);               
+                c.Bound(m => m.HoTen).Title("Họ Tên").Width(100);                           
+                c.Bound(m => m.DiaChi).Title("Địa chỉ").Width(100);
+                c.Bound(m => m.SoDienThoai).Title("Số điện thoại").Width(20);
+                c.Bound(m => m.Email).Title("Email").Width(20);
+                c.Bound(m => m.TenLopHoc).Title("Lớp học").Width(100);
+                c.Bound(m => m.NoiDung).Title("Nội dung").Width(100);
+                c.Bound(m => m.NgayDangKy).Title("Ngày đăng ký").Width(30).Format("{0:dd/MM/yyyy}");                
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_DangKyLopHoc") + "/#= ID #'>Xóa</a>");
+            })        
+        .Pageable()
+        .DataSource(ds => ds
+            .Ajax()
+            .Model(model => model.Id(m => m.ID))
+            .PageSize(10)
+            .Read(r => r.Action("Read", "Admin_DangKyLopHoc"))            
+        )
+        .Events(e => e.DataBound("onDataBound"))
+    )

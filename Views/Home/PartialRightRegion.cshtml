@@ -1,0 +1,161 @@
+﻿@using TLBD.Areas.admin.Models.NhomBaiViet;
+@using TLBD.Areas.admin.Models.ChungNhan;
+@using TLBD.Functions;
+@using TLBD.Areas.admin.Models.Lien_Ket;
+@using TLBD.Areas.admin.Models.BaiViet;
+@using TLBD.Areas.admin.Models.Album;
+
+@{
+    ChungNhan_Class cnClss = new ChungNhan_Class();
+    var chungnhan = cnClss.LayDanhSachChungNhan();
+
+    var album = Album_Class.List_AllAlbum();
+
+    BaiViet_Class bvClss = new BaiViet_Class();
+    var tintuc = bvClss.GetAllTinTuc();
+
+    Lienket_Class lkClss = new Lienket_Class();
+    var lienket = lkClss.GetList()
+        .Select(x => new SelectListItem
+        {
+            Text = x.sTIEU_DE,
+            Value = x.sLIEN_KET_HEF
+        }).ToList();
+}
+
+<div class="page-header">
+    <div class="">
+        <div class="row" style="margin-top:0px">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li>  </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="box" id="product">
+                <div class="">
+                    <h3 class="tieu-de">TIN TỨC</h3>
+                </div>
+                <div class="box-body" style="padding:0px">
+                    <ul id="newsLightSlider">
+                        @for (int idx = 0; idx < tintuc.Count; idx++)
+                        {
+                            var item = tintuc[idx];
+                            <li>
+                                <img class="img-responsive"
+                                     style="margin: auto;text-align:center; height:150px;border-style: solid;border-width:2px;border-color:white"
+                                     src="@Url.Content(string.Format("~/Content/BaiViet/{0}", item.IMAGE_URL))" />
+                                <a href="@Url.RouteUrl("BaiViet_Route", new {TenBV = cUrlHelper.ToFriendlyUrl(item.TIEU_DE), id = item.ID })">
+                                    <p style="height: 30px;text-align:center;color:black">
+                                        @item.TIEU_DE
+                                    </p>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="box" id="product">
+                <div class="">
+                    <a href="@Url.RouteUrl("Album_Route")">
+                        <h3 class="tieu-de">HÌNH ẢNH</h3>
+                    </a>
+                </div>
+                <div class="box-body" style="padding:0px">
+                    <ul id="lightSlider">
+                        @for (int idx = 0; idx < album.Count; idx++)
+                        {
+                            var item = album[idx];
+                            <li>
+                                <a href="@Url.RouteUrl("AlbumDetail_Route", new { TenAlbum = cUrlHelper.ToFriendlyUrl(item.sTIEU_DE), id = item.sID })">
+                                    <img class="img-responsive"
+                                         style="margin: auto;text-align:center; height:200px"
+                                         src="@Url.Content(string.Format("~/Content/Album/{0}", item.sIMAGE_URL))" />
+                                    <p style="height: 30px;text-align:center;color:black">
+                                        @item.sTIEU_DE
+                                    </p>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="box" id="product">
+                <div class="">
+                    <h3 class="tieu-de">LIÊN KẾT WEBSITE</h3>
+                </div>
+                <div class="box-body" style="padding:0px">
+                    <div class="lienket_website_combo" style="padding:10px 10px 0px 10px">
+                        <div class="select-style">
+                            @Html.DropDownList("combo", lienket, new { style = "width:99%; height: 25px;" })
+                        </div>
+                    </div>
+
+                    <div style="text-align:center;width:99%;">
+                        <a target="_blank" id="molienket" style="text-decoration: none;cursor:pointer">
+                            <div class="box_lienket_molienket">
+                                <p>Mở liên kết</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery-3.3.1.js")" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        $("#lightSlider").lightSlider({
+            auto: false,
+            loop: true,
+            slideEndAnimation: true,
+            vertical: false,
+            pager: true,
+            adaptiveHeight: true,
+            slideMargin: 10,
+            verticalHeight: 250,
+            item: 1,
+            controls: false
+        });
+
+        $(document).ready(function () {
+            $("#newsLightSlider").lightSlider({
+                auto: true,
+                speed: 4000,
+                loop: true,
+                slideEndAnimation: true,
+                vertical: true,
+                pager: false,
+                adaptiveHeight: false,
+                slideMargin: 10,
+                verticalHeight: 200,
+                pause: 5000,
+                item: 1,
+                controls: false
+            });
+        });
+
+        $("#molienket").click(function () {
+            window.open($("#combo").val());
+        });
+    });
+</script>

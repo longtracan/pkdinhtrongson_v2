@@ -1,0 +1,105 @@
+﻿@using Kendo.Mvc.UI;
+@model IEnumerable<TLBD.Areas.admin.Models.CauHoi.CauHoi_Model>
+@{
+    ViewBag.Title = "Quản trị Hỏi - Đáp";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    function load_bai_viet() {
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+        grid.refresh();
+    }
+
+    function filter() {
+        return {
+            start_date: $("#dtpkr_NgayBatDau").data("kendoDatePicker")._value.toLocaleString(),
+            end_date: $("#dtpkr_NgayKetThuc").data("kendoDatePicker")._value.toLocaleString()
+        };
+    }
+</script>
+
+<div style="height: 50px; margin-top: 20px;">
+
+    <div style="float: left">
+        @(Html.Kendo().DatePicker().Name("dtpkr_NgayBatDau")
+                .HtmlAttributes(new { style = "margin-left: 10px;", @readonly = "readonly" })
+                .Min(new DateTime(1900, 1, 1))
+                .Max(new DateTime(2099, 12, 31))
+                .Format("yyyy-MM-dd")
+                .Value(DateTime.Today.AddMonths(-1))
+        )
+    </div>
+
+    <div style="float: left">
+        @(Html.Kendo().DatePicker().Name("dtpkr_NgayKetThuc")
+                .HtmlAttributes(new { style = "margin-left: 10px;", @readonly = "readonly" })
+                .Min(new DateTime(1900, 1, 1))
+                .Max(new DateTime(2099, 12, 31))
+                .Format("yyyy-MM-dd")
+                .Value(DateTime.Today)
+        )
+    </div>
+
+    <div>
+        <input class="k-button k-button-icontext k-grid-Edit" type="button" onclick="load_bai_viet()" style="margin-left: 10px;" value="Xem" />
+    </div>
+</div>
+
+@using (Html.BeginForm("LayDuLieu", "Admin_HoiDap", FormMethod.Post, new { id = "form" }))
+{
+    @(
+ Html.Kendo().Grid<TLBD.Areas.admin.Models.CauHoi.CauHoi_Model>(Model)
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.ID).Title("ID").Width(30);
+                c.Bound(m => m.NGUOI_HOI).Title("Người hỏi").Width(150);
+                c.Bound(m => m.EMAIL).Title("Email").Width(150);
+                c.Bound(m => m.CAU_HOI).Title("Câu hỏi").Width(300);
+                c.Bound(m => m.DA_TRA_LOI).Title("Trả lời").Width(70);
+                c.Bound(m => m.NGAY_DANG).Title("Ngày").Format("{0:dd/MM/yyyy}").Width(60);
+                c.Bound(m => m.HIEN_THI).Title("Hiển thị").Width(70);
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_HoiDap", new { area = "admin" }) + "/#= ID #'>Chỉnh sửa</a>");
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_HoiDap", new { area = "admin" }) + "/#= ID #'>Xóa</a>");
+
+            })
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(n => n.ID);
+        })
+        .PageSize(20)
+        .Read(r => r.Action("Read", "Admin_HoiDap").Data("filter"))
+    )
+    .Events(e => e.DataBound("onDataBound"))
+    )
+}

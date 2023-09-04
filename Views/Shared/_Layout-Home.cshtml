@@ -1,0 +1,578 @@
+﻿@using TLBD.Areas.admin.Models.Background;
+@using TLBD.Areas.admin.Models.Banner;
+
+@*@{
+    Banner_Class bnClss = new Banner_Class();
+    var banner = bnClss.GetBanner();
+    
+    Background_Class bgClss = new Background_Class();
+    var background = bgClss.Background();
+}*@
+
+@using TLBD.Functions
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/assets/css/meanmenu.css">
+
+    <link rel="stylesheet" href="~/assets/css/boxicons.min.css">
+
+    <link href="~/assets/fonts/flaticon.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/assets/css/animate.min.css">
+
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="~/assets/css/nice-select.min.css">
+
+    <link rel="stylesheet" href="~/assets/css/odometer.min.css">
+
+    <link rel="stylesheet" href="~/assets/css/magnific-popup.min.css">
+
+    <link rel="stylesheet" href="~/assets/css/slick.min.css">
+    <link rel="stylesheet" href="~/assets/css/slick-theme.css">
+
+    <link rel="stylesheet" href="~/assets/css/datetimepicker.min.css">
+
+    <link rel="stylesheet" href="~/assets/css/style.css">
+
+    <link rel="stylesheet" href="~/assets/css/responsive.css">
+
+
+    <link href="~/lightslider/css/lightslider.css" rel="stylesheet" />
+    <link href="~/assets/css/Table.css" rel="stylesheet" />
+
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href=" https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" />
+    <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+    <link type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/nanogallery2@3/dist/css/nanogallery2.min.css" rel="stylesheet" type="text/css"> @*Album hình ảnh*@
+
+
+
+    <title>PKĐK Đinh Trọng Sơn - Uy tín -Thân thiện - Hiệu quả </title>
+    <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+</head>
+
+<body>
+    <div class="loader">
+        <div class="d-table">
+            <div class="d-table-cell">
+                <div class="spinner">
+                    <div class="double-bounce1"></div>
+                    <div class="double-bounce2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        @Html.Action("Header", "Home")
+
+        @Html.Action("Menu", "Home")
+
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+    @*@Html.Action("Partner", "Home")*@
+    @Html.Action("Footer", "Home")
+
+
+    @*<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>*@
+    <script src="~/assets/js/jquery.min.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+
+    <script src="~/assets/js/form-validator.min.js"></script>
+
+    <script src="~/assets/js/contact-form-script.js"></script>
+
+    <script src="~/assets/js/jquery.ajaxchimp.min.js"></script>
+
+    <script src="~/assets/js/jquery.meanmenu.js"></script>
+
+    <script src="~/assets/js/wow.min.js"></script>
+
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+
+    <script src="~/assets/js/jquery.nice-select.min.js"></script>
+
+    <script src="~/assets/js/odometer.min.js"></script>
+    <script src="~/assets/js/jquery.appear.min.js"></script>
+
+    <script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+
+    <script src="~/assets/js/slick.min.js"></script>
+
+    <script src="~/assets/js/datetimepicker.min.js"></script>
+
+    <script src="~/assets/js/custom.js"></script>
+    @*<link href="~/assets/css/CSSbyHuy.css" rel="stylesheet" /*@>
+
+
+
+
+
+    @*slide ảnh cơ sở vật chất *@ @*http: //sachinchoolur.github.io/lightslider/index.html*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="~/lightslider/js/lightslider.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (screen.width < 600) {
+                $("#slider_trangchu").css("margin-top", "35px");
+                $("#arrow_gotop").css("margin-bottom", "12%");
+                /* $("logo").hide();*/
+            }
+            else if (screen.width < 1100) {
+                $("#slider_trangchu").css("margin-top", "30px");
+                $("#arrow_gotop").css("margin-bottom", "10%");
+
+                /* $("logo").hide();*/
+            }
+            else {
+                $("#arrow_gotop").css("margin-bottom", "5%");
+
+            }
+            $("#new_slide").owlCarousel({
+                responsive: {
+                    //breakpoint from 0 and up
+                    0: {
+                        items: 1,
+                    },
+                    // add as many breakpoints as desired , breakpoint from 480 up
+                    480: {
+                        items: 1,
+                    },
+                    // breakpoint from 768 up
+                    768: {
+                        items: 2,
+                    },
+                    992: {
+                        items: 3,
+                    },
+                }
+
+            });
+
+
+
+            $("#content-slider").lightSlider({
+                loop: true,
+                keyPress: true
+            });
+            $('#image-gallery').lightSlider({
+                gallery: true,
+                item: 1,
+                thumbItem: 12,
+                slideMargin: 0,
+                speed: 400,
+                pause: 2000,
+                auto: true,
+                loop: true,
+                onSliderLoad: function () {
+                    $('#image-gallery').removeClass('cS-hidden');
+                }
+            });
+
+            $('.adaptive').lightSlider({
+                adaptiveHeight: true,
+                item: 1,
+                slideMargin: 0,
+                loop: true
+            });
+
+            $('#slider_banner').lightSlider({
+                onSliderLoad: function (el) {
+                    var maxHeight = 0,
+                        container = $(el),
+                        children = container.children();
+                    children.each(function () {
+                        var childHeight = $(this).height();
+                        if (childHeight > maxHeight) {
+                            maxHeight = childHeight;
+                        }
+                    });
+                    container.height(maxHeight);
+                },
+                adaptiveHeight: true,
+                item: 1,
+                slideMargin: 0,
+                loop: true
+            });
+
+
+
+            var tenKH = " ";
+            var namsinhKH = " ";
+            var sodienthoaiKH = " ";
+            var huyenKH = " ";
+            var EmailKH = " ";
+            var luuyKH = " ";
+
+            var table = $('#table_id').DataTable({
+                oLanguage: {
+                    "sSearch": "Tìm kiếm từ khóa:"
+                },
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [1, 2, 3, 5],
+                            margin: [1, 0, 0, 0],
+                        },
+                        footer: true,
+                        customize: function (doc) {
+                            doc.content.splice(1, 0, {
+                                margin: [0, 0, 0, 12],
+                                alignment: 'left',
+
+                                text: '- Dành cho Ông/Bà: ' + tenKH + " \n"
+                                    + '- Năm Sinh: ' + namsinhKH + " \n"
+                                    + '- Số điện thoại liên hệ: ' + sodienthoaiKH + " \n"
+                                    + '- Nơi ở hiện nay: ' + huyenKH + " \n"
+                                    + '- Email: ' + EmailKH + " \n"
+                                    + '- Lưu ý: ' + luuyKH + " \n"
+                                /**/
+
+                            });
+                            doc.watermark = { text: 'PKDK DINH TRONG SON', color: 'blue', opacity: 0.1 };
+
+
+                        },
+                        title: "BẢNG DỊCH VỤ KHÁM SỨC KHỎE TỔNG QUÁT",
+                        messageBottom: ' \n \n - Xin vui lòng liên hệ hotline 02563.527.999 để được tư vấn trực tiếp và đặt lịch khám trên bảng dịch vụ này. Hoặc gửi file này cho chúng tôi bằng cách nhấp vào biểu tượng trò chuyện bên góc phải màn hình website. Xin cảm ơn vì đã lựa chọn chúng tôi.: '
+                    },
+                ],
+                rowReorder: {
+                    selector: 'td:nth-child(2)'
+                },
+                responsive: true,
+                "paging": false,
+                "ordering": false,
+                "info": false,
+                "columnDefs": [
+                    {
+                        "targets": 0,
+                        "width": "5%",
+                        /* className: 'select-checkbox',*/
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+
+                    },
+                    {
+                        "targets": 1,
+                        "width": "5%",
+
+                    },
+                    {
+                        "targets": 2,
+                        "width": "45%",
+
+                    },
+                    {
+                        "targets": 3,
+                        "width": "40%",
+
+                    },
+                    {
+                        "targets": 4,
+                        "visible": false,
+                        "searchable": false
+                    },
+                    {
+                        "targets": 5,
+                        "visible": false,
+                        "searchable": false
+                    },
+
+
+                ],
+
+
+
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child',
+                    style: 'multi'
+
+                },
+
+                order: [[5, 'asc']],
+                rowGroup: { // gộp nhóm dịch vu
+                    startRender: function (rows, group) {
+                        var style_group = 'style="background-color:lightskyblue;text-align:left; color:black; font-weight:bolder; font-size:larger"';
+                        /*return $('<tr ' + style_group + '/>').append('<td colspan="4">' + group + '</td>')*/
+                        var style_checkbox = 'style ="margin-left: 5px; margin-right: 12px"';
+
+                        // Assign class name to all child rows
+                        var groupName = 'group-' + group.replace(/[^A-Za-z0-9]/g, '');
+                        var rowNodes = rows.nodes();
+                        rowNodes.to$().addClass(groupName);
+
+                        // Get selected checkboxes
+                        var checkboxesSelected = $('.dt-checkboxes:checked', rowNodes);
+
+                        // Parent checkbox is selected when all child checkboxes are selected
+                        var isSelected = (checkboxesSelected.length == rowNodes.length);
+
+                        //return $('<tr ' + style_group + '/>').append('<td colspan="4"> <label><input style ="margin-left: 5px; margin-right: 12px"  type="checkbox" class="group-checkbox" data-group-name="'
+                        //    + groupName + '"' + (isSelected ? ' checked' : '') + '> ' + group + ' (' + rows.count() + ')</label> </td>');
+
+                        return $('<tr ' + style_group + '/>').append('<td colspan="4"> <label><input style ="margin-left: 5px; margin-right: 12px"  type="checkbox" class="group-checkbox" data-group-name="'
+                            + groupName + '"' + (isSelected ? ' checked' : '') + '> ' + group + ' (' + rows.count() + ')</label> </td>');
+                    },
+                    dataSrc: 5
+                },
+
+
+            });
+
+            /*h ttps://jsfiddle.net/gyrocode/2b0revo8/*/
+            // Handle click event on group checkbox
+            $('#table_id').on('click', '.group-checkbox', function (e) {
+
+                // Get group class name
+                var groupName = $(this).data('group-name');
+
+
+                table.cells('tr.' + groupName, 0).checkboxes.select(this.checked);
+            });
+            $('#table_id').on('click', 'thead .dt-checkboxes-select-all', function (e) {
+                var $selectAll = $('input[type="checkbox"]', this);
+                setTimeout(function () {
+                    // Select group checkbox based on "Select all" checkbox state
+                    $('.group-checkbox').prop('checked', $selectAll.prop('checked'));
+                }, 0);
+            });
+
+
+
+            /* submit.addEventListener("click", validate);*/
+
+            $("#inbanggia").click(function () {
+                if ($("#formInfo").valid()) {
+
+                    var tblData = table.rows('.selected').data();
+                    var count = table.rows({ selected: true }).count();
+                    if (count < 5) {
+                        alert('Vui lòng chọn tối thiểu 05 dịch vụ');
+
+                    }
+                    else {
+                        var tmpData;
+                        var tongtien = 0;
+                        $.each(tblData, function (i, val) {
+                            /* tmpData = $("<div>").html(tblData[i]).text();*/ // remove html tag in NOI DUNG
+                            /*tmpData = $("<div>").html(tblData[i][2]).text();*/
+                            tongtien = tongtien + Number(tblData[i][4]);
+                            //console.log(tongtien);
+                            //console.log(count);
+                        });
+
+                        $("#tongdichvu").text(count);
+                        $("#tongtien_dangky").text(new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'VND' }).format(tongtien));
+
+                    }
+                }
+
+                else {
+                    alert('Vui lòng điền đầy đủ các thông tin bắt buộc (*) ở Ô Thông tin cá nhân');
+                }
+
+            });
+
+            $(".buttons-pdf").hide();
+
+            $("#taibaogia").click(function () {
+
+                if ($("#formInfo").valid()) {
+                    tenKH = $("#tenKH").val();
+                    namsinhKH = $("#namsinhKH").val();
+                    sodienthoaiKH = $("#sodienthoaiKH").val();
+                    huyenKH = $("#huyenKH").val();;
+                    EmailKH = $("#EmailKH").val();;
+                    luuyKH = $("#LuuyKH").val();;
+
+                    var count = table.rows({ selected: true }).count();
+                    if (count < 5) {
+                        alert('Vui lòng chọn tối thiểu 05 dịch vụ');
+
+                    }
+                    else {
+                        table.buttons('.buttons-pdf').trigger();
+                    }
+
+                }
+                else {
+                    alert('Vui lòng điền đầy đủ các thông tin bắt buộc (*) ở Ô Thông tin cá nhân');
+                }
+
+
+
+            });
+
+
+            $("#formInfo").validate({
+                rules: {
+                    tenKH: {
+                        required: true,
+                        minlength: 5
+
+                    },
+                    namsinhKH: {
+                        required: true,
+                        minlength: 4
+
+                    },
+                    sodienthoaiKH: {
+                        required: true,
+                        minlength: 9
+
+                    },
+                    EmailKH: {
+                        email: true,
+                        minlength: 10
+                    },
+
+                },
+                messages: {
+                    tenKH: "Vui lòng điền họ tên, tối thiểu 05 ký tự",
+                    namsinhKH: "Vui lòng điền năm sinh",
+                    sodienthoaiKH: "Vui lòng điền đúng số điện thoại",
+                    EmailKH: "Vui lòng điền đúng Email"
+
+                }
+            })
+
+
+            //$("#nanogallery2").nanogallery2({
+
+            //    // GALLERY AND THUMBNAIL LAYOUT
+            //    galleryMosaic: [                       // default layout
+            //        { w: 2, h: 2, c: 1, r: 1 },
+            //        { w: 1, h: 1, c: 3, r: 1 },
+            //        { w: 1, h: 1, c: 3, r: 2 },
+            //        { w: 1, h: 2, c: 4, r: 1 },
+            //        { w: 2, h: 1, c: 5, r: 1 },
+            //        { w: 2, h: 2, c: 5, r: 2 },
+            //        { w: 1, h: 1, c: 4, r: 3 },
+            //        { w: 2, h: 1, c: 2, r: 3 },
+            //        { w: 1, h: 2, c: 1, r: 3 },
+            //        { w: 1, h: 1, c: 2, r: 4 },
+            //        { w: 2, h: 1, c: 3, r: 4 },
+            //        { w: 1, h: 1, c: 5, r: 4 },
+            //        { w: 1, h: 1, c: 6, r: 4 }
+            //    ],
+            //    galleryMosaicXS: [                     // layout for XS width
+            //        { w: 2, h: 2, c: 1, r: 1 },
+            //        { w: 1, h: 1, c: 3, r: 1 },
+            //        { w: 1, h: 1, c: 3, r: 2 },
+            //        { w: 1, h: 2, c: 1, r: 3 },
+            //        { w: 2, h: 1, c: 2, r: 3 },
+            //        { w: 1, h: 1, c: 2, r: 4 },
+            //        { w: 1, h: 1, c: 3, r: 4 }
+            //    ],
+            //    galleryMosaicSM: [                     // layout for SM width
+            //        { w: 2, h: 2, c: 1, r: 1 },
+            //        { w: 1, h: 1, c: 3, r: 1 },
+            //        { w: 1, h: 1, c: 3, r: 2 },
+            //        { w: 1, h: 2, c: 1, r: 3 },
+            //        { w: 2, h: 1, c: 2, r: 3 },
+            //        { w: 1, h: 1, c: 2, r: 4 },
+            //        { w: 1, h: 1, c: 3, r: 4 }
+            //    ],
+            //    galleryMaxRows: 1,
+            //    galleryDisplayMode: 'rows',
+            //    gallerySorting: 'random',
+            //    thumbnailDisplayOrder: 'random',
+
+            //    thumbnailHeight: '180', thumbnailWidth: '220',
+            //    thumbnailAlignment: 'scaled',
+            //    thumbnailGutterWidth: 0, thumbnailGutterHeight: 0,
+            //    thumbnailBorderHorizontal: 0, thumbnailBorderVertical: 0,
+
+            //    thumbnailToolbarImage: null,
+            //    thumbnailToolbarAlbum: null,
+            //    thumbnailLabel: { display: false },
+
+            //    // DISPLAY ANIMATION
+            //    // for gallery
+            //    galleryDisplayTransitionDuration: 1500,
+            //    // for thumbnails
+            //    thumbnailDisplayTransition: 'imageSlideUp',
+            //    thumbnailDisplayTransitionDuration: 1200,
+            //    thumbnailDisplayTransitionEasing: 'easeInOutQuint',
+            //    thumbnailDisplayInterval: 60,
+
+            //    // THUMBNAIL HOVER ANIMATION
+            //    thumbnailBuildInit2: 'image_scale_1.15',
+            //    thumbnailHoverEffect2: 'thumbnail_scale_1.00_1.05_300|image_scale_1.15_1.00',
+            //    touchAnimation: true,
+            //    touchAutoOpenDelay: 500,
+
+            //    // LIGHTBOX
+            //    viewerToolbar: { display: false },
+            //    viewerTools: {
+            //        topLeft: 'label',
+            //        topRight: 'shareButton, rotateLeft, rotateRight, fullscreenButton, closeButton'
+            //    },
+
+            //    // GALLERY THEME
+            //    galleryTheme: {
+            //        thumbnail: { background: '#111' },
+            //    },
+
+            //    // DEEP LINKING
+            //    locationHash: true
+            //});
+
+
+
+        });
+    </script>
+
+
+    @*<script type="text/javascript" charset="utf8" src="https ://code.jquery.com/jquery-3.5.1.js"></script>*@
+
+    @*<script src="htt ps://code.jquery.com/jquery-3.5.1.js"></script>*@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/rowreorder/1.2.7/js/dataTables.rowReorder.min.js"></script>
+
+    <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+    <script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
+    <script src="~/assets/js/dataTables.checkboxes.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+
+    @*<script type="text/javascript" src="h ttps://cdn.jsdelivr.net/npm/nanogallery2@3/dist/jquery.nanogallery2.min.js"></script>*@
+
+
+</body>
+
+
+</html>
+
+@RenderSection("scripts", false)
+@RenderSection("jsFooter", false)

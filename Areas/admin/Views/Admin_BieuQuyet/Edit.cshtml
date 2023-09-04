@@ -1,0 +1,111 @@
+﻿@model TLBD.Areas.admin.Models.BieuQuyet.BieuQuyet_Model
+
+@{
+    ViewBag.Title = "Cập nhật thông tin biểu quyết";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script src="@Url.Content("~/Scripts/jquery.maskedinput.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#form").submit(function (e) {
+            var run = true;
+            run = kiemtra("tieude", "sBIEUQUYET", run);
+
+            if (!run) {
+                e.preventDefault();
+
+            }
+        });
+
+        var url = '@Url.Action("CapNhat", "Admin_BieuQuyet")/@(Model==null ? "0" : Model.sID.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");
+            alert("Chưa nhập đủ thông tin!");
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    $(function () {   
+        $("#sTHU_TU").mask("9");
+    });
+    
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }     
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_BieuQuyet", FormMethod.Post, new { id = "form" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin biểu quyết</legend>
+            <table style="width:100%">
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width: 200px">
+                        Danh mục thăm dò ý kiến
+                    </td>
+                    <td>
+                        @Html.DropDownList("sID_DANHMUC_BIEUQUYET", (IEnumerable<SelectListItem>)ViewData["DANHMUC_BIEUQUYET"], new { style = "width:100%" })
+                        @Html.ValidationMessageFor(m => m.sID_DANHMUC_BIEUQUYET)
+                    </td>         
+                    <td style="width:10%"></td>          
+                </tr>   
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px" id="tieude">
+                        Tiêu đề   
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sBIEUQUYET, new { style ="width:100%" })
+                        @Html.ValidationMessageFor(m => m.sBIEUQUYET)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>   
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Số biểu quyết 
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sTHU_TU, new { style ="width:100%" })
+                        @Html.ValidationMessageFor(m => m.sTHU_TU)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>                                               
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" style="width:130px" value="Cập nhật" />                        
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>     
+                    <td style="width:10%"></td>              
+                </tr>                 
+            </table>
+        </fieldset>
+    </div>
+}

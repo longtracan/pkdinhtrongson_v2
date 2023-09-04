@@ -1,0 +1,53 @@
+﻿@model List<TLBD.Areas.admin.Models.BaiViet.BaiViet_Model>
+@using TLBD.Functions;
+@using TLBD.Areas.admin.Models.NhomBaiViet;
+
+<section class="doctors-area pt-100 pb-70">
+    <div class="container">
+        <div class="section-title">
+            <div class="top">
+                <span class="top-title">Đội ngũ </span>
+                <span class="sub-title">Bác sĩ</span>
+            </div>
+            <h2>ĐỘI NGŨ BÁC SĨ</h2>
+        </div>
+        <div @*id="doctor_slide"*@ class="row @*owl-carousel*@">
+            @{ foreach (var item in Model)
+                            {
+                                if (item.NOI_BAT == true)
+                                {
+                                    <div class="col-sm-6 col-lg-4 ">
+                                        <div class="doctors-item">
+                                            <div class="top">
+                                                <img src="@Url.Content(string.Format("~/Content/BaiViet/{0}", item.IMAGE_URL))" alt="Doctor">
+
+                                            </div>
+                                            <div class="bottom">
+                                                <div class="left">
+                                                    <i class='bx @item.SP_NHASANXUAT button'></i>
+                                                </div>
+                                                <div class="right">
+                                                    <h3>
+                                                        <a href="#">@item.TIEU_DE</a>
+                                                    </h3>
+                                                    <span>@Html.Raw(item.TOM_TAT)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            } }
+
+
+        </div>
+        <div style="text-align: center; left:50%" >
+            <a class="common-btn" href="@Url.RouteUrl("DoiNguBacSi_Route", new {id = Model[0].ID_NHOM_BAIVIET })">
+                <span class="one"></span>
+                <span class="two"></span>
+                Xem tất cả Bác Sĩ
+            </a>
+        </div>
+       
+    </div>
+</section>

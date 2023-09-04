@@ -1,0 +1,155 @@
+﻿@using Kendo.Mvc.UI;
+@model IEnumerable<TLBD.Areas.admin.Models.BaiViet.BaiViet_Model>
+@{
+    ViewBag.Title = "Quản trị bài viết";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.NOI_BAT == true && row.TRANG_THAIs != 0) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "beige");
+            }
+            else if (row.TRANG_THAIs == 0) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+
+        //$("#cbo_Nhom_BaiViet").change(function () {
+        //    var grid = $("#grid").data("kendoGrid");
+        //    grid.dataSource.read();
+        //    grid.refresh();
+        //});
+
+    });
+
+    function search_DangKy() {
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+        grid.refresh();
+    }
+
+    function filter() {
+        var val = $("#cbo_Nhom_BaiViet").val();
+        if (val == "")
+            val = "0";
+        return {
+            id_nhom_baiviet: val
+        };
+    }
+
+    function filter_chuyenmuc() {
+        return {
+            id_chuyen_muc: $("#cbo_ChuyenMuc").val()
+        };
+    }
+
+    function Them() {
+        var url = "@Url.Action("Add", "Admin_BaiViet")/?id_cm=" + $("#cbo_ChuyenMuc").val() + "&id_nh=" + $("#cbo_Nhom_BaiViet").val();
+        window.location = url;
+        return false;
+    }
+
+    function load_bai_viet() {
+
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+        grid.refresh();
+    }
+</script>
+
+<div style="height: 50px; margin-top: 20px;">
+    <div style="float: left;">
+        @(Html.Kendo().DropDownList()
+            .Name("cbo_ChuyenMuc")
+            .BindTo((IEnumerable<SelectListItem>)ViewData["CHUYEN_MUC"])
+            .DataTextField("Text")
+            .DataValueField("Value"))
+
+    </div>
+
+    <div style="float: left; ">
+        @(Html.Kendo().DropDownList()
+            .Name("cbo_Nhom_BaiViet")
+              .HtmlAttributes(new { style = "margin-left: 10px;" })
+              .DataTextField("Text")
+              .DataValueField("Value")
+              .DataSource(source =>
+              {
+                  source.Read(read =>
+                  {
+                      read.Action("GetNhom_BaiViet", "Admin_BaiViet")
+                          .Data("filter_chuyenmuc");
+                  })
+                  .ServerFiltering(true);
+              })
+              .Events(e => e.Change("load_bai_viet"))
+              .Enable(false)
+              .AutoBind(false)
+              .CascadeFrom("cbo_ChuyenMuc"))
+
+    </div>
+    <div>
+        <input class="k-button k-button-icontext k-grid-Edit" type="button" onclick="load_bai_viet()" value="Xem" />
+    </div>
+</div>
+
+<div>
+    <p>* Dữ liệu với trường nổi bật = true sẽ được bôi vàng</p>
+</div>
+@using (Html.BeginForm("LayDuLieu", "Admin_BaiViet", FormMethod.Post, new { id = "form" }))
+{
+    @(
+            Html.Kendo().Grid<TLBD.Areas.admin.Models.BaiViet.BaiViet_Model>(Model)
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.ID).Title("ID").Width(30);
+                c.Bound(m => m.TIEU_DE).Title("Tiêu đề").Width(300);
+
+                c.Bound(m => m.SP_BAOHANH).Title("Thứ tự hiển thị").Width(30);
+
+                //c.Bound(m => m.SP_GIAKM).Title("Giá khuyến mại").Width(200);
+                c.Bound(m => m.IMAGE_URL).Title("Hình ảnh").Width(200)
+                    .ClientTemplate("<img style='height:40px' src='" + Url.Content("~/Content/BaiViet/") + "#= IMAGE_URL #' />");
+                c.Bound(m => m.SP_GIA).Title("Giá dịch vụ").Width(30);
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_BaiViet", new { area = "admin" }) + "/#= ID #'>Chỉnh sửa</a>");
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_BaiViet", new { area = "admin" }) + "/#= ID #'>Xóa</a>");
+
+            })
+    .ToolBar(tb =>
+    {
+        tb.Custom().Text("Thêm").HtmlAttributes(new { @class = "button_them", href = "javascript:Them();", onclick = "Them()" });
+    })
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(n => n.ID);
+        })
+        .PageSize(20)
+        .Read(r => r.Action("Read", "Admin_BaiViet").Data("filter"))
+
+    )
+    .Events(e => e.DataBound("onDataBound"))
+    )
+}
+
+
+

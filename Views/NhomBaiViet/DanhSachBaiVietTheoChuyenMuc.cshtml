@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "DanhSachBaiVietTheoChuyenMuc";
+    Layout = "~/Views/Shared/_Layout-Home.cshtml";
+}
+
+@model TLBD.Areas.admin.Models.BaiViet.List_BaiViet_View
+@{ ViewBag.Title = Model.Nhom_BaiViet.TEN_BAIVIET; }
+@using TLBD.Functions
+@using TLBD.Areas.admin.Models.NhomBaiViet
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+@Html.Action("SlideImage2", "Home")
+
+
+<div class="blog-details-area pt-100 pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row justify-content-center">
+                    @{ foreach (var item_baiviet in Model.List_BaiViet)
+                        {
+                            <div class="col-lg-6 col-sm-6">
+                                <div class="blog-item">
+                                    <div class="top">
+                                        <a href="@Url.RouteUrl("BaiViet_Route", new {TenBV = cUrlHelper.ToFriendlyUrl(item_baiviet.TIEU_DE), id = item_baiviet.ID })">
+                                            <img src="@Url.Content(string.Format("~/Content/BaiViet/{0}", item_baiviet.IMAGE_URL))" alt="Blog">
+                                        </a>
+                                    </div>
+                                    <div class="bottom">
+                                        <h3>
+                                            <a href="@Url.RouteUrl("BaiViet_Route", new {TenBV = cUrlHelper.ToFriendlyUrl(item_baiviet.TIEU_DE), id = item_baiviet.ID })">@item_baiviet.TIEU_DE</a>
+                                        </h3>
+                                        <div style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical" ;>
+                                            @Html.Raw(item_baiviet.TOM_TAT)
+                                        </div>
+                                        <ul>
+                                            @{ DateTime dtValue = (DateTime)item_baiviet.NGAY_DANG;
+
+                                                <li>
+                                                    <span>@dtValue.ToShortDateString()</span>
+                                                </li>
+                                            }
+                                            <li>
+                                                @*<a href="@Url.RouteUrl("NhomBaiViet_Route", new { TenCM = cUrlHelper.ToFriendlyUrl(item_baiviet.TEN_CHUYENMUC), TenNBV = cUrlHelper.ToFriendlyUrl(item_baiviet.TEN_BAIVIET), id = item_baiviet.ID_NHOM_BAIVIET })"><span>Chuyên mục: @item_baiviet.TEN_BAIVIET</span></a>*@
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> } }
+
+
+                </div>
+                @if ((int)ViewData["tongtrang"] != 1)
+                {
+                    <div class="pagination-area">
+                        <ul>
+                            <li id="pagination-here"></li>
+                        </ul>
+                    </div>}
+            </div>
+            <div class="col-lg-4">
+                <div class="widget-area">
+                    <div class="categories widget-item">
+                        <h3>@Model.ChuyenMuc.TEN_CHUYENMUC</h3>
+                        <ul>
+                            @{ NhomBaiViet_Class nbv = new NhomBaiViet_Class();
+                                var lst_nbv = nbv.GetList(Model.ChuyenMuc.ID);
+                                foreach (var item_nbv in lst_nbv)
+                                {
+                                    <li>
+                                        <a href="@Url.RouteUrl("NhomBaiViet_Route", new { TenCM = cUrlHelper.ToFriendlyUrl(item_nbv.TEN_CHUYENMUC), TenNBV = cUrlHelper.ToFriendlyUrl(item_nbv.TEN_BAIVIET), id = item_nbv.ID })" target="_blank">@item_nbv.TEN_BAIVIET</a>
+                                    </li>
+                                } }
+
+
+                        </ul>
+                    </div>
+                    <div class="common-doctor-contact widget-item">
+                        <div class="inner">
+                            <i class='bx bxs-phone-call'></i>
+                            <a href="tel:+05263527999">02563.527.999</a>
+                            <a href="tel:+84913455278">091.3455.278</a>
+                        </div>
+                        <h4>Bạn cần tư vấn</h4>
+                        <p>Nếu bạn đang gặp các vấn đề gì về sức khỏe, đừng ngần ngại nhấc máy liên hệ với chúng tôi để được tư vấn, giải đáp và đặt lịch khám chữa bệnh cho bản thân và gia đình nhé. </p>
+                        <a class="common-btn" href="#">
+                            Hoặc gửi Email: pkdkdinhtrongson@gmail.com
+                            <span class="one"></span>
+                            <span class="two"></span>
+                        </a>
+                    </div>
+                    @*<div class="consult widget-item">
+                            <h3>Get An Consult</h3>
+                            <form>
+                                <div class="form-group">
+                                    <label>Your Name</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Your Email</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Your Phone</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <label>Select Type Of Service</label>
+                                    <select>
+                                        <option>Select Service Request</option>
+                                        <option>Option</option>
+                                        <option>Another ption</option>
+                                    </select>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn common-btn">
+                                        <span class="one"></span>
+                                        <span class="two"></span>
+                                        Request For Call Back
+                                    </button>
+                                </div>
+                            </form>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script src="@Url.Content("~/css/jquery-bootpag/jquery.bootpag.min.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#pagination-here').bootpag({
+                total: '@ViewData["tongtrang"]',
+                page: '@ViewData["trang"]',
+                maxVisible: 10,
+                leaps: true
+            }).on("page", function (event, num) {
+                var url = "@Url.Action("DanhSachBaiVietTheoChuyenMuc", "NhomBaiViet")" + "/?id=@Model.Nhom_BaiViet.ID_CHUYENMUC&trang=" + num;
+                window.location.href = url;
+            });
+        });
+    </script>
+
+}

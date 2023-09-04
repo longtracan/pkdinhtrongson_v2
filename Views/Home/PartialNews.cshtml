@@ -1,0 +1,75 @@
+﻿@using TLBD.Areas.admin.Models.BaiViet;
+@using TLBD.Functions;
+@using TLBD.Areas.admin.Models.SubBanner;
+@using TLBD.Areas.admin.Models.Banner;
+@model List<BaiViet_Model>
+@{ Banner_Class banner_clss = new Banner_Class();
+   Banner_Model banner = banner_clss.Get();
+              
+    }
+
+<div class="banner-area two">
+    <ul class="adaptive" style="padding-top: 2%">
+        
+                <li data-thumb="@Url.Content(string.Format("~/Content/Banner/" + banner.IMG_URL))">
+                    <a href="@banner.TIEUDE" onclick="document.location=@banner.TIEUDE">
+                    <img src="@Url.Content(string.Format("~/Content/Banner/" + banner.IMG_URL))" />
+                     </a>
+                </li>
+    </ul>
+</div>
+
+
+<section class="blog-area pt-100 pb-70">
+    <div class="container">
+        <div class="section-title">
+            <div class="top">
+                <span class="top-title">@Model[0].TEN_CHUYENMUC</span>
+                <span class="sub-title">@Model[0].TEN_CHUYENMUC</span>
+            </div>
+            <h2>Bài viết nổi bật</h2>
+        </div>
+        <div id="new_slide" class="row owl-carousel justify-content-center">
+            @{ foreach (var item in Model)
+                {
+    <div class="col-lg-4 col-sm-6 item" style="width:90%">
+        <div class="blog-item">
+            <div class="top">
+                <a href="@Url.RouteUrl("BaiViet_Route", new {TenBV = cUrlHelper.ToFriendlyUrl(item.TIEU_DE), id = item.ID })">
+                    <img src="@Url.Content(string.Format("~/Content/BaiViet/{0}", item.IMAGE_URL))" alt="Blog">
+                </a>
+            </div>
+            <div class="bottom">
+                <h3>
+                    <a href="@Url.RouteUrl("BaiViet_Route", new {TenBV = cUrlHelper.ToFriendlyUrl(item.TIEU_DE), id = item.ID })">@item.TIEU_DE</a>
+                </h3>
+                <div style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;"> @Html.Raw(item.TOM_TAT)</div>
+                <ul>
+                    @{ DateTime dtValue = (DateTime)item.NGAY_DANG;
+
+        <li>
+            <span>@dtValue.ToShortDateString()</span>
+        </li> }
+
+
+                    <li>
+                        <a href="@Url.RouteUrl("NhomBaiViet_Route", new { TenCM = cUrlHelper.ToFriendlyUrl(item.TEN_CHUYENMUC), TenNBV = cUrlHelper.ToFriendlyUrl(item.TEN_BAIVIET), id = item.ID_NHOM_BAIVIET })"><span>Chuyên mục: @item.TEN_BAIVIET</span></a>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div> } }
+
+
+        </div>
+        <div style="text-align: center; left:50%">
+            <a class="common-btn" href="@Url.RouteUrl("DanhSachBaiViet_Route", new {id = Model[0].ID_CHUYENMUC })">
+                <span class="one"></span>
+                <span class="two"></span>
+                Xem thêm bài viết khác
+            </a>
+        </div>
+    </div>
+</section>
+

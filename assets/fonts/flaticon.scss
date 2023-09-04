@@ -1,0 +1,225 @@
+$flaticon-font: "flaticon";
+
+@font-face {
+    font-family: $flaticon-font;
+    src: url("./flaticon.ttf?e31b43487ffbe4625880a8cb2ea71c5c") format("truetype"),
+url("./flaticon.woff?e31b43487ffbe4625880a8cb2ea71c5c") format("woff"),
+url("./flaticon.woff2?e31b43487ffbe4625880a8cb2ea71c5c") format("woff2"),
+url("./flaticon.eot?e31b43487ffbe4625880a8cb2ea71c5c#iefix") format("embedded-opentype"),
+url("./flaticon.svg?e31b43487ffbe4625880a8cb2ea71c5c#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+$flaticon-map: (
+    "mother": "\f101",
+    "research": "\f102",
+    "pain": "\f103",
+    "dental-insurance": "\f104",
+    "ultrasound": "\f105",
+    "standing-male-silhouette-with-x-ray-view-of-the-lungs": "\f106",
+    "x-rays": "\f107",
+    "child": "\f108",
+    "sore-throat": "\f109",
+    "gastric": "\f10a",
+    "stethoscope": "\f10b",
+    "sonography": "\f10c",
+    "liver": "\f10d",
+    "heart-rate": "\f10e",
+    "cervical-cancer": "\f10f",
+    "medical-checkup": "\f110",
+    "lifeline": "\f111",
+    "heart": "\f112",
+    "give": "\f113",
+    "respect": "\f114",
+    "children": "\f115",
+    "heart-1": "\f116",
+    "insurance": "\f117",
+    "card": "\f118",
+    "lasik": "\f119",
+    "bone": "\f11a",
+    "mri": "\f11b",
+    "medical": "\f11c",
+    "giving": "\f11d",
+    "male": "\f11e",
+    "attention": "\f11f",
+    "nurse": "\f120",
+    "phone": "\f121",
+    "location": "\f122",
+    "fast-time": "\f123",
+    "pregnant": "\f124",
+    "pregnant-1": "\f125",
+    "baby-shower": "\f126",
+    "test-tube": "\f127",
+    "dna": "\f128",
+    "family": "\f129",
+    "heart-2": "\f12a",
+    "heart-3": "\f12b",
+    "lung-cancer": "\f12c",
+    "ribbon": "\f12d",
+    "medical-research": "\f12e",
+    "breast-cancer": "\f12f",
+    "heart-4": "\f130",
+    "spine-bone": "\f131",
+    "large-intestine": "\f132",
+);
+
+.flaticon-mother:before {
+    content: map-get($flaticon-map, "mother");
+}
+.flaticon-research:before {
+    content: map-get($flaticon-map, "research");
+}
+.flaticon-pain:before {
+    content: map-get($flaticon-map, "pain");
+}
+.flaticon-dental-insurance:before {
+    content: map-get($flaticon-map, "dental-insurance");
+}
+.flaticon-ultrasound:before {
+    content: map-get($flaticon-map, "ultrasound");
+}
+.flaticon-standing-male-silhouette-with-x-ray-view-of-the-lungs:before {
+    content: map-get($flaticon-map, "standing-male-silhouette-with-x-ray-view-of-the-lungs");
+}
+.flaticon-x-rays:before {
+    content: map-get($flaticon-map, "x-rays");
+}
+.flaticon-child:before {
+    content: map-get($flaticon-map, "child");
+}
+.flaticon-sore-throat:before {
+    content: map-get($flaticon-map, "sore-throat");
+}
+.flaticon-gastric:before {
+    content: map-get($flaticon-map, "gastric");
+}
+.flaticon-stethoscope:before {
+    content: map-get($flaticon-map, "stethoscope");
+}
+.flaticon-sonography:before {
+    content: map-get($flaticon-map, "sonography");
+}
+.flaticon-liver:before {
+    content: map-get($flaticon-map, "liver");
+}
+.flaticon-heart-rate:before {
+    content: map-get($flaticon-map, "heart-rate");
+}
+.flaticon-cervical-cancer:before {
+    content: map-get($flaticon-map, "cervical-cancer");
+}
+.flaticon-medical-checkup:before {
+    content: map-get($flaticon-map, "medical-checkup");
+}
+.flaticon-lifeline:before {
+    content: map-get($flaticon-map, "lifeline");
+}
+.flaticon-heart:before {
+    content: map-get($flaticon-map, "heart");
+}
+.flaticon-give:before {
+    content: map-get($flaticon-map, "give");
+}
+.flaticon-respect:before {
+    content: map-get($flaticon-map, "respect");
+}
+.flaticon-children:before {
+    content: map-get($flaticon-map, "children");
+}
+.flaticon-heart-1:before {
+    content: map-get($flaticon-map, "heart-1");
+}
+.flaticon-insurance:before {
+    content: map-get($flaticon-map, "insurance");
+}
+.flaticon-card:before {
+    content: map-get($flaticon-map, "card");
+}
+.flaticon-lasik:before {
+    content: map-get($flaticon-map, "lasik");
+}
+.flaticon-bone:before {
+    content: map-get($flaticon-map, "bone");
+}
+.flaticon-mri:before {
+    content: map-get($flaticon-map, "mri");
+}
+.flaticon-medical:before {
+    content: map-get($flaticon-map, "medical");
+}
+.flaticon-giving:before {
+    content: map-get($flaticon-map, "giving");
+}
+.flaticon-male:before {
+    content: map-get($flaticon-map, "male");
+}
+.flaticon-attention:before {
+    content: map-get($flaticon-map, "attention");
+}
+.flaticon-nurse:before {
+    content: map-get($flaticon-map, "nurse");
+}
+.flaticon-phone:before {
+    content: map-get($flaticon-map, "phone");
+}
+.flaticon-location:before {
+    content: map-get($flaticon-map, "location");
+}
+.flaticon-fast-time:before {
+    content: map-get($flaticon-map, "fast-time");
+}
+.flaticon-pregnant:before {
+    content: map-get($flaticon-map, "pregnant");
+}
+.flaticon-pregnant-1:before {
+    content: map-get($flaticon-map, "pregnant-1");
+}
+.flaticon-baby-shower:before {
+    content: map-get($flaticon-map, "baby-shower");
+}
+.flaticon-test-tube:before {
+    content: map-get($flaticon-map, "test-tube");
+}
+.flaticon-dna:before {
+    content: map-get($flaticon-map, "dna");
+}
+.flaticon-family:before {
+    content: map-get($flaticon-map, "family");
+}
+.flaticon-heart-2:before {
+    content: map-get($flaticon-map, "heart-2");
+}
+.flaticon-heart-3:before {
+    content: map-get($flaticon-map, "heart-3");
+}
+.flaticon-lung-cancer:before {
+    content: map-get($flaticon-map, "lung-cancer");
+}
+.flaticon-ribbon:before {
+    content: map-get($flaticon-map, "ribbon");
+}
+.flaticon-medical-research:before {
+    content: map-get($flaticon-map, "medical-research");
+}
+.flaticon-breast-cancer:before {
+    content: map-get($flaticon-map, "breast-cancer");
+}
+.flaticon-heart-4:before {
+    content: map-get($flaticon-map, "heart-4");
+}
+.flaticon-spine-bone:before {
+    content: map-get($flaticon-map, "spine-bone");
+}
+.flaticon-large-intestine:before {
+    content: map-get($flaticon-map, "large-intestine");
+}

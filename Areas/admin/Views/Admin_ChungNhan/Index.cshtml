@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SelectListItem>
+@{
+    ViewBag.Title = "Quản trị";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script>
+
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+    });
+
+
+</script>
+@using Kendo.Mvc.UI
+@using (Html.BeginForm("LayDuLieu", "Admin_ChungNhan", FormMethod.Post, new { id = "form" }))
+{
+    @(
+ Html.Kendo().Grid<TLBD.Areas.admin.Models.ChungNhan.ChungNhan_Model>()
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.ID).Title("ID").Width(30);
+                c.Bound(m => m.TIEU_DE).Title("Tiêu đề").Width(300);
+                c.Bound(m => m.IMG).Title("Hình ảnh").Width(200)
+                    .ClientTemplate("<img style='height:40px' src='" + Url.Content("~/Images/ChungNhan/") + "#= IMG #' />");
+                c.Template(m => { }).Width(10).Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_ChungNhan", new { area = "admin" }) + "/#= ID #'>Chỉnh sửa</a>");
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_ChungNhan") + "/#= ID #'>Xóa</a>");
+
+            })
+    .ToolBar(tb =>
+    {
+        tb.Custom().Text("Thêm").Url(Url.Action("Add", "Admin_ChungNhan", new { area = "admin" })).HtmlAttributes(new { @class = "button_them" });
+    })
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(n => n.ID);
+        })
+        .PageSize(20)
+        .Read(r => r.Action("Read", "Admin_ChungNhan"))
+
+    )
+    .Events(e => e.DataBound("onDataBound"))
+    )
+}

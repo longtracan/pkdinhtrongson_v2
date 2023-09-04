@@ -1,0 +1,53 @@
+﻿.jssora03l, .jssora03r
+{
+    display: block;
+    position: absolute;
+    /* size of arrow element */
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    background: url(Web/jssor/a03.png) no-repeat;
+    overflow: hidden;
+}
+
+.jssorb03 div, .jssorb03 div:hover, .jssorb03 .av
+{
+    position: absolute;
+    /* size of bullet elment */
+    width: 21px;
+    height: 21px;
+    text-align: center;
+    line-height: 21px;
+    color: white;
+    font-size: 12px;
+    background: url(Web/jssor/b03.png) no-repeat;
+    overflow: hidden;
+    cursor: pointer;
+}
+.carousle_loading
+{    
+    position: absolute; display: block; background: url(Web/jssor/loading.gif) no-repeat center center;
+    top: 0px; left: 0px;width: 100%;height:100%;
+}
+
+.bricon 
+{
+    background: url(Web/jssor/browser-icons.png);
+}
+
+.banner_slider_loading {
+    position: absolute; display: block; background: url(Web/jssor/loading.gif) no-repeat center center;
+                top: 0px; left: 0px;width: 100%;height:100%;
+}
+
+.jssora05l, .jssora05r
+{
+    display: block;
+    position: absolute;
+    /* size of arrow element */
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    background: url(Web/jssor/a17.png) no-repeat;
+    overflow: hidden;
+}

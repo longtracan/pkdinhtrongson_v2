@@ -1,0 +1,65 @@
+﻿@using TLBD.Areas.admin.Models.Slide;
+@model List<Slide_Model>
+
+
+@*<div class="banner-area two">
+    <div class="banner-slider owl-theme owl-carousel">
+        @foreach (var item in Model)
+        {
+<div class="banner-item banner-bg-two" style="background-image: url(../@Url.Content(string.Format("~/Content/Slide/" + item.sIMG_URL))">
+    <div class="d-table">
+        <div class="d-table-cell" style="text-align:center; padding-top:32%">
+            <div class="container">
+                <div class="">
+                    @if (item.sLINK != null)
+                    {
+    <a class="common-btn" href="@item.sLINK">
+        <span class="one"></span>
+        <span class="two"></span>
+        Bấm vào xem chi tiết
+    </a>}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>}
+
+
+
+    </div>
+</div>*@
+
+
+<div class="banner-area" id="slider_trangchu" >
+    <ul id="slider_banner" style="padding-top: 5%">
+        @foreach (var item in Model)
+
+        {
+        <li data-thumb="@Url.Content(string.Format("~/Content/Slide/" + item.sIMG_URL))">
+            @if (item.sLINK != null)
+            {
+            @*<div>
+                <img href="@item.sLINK" src="@Url.Content(string.Format("~/Content/Slide/" + item.sIMG_URL))" />
+                <a class="common-btn" href="@item.sLINK">
+                    <span class="one"></span>
+                    <span class="two"></span>
+                    Bấm vào xem chi tiết
+                </a>
+            </div>*@
+
+            <a href="@item.sLINK"  onclick="document.location=@item.sLINK" >
+            <img src="@Url.Content(string.Format("~/Content/Slide/" + item.sIMG_URL))" alt="bottle" class="thumbnails" />
+            </a>
+            }
+             else
+            {
+             <img src="@Url.Content(string.Format("~/Content/Slide/" + item.sIMG_URL))" />}
+
+        </li>
+        }
+    </ul>
+</div>
+
+
+

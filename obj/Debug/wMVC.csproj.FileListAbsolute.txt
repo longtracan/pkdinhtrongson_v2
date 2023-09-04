@@ -1,0 +1,59 @@
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\TLBD.dll.config
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\TLBD.dll
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\TLBD.pdb
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\EntityFramework.SqlServer.dll
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\Org.Mentalis.Security.Cryptography.dll
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\Mono.Math.dll
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\AttributeRouting.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\AttributeRouting.Web.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\AttributeRouting.Web.Mvc.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\CaptchaMvc.pdb
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\CaptchaMvc.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\EntityFramework.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\EntityFramework.SqlServer.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\System.Net.Http.Formatting.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\System.Web.Helpers.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\System.Web.Http.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\System.Web.Http.WebHost.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\System.Web.Mvc.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\System.Web.Razor.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\System.Web.WebPages.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\System.Web.WebPages.Deployment.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\System.Web.WebPages.Razor.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\WebActivator.pdb
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\WebMatrix.Data.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\Microsoft.Web.WebPages.OAuth.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\WebMatrix.WebData.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\DotNetOpenAuth.AspNet.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\DotNetOpenAuth.Core.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\DotNetOpenAuth.OAuth.Consumer.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\DotNetOpenAuth.OAuth.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\DotNetOpenAuth.OpenId.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\Org.Mentalis.Security.Cryptography.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\Mono.Math.xml
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\obj\Debug\wMVC.csprojAssemblyReference.cache
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\obj\Debug\wMVC.csproj.CoreCompileInputs.cache
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\obj\Debug\wMVC.csproj.CopyComplete
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\obj\Debug\TLBD.dll
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\obj\Debug\TLBD.pdb
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\SautinSoft.Document.dll
+D:\CongViec\PhongKham\Website\Source\web_skeleton_gioithieusanpham-main\web_skeleton_gioithieusanpham-main\1. SourceCode\bin\SautinSoft.Document.xml
+D:\CongViec\pkdinhtrongson_v2\bin\TLBD.dll.config
+D:\CongViec\pkdinhtrongson_v2\bin\TLBD.dll
+D:\CongViec\pkdinhtrongson_v2\bin\TLBD.pdb
+D:\CongViec\pkdinhtrongson_v2\bin\EntityFramework.SqlServer.dll
+D:\CongViec\pkdinhtrongson_v2\bin\SautinSoft.Document.dll
+D:\CongViec\pkdinhtrongson_v2\bin\Org.Mentalis.Security.Cryptography.dll
+D:\CongViec\pkdinhtrongson_v2\bin\Mono.Math.dll
+D:\CongViec\pkdinhtrongson_v2\bin\EntityFramework.SqlServer.xml
+D:\CongViec\pkdinhtrongson_v2\bin\SautinSoft.Document.xml
+D:\CongViec\pkdinhtrongson_v2\bin\Org.Mentalis.Security.Cryptography.xml
+D:\CongViec\pkdinhtrongson_v2\bin\Mono.Math.xml
+D:\CongViec\pkdinhtrongson_v2\obj\Debug\wMVC.csproj.AssemblyReference.cache
+D:\CongViec\pkdinhtrongson_v2\obj\Debug\wMVC.csproj.CoreCompileInputs.cache
+D:\CongViec\pkdinhtrongson_v2\obj\Debug\wMVC.csproj.CopyComplete
+D:\CongViec\pkdinhtrongson_v2\obj\Debug\TLBD.dll
+D:\CongViec\pkdinhtrongson_v2\obj\Debug\TLBD.pdb
+D:\CongViec\pkdinhtrongson_v2\bin\System.Net.Http.Extensions.dll
+D:\CongViec\pkdinhtrongson_v2\bin\System.Net.Http.Primitives.dll

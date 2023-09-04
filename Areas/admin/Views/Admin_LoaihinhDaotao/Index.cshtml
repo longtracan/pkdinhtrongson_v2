@@ -1,0 +1,75 @@
+﻿@using Kendo.Mvc.UI;
+@model IEnumerable<TLBD.Areas.admin.Models.Khoahoc.LoaihinhModel>
+@{
+    ViewBag.Title = "Quản trị loại hình đào tạo";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });        
+
+    });     
+
+    function Them() {
+        var url = "@Url.Action("Add", "Admin_LoaihinhDaotao")";
+        window.location = url;
+        return false;
+    }    
+</script>
+
+
+@using (Html.BeginForm("LayDuLieu", "Admin_LoaihinhDaotao", FormMethod.Post, new { id = "form" }))
+    {    
+        @(
+            Html.Kendo().Grid<TLBD.Areas.admin.Models.Khoahoc.LoaihinhModel>(Model)
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.Id).Title("ID").Width(30);
+                c.Bound(m => m.LoaihinhTen).Title("Tên").Width(300);
+                c.Bound(m => m.Thoigian).Title("Thời gian giữ giấy phép tối thiểu (năm)").Width(100);
+                
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_LoaihinhDaotao", new { area = "admin" }) + "/#= Id #'>Chỉnh sửa</a>");                    
+                //c.Template(m => { }).Width(50).Title("")
+                //    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_LoaihinhDaotao", new { area = "admin" }) + "/#= Id #'>Xóa</a>");
+
+            })
+    //.ToolBar(tb =>
+    //    {
+    //        tb.Custom().Text("Thêm").HtmlAttributes(new { @class = "button_them", href = "javascript:Them();", onclick = "Them()" });                                
+    //    })
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(n => n.Id);
+        })
+        .PageSize(20)
+        .Read(r => r.Action("Read", "Admin_LoaihinhDaotao"))
+        
+    )
+    .Events(e=>e.DataBound("onDataBound"))
+    )
+    }

@@ -1,0 +1,1156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="db_web_muoithuModelStoreContainer" CdmEntityContainer="EntitiesData">
+    <EntitySetMapping Name="ACTIONLOGs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.ACTIONLOG">
+        <MappingFragment StoreEntitySet="ACTIONLOG">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="ActionDate" ColumnName="ActionDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALBUMs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.ALBUM">
+        <MappingFragment StoreEntitySet="ALBUM">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEU_DE" ColumnName="TIEU_DE" />
+          <ScalarProperty Name="NGAY_DANG" ColumnName="NGAY_DANG" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ALBUMDETAILs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.ALBUMDETAIL">
+        <MappingFragment StoreEntitySet="ALBUMDETAIL">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ALBUM" ColumnName="ID_ALBUM" />
+          <ScalarProperty Name="IMAGE_URL" ColumnName="IMAGE_URL" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="DAI_DIEN" ColumnName="DAI_DIEN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BACKGROUNDs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.BACKGROUND">
+        <MappingFragment StoreEntitySet="BACKGROUND">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IMG" ColumnName="IMG" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BAI_VIET">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.BAI_VIET">
+        <MappingFragment StoreEntitySet="BAI_VIET">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_NHOM_BAIVIET" ColumnName="ID_NHOM_BAIVIET" />
+          <ScalarProperty Name="TIEU_DE" ColumnName="TIEU_DE" />
+          <ScalarProperty Name="NOI_BAT" ColumnName="NOI_BAT" />
+          <ScalarProperty Name="TOM_TAT" ColumnName="TOM_TAT" />
+          <ScalarProperty Name="NOI_DUNG" ColumnName="NOI_DUNG" />
+          <ScalarProperty Name="IMAGE_URL" ColumnName="IMAGE_URL" />
+          <ScalarProperty Name="FILE_DOWNLOAD" ColumnName="FILE_DOWNLOAD" />
+          <ScalarProperty Name="ID_NGUOIVIETBAI" ColumnName="ID_NGUOIVIETBAI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="SP_GIA" ColumnName="SP_GIA" />
+          <ScalarProperty Name="SP_GIAKM" ColumnName="SP_GIAKM" />
+          <ScalarProperty Name="SP_BAOHANH" ColumnName="SP_BAOHANH" />
+          <ScalarProperty Name="SP_NHASANXUAT" ColumnName="SP_NHASANXUAT" />
+          <ScalarProperty Name="SP_IMGCHITIET" ColumnName="SP_IMGCHITIET" />
+          <ScalarProperty Name="SP_THONGSO" ColumnName="SP_THONGSO" />
+          <ScalarProperty Name="SP_SOLUONG" ColumnName="SP_SOLUONG" />
+          <ScalarProperty Name="HOT" ColumnName="HOT" />
+          <ScalarProperty Name="GIAMGIA" ColumnName="GIAMGIA" />
+          <ScalarProperty Name="DANHGIACAO" ColumnName="DANHGIACAO" />
+          <ScalarProperty Name="MATHANG_PHOBIEN" ColumnName="MATHANG_PHOBIEN" />
+          <ScalarProperty Name="BANCHAYNHAT" ColumnName="BANCHAYNHAT" />
+          <ScalarProperty Name="SP_SETUP" ColumnName="SP_SETUP" />
+          <ScalarProperty Name="NGAY_DANG" ColumnName="NGAY_DANG" />
+          <ScalarProperty Name="MAU_SAC" ColumnName="MAU_SAC" />
+          <ScalarProperty Name="DIADIEM_BAOHANH" ColumnName="DIADIEM_BAOHANH" />
+          <ScalarProperty Name="XUATXU" ColumnName="XUATXU" />
+          <ScalarProperty Name="THOIGIANKM_BEGIN" ColumnName="THOIGIANKM_BEGIN" />
+          <ScalarProperty Name="THOIGIANKM_END" ColumnName="THOIGIANKM_END" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BAIVIET_LIENQUAN">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.BAIVIET_LIENQUAN">
+        <MappingFragment StoreEntitySet="BAIVIET_LIENQUAN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_LIENQUAN" ColumnName="ID_LIENQUAN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BANNERs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.BANNER">
+        <MappingFragment StoreEntitySet="BANNER">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="HIENTHI" ColumnName="HIENTHI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="IMG_URL_MB" ColumnName="IMG_URL_MB" />
+          <ScalarProperty Name="SET_UP" ColumnName="SET_UP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BIEU_QUYET">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.BIEU_QUYET">
+        <MappingFragment StoreEntitySet="BIEU_QUYET">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_DANHMUC_BIEUQUYET" ColumnName="ID_DANHMUC_BIEUQUYET" />
+          <ScalarProperty Name="BIEUQUYET" ColumnName="BIEUQUYET" />
+          <ScalarProperty Name="THU_TU" ColumnName="THU_TU" />
+          <ScalarProperty Name="SO_LUONG" ColumnName="SO_LUONG" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CARTs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.CART">
+        <MappingFragment StoreEntitySet="CART">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CART_STATUS">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.CART_STATUS">
+        <MappingFragment StoreEntitySet="CART_STATUS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHUNGNHANs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.CHUNGNHAN">
+        <MappingFragment StoreEntitySet="CHUNGNHAN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEU_DE" ColumnName="TIEU_DE" />
+          <ScalarProperty Name="IMG" ColumnName="IMG" />
+          <ScalarProperty Name="NGAY" ColumnName="NGAY" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CHUYEN_MUC">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.CHUYEN_MUC">
+        <MappingFragment StoreEntitySet="CHUYEN_MUC">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN_CHUYENMUC" ColumnName="TEN_CHUYENMUC" />
+          <ScalarProperty Name="MENU_TREN" ColumnName="MENU_TREN" />
+          <ScalarProperty Name="THUTU_TREN" ColumnName="THUTU_TREN" />
+          <ScalarProperty Name="HIENTHI_TRAI" ColumnName="HIENTHI_TRAI" />
+          <ScalarProperty Name="THUTU_TRAI" ColumnName="THUTU_TRAI" />
+          <ScalarProperty Name="HIENTHI_TRANGCHU" ColumnName="HIENTHI_TRANGCHU" />
+          <ScalarProperty Name="THUTU_TRANGCHU" ColumnName="THUTU_TRANGCHU" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COMMENTs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.COMMENT">
+        <MappingFragment StoreEntitySet="COMMENT">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Comment1" ColumnName="Comment" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COQUAN_BANHANH">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.COQUAN_BANHANH">
+        <MappingFragment StoreEntitySet="COQUAN_BANHANH">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN_COQUAN" ColumnName="TEN_COQUAN" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DANGKies">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.DANGKY">
+        <MappingFragment StoreEntitySet="DANGKY">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="HOTEN" ColumnName="HOTEN" />
+          <ScalarProperty Name="DIACHI" ColumnName="DIACHI" />
+          <ScalarProperty Name="SODIENTHOAI" ColumnName="SODIENTHOAI" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="IDLOPHOC" ColumnName="IDLOPHOC" />
+          <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+          <ScalarProperty Name="NGAYDANGKY" ColumnName="NGAYDANGKY" />
+          <ScalarProperty Name="TRANGTHAI" ColumnName="TRANGTHAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DANGKYHOCs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.DANGKYHOC">
+        <MappingFragment StoreEntitySet="DANGKYHOC">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="KhoahocId" ColumnName="KhoahocId" />
+          <ScalarProperty Name="SoGPLX" ColumnName="SoGPLX" />
+          <ScalarProperty Name="HangGPLXId" ColumnName="HangGPLXId" />
+          <ScalarProperty Name="NgayTT" ColumnName="NgayTT" />
+          <ScalarProperty Name="Ngaycap" ColumnName="Ngaycap" />
+          <ScalarProperty Name="Ngayhethan" ColumnName="Ngayhethan" />
+          <ScalarProperty Name="Donvicap" ColumnName="Donvicap" />
+          <ScalarProperty Name="Ghichu" ColumnName="Ghichu" />
+          <ScalarProperty Name="Ngaydangky" ColumnName="Ngaydangky" />
+          <ScalarProperty Name="DaChuyen" ColumnName="DaChuyen" />
+          <ScalarProperty Name="DaThanhtoan" ColumnName="DaThanhtoan" />
+          <ScalarProperty Name="NgayThanhtoan" ColumnName="NgayThanhtoan" />
+          <ScalarProperty Name="NganluongToken" ColumnName="NganluongToken" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DANGKYHOC_SYN">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.DANGKYHOC_SYN">
+        <MappingFragment StoreEntitySet="DANGKYHOC_SYN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="HoTen" ColumnName="HoTen" />
+          <ScalarProperty Name="HKTTruId" ColumnName="HKTTruId" />
+          <ScalarProperty Name="NgayNhanHSo" ColumnName="NgayNhanHSo" />
+          <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+          <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+          <ScalarProperty Name="KhoahocId" ColumnName="KhoahocId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DANHMUC_BIEUQUYET">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.DANHMUC_BIEUQUYET">
+        <MappingFragment StoreEntitySet="DANHMUC_BIEUQUYET">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN_BIEUQUYET" ColumnName="TEN_BIEUQUYET" />
+          <ScalarProperty Name="HIEN_THI" ColumnName="HIEN_THI" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_DVHC">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.DM_DVHC">
+        <MappingFragment StoreEntitySet="DM_DVHC">
+          <ScalarProperty Name="MaDvhc" ColumnName="MaDvhc" />
+          <ScalarProperty Name="MaDVQL" ColumnName="MaDVQL" />
+          <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+          <ScalarProperty Name="TenDvhc" ColumnName="TenDvhc" />
+          <ScalarProperty Name="TenNganGon" ColumnName="TenNganGon" />
+          <ScalarProperty Name="TenDayDu" ColumnName="TenDayDu" />
+          <ScalarProperty Name="LoaiDvhc" ColumnName="LoaiDvhc" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+          <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_GIOITINH">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.DM_GIOITINH">
+        <MappingFragment StoreEntitySet="DM_GIOITINH">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="GIOITINH" ColumnName="GIOITINH" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_HANGDT">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.DM_HANGDT">
+        <MappingFragment StoreEntitySet="DM_HANGDT">
+          <ScalarProperty Name="MaHangDT" ColumnName="MaHangDT" />
+          <ScalarProperty Name="TenHangDT" ColumnName="TenHangDT" />
+          <ScalarProperty Name="HangGPLX" ColumnName="HangGPLX" />
+          <ScalarProperty Name="SoVBPL" ColumnName="SoVBPL" />
+          <ScalarProperty Name="TuoiHV" ColumnName="TuoiHV" />
+          <ScalarProperty Name="ThamNien" ColumnName="ThamNien" />
+          <ScalarProperty Name="KmLXAT" ColumnName="KmLXAT" />
+          <ScalarProperty Name="DKSH" ColumnName="DKSH" />
+          <ScalarProperty Name="MucTieuDT" ColumnName="MucTieuDT" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+          <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_HANGGP">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.DM_HANGGP">
+        <MappingFragment StoreEntitySet="DM_HANGGP">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="HangGP" ColumnName="HangGP" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DM_QUOCTICH">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.DM_QUOCTICH">
+        <MappingFragment StoreEntitySet="DM_QUOCTICH">
+          <ScalarProperty Name="Ma" ColumnName="Ma" />
+          <ScalarProperty Name="TenEN" ColumnName="TenEN" />
+          <ScalarProperty Name="TenVN" ColumnName="TenVN" />
+          <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+          <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+          <ScalarProperty Name="NguoiTao" ColumnName="NguoiTao" />
+          <ScalarProperty Name="NguoiSua" ColumnName="NguoiSua" />
+          <ScalarProperty Name="NgayTao" ColumnName="NgayTao" />
+          <ScalarProperty Name="NgaySua" ColumnName="NgaySua" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HOI_DAP">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.HOI_DAP">
+        <MappingFragment StoreEntitySet="HOI_DAP">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="HIEN_THI" ColumnName="HIEN_THI" />
+          <ScalarProperty Name="NGUOI_HOI" ColumnName="NGUOI_HOI" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="CAU_HOI" ColumnName="CAU_HOI" />
+          <ScalarProperty Name="TRA_LOI" ColumnName="TRA_LOI" />
+          <ScalarProperty Name="NGAY_DANG" ColumnName="NGAY_DANG" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="DIA_CHI" ColumnName="DIA_CHI" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KHOAHOCs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.KHOAHOC">
+        <MappingFragment StoreEntitySet="KHOAHOC">
+          <ScalarProperty Name="KhoaId" ColumnName="KhoaId" />
+          <ScalarProperty Name="Ten" ColumnName="Ten" />
+          <ScalarProperty Name="HangGPId" ColumnName="HangGPId" />
+          <ScalarProperty Name="LoaihinhDaotaoId" ColumnName="LoaihinhDaotaoId" />
+          <ScalarProperty Name="Khaigiang" ColumnName="Khaigiang" />
+          <ScalarProperty Name="Begiang" ColumnName="Begiang" />
+          <ScalarProperty Name="Ngaythi" ColumnName="Ngaythi" />
+          <ScalarProperty Name="Sathach" ColumnName="Sathach" />
+          <ScalarProperty Name="SoHVien" ColumnName="SoHVien" />
+          <ScalarProperty Name="Tuoitoithieu" ColumnName="Tuoitoithieu" />
+          <ScalarProperty Name="Hocphi" ColumnName="Hocphi" />
+          <ScalarProperty Name="MAPID" ColumnName="MAPID" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Trangthai" ColumnName="Trangthai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LIEN_KET">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.LIEN_KET">
+        <MappingFragment StoreEntitySet="LIEN_KET">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEU_DE" ColumnName="TIEU_DE" />
+          <ScalarProperty Name="LIEN_KET_HEF" ColumnName="LIEN_KET_HEF" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="HIENTHI_PHAI" ColumnName="HIENTHI_PHAI" />
+          <ScalarProperty Name="THUTU_PHAI" ColumnName="THUTU_PHAI" />
+          <ScalarProperty Name="HIENTHI_TRAI" ColumnName="HIENTHI_TRAI" />
+          <ScalarProperty Name="THUTU_TRAI" ColumnName="THUTU_TRAI" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAI_HIENTHI">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.LOAI_HIENTHI">
+        <MappingFragment StoreEntitySet="LOAI_HIENTHI">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN_LOAI_HIENTHI" ColumnName="TEN_LOAI_HIENTHI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOAIHINHDAOTAOs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.LOAIHINHDAOTAO">
+        <MappingFragment StoreEntitySet="LOAIHINHDAOTAO">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Thoigian" ColumnName="Thoigian" />
+          <ScalarProperty Name="HangSId" ColumnName="HangSId" />
+          <ScalarProperty Name="HangDId" ColumnName="HangDId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOGOes">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.LOGO">
+        <MappingFragment StoreEntitySet="LOGO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="HIENTHI" ColumnName="HIENTHI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LUOT_TRUY_CAP">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.LUOT_TRUY_CAP">
+        <MappingFragment StoreEntitySet="LUOT_TRUY_CAP">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="so_luong" ColumnName="so_luong" />
+          <ScalarProperty Name="NGAY_THANG" ColumnName="NGAY_THANG" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MENUs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.MENU">
+        <MappingFragment StoreEntitySet="MENU">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN_MENU" ColumnName="TEN_MENU" />
+          <ScalarProperty Name="THU_TU" ColumnName="THU_TU" />
+          <ScalarProperty Name="MENU_CHA" ColumnName="MENU_CHA" />
+          <ScalarProperty Name="CONTROLLER" ColumnName="CONTROLLER" />
+          <ScalarProperty Name="VIEW" ColumnName="VIEW" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NGUOI_VIETBAI">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.NGUOI_VIETBAI">
+        <MappingFragment StoreEntitySet="NGUOI_VIETBAI">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN" ColumnName="TEN" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NHOM_BAIVIET">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.NHOM_BAIVIET">
+        <MappingFragment StoreEntitySet="NHOM_BAIVIET">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CHUYENMUC" ColumnName="ID_CHUYENMUC" />
+          <ScalarProperty Name="TEN_BAIVIET" ColumnName="TEN_BAIVIET" />
+          <ScalarProperty Name="LOAI_HIENTHI" ColumnName="LOAI_HIENTHI" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="THUTU" ColumnName="THUTU" />
+          <ScalarProperty Name="LICHSU_SOLUONG" ColumnName="LICHSU_SOLUONG" />
+          <ScalarProperty Name="HIENTHI_BAIVIET_MENU" ColumnName="HIENTHI_BAIVIET_MENU" />
+          <ScalarProperty Name="ICON" ColumnName="ICON" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NHOM_VANBAN">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.NHOM_VANBAN">
+        <MappingFragment StoreEntitySet="NHOM_VANBAN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN_NHOM_VANBAN" ColumnName="TEN_NHOM_VANBAN" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ORDERs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.ORDER">
+        <MappingFragment StoreEntitySet="ORDER">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="IsPaid" ColumnName="IsPaid" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ORDER_DETAIL">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.ORDER_DETAIL">
+        <MappingFragment StoreEntitySet="ORDER_DETAIL">
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ORDER_STATUS">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.ORDER_STATUS">
+        <MappingFragment StoreEntitySet="ORDER_STATUS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PHANQUYEN_CHUYENMUC">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.PHANQUYEN_CHUYENMUC">
+        <MappingFragment StoreEntitySet="PHANQUYEN_CHUYENMUC">
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="ID_CHUYENMUC" ColumnName="ID_CHUYENMUC" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PHANQUYEN_MENU">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.PHANQUYEN_MENU">
+        <MappingFragment StoreEntitySet="PHANQUYEN_MENU">
+          <ScalarProperty Name="ID_USER" ColumnName="ID_USER" />
+          <ScalarProperty Name="ID_MENU" ColumnName="ID_MENU" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCTs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.PRODUCT">
+        <MappingFragment StoreEntitySet="PRODUCT">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="PromotionPrice" ColumnName="PromotionPrice" />
+          <ScalarProperty Name="IncludeVAT" ColumnName="IncludeVAT" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="ProductCatelogyID" ColumnName="ProductCatelogyID" />
+          <ScalarProperty Name="Warranty" ColumnName="Warranty" />
+          <ScalarProperty Name="Producer" ColumnName="Producer" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PRODUCTCATELOGies">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.PRODUCTCATELOGY">
+        <MappingFragment StoreEntitySet="PRODUCTCATELOGY">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RATINGs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.RATING">
+        <MappingFragment StoreEntitySet="RATING">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ROLEINGROUPs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.ROLEINGROUP">
+        <MappingFragment StoreEntitySet="ROLEINGROUP">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="SRoleID" ColumnName="SRoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SAN_PHAM_ALBUM">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.SAN_PHAM_ALBUM">
+        <MappingFragment StoreEntitySet="SAN_PHAM_ALBUM">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_ALBUM" ColumnName="ID_ALBUM" />
+          <ScalarProperty Name="IMAGE_URL" ColumnName="IMAGE_URL" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SLIDEs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.SLIDE">
+        <MappingFragment StoreEntitySet="SLIDE">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="HIENTHI" ColumnName="HIENTHI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SLIDEBANNERs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.SLIDEBANNER">
+        <MappingFragment StoreEntitySet="SLIDEBANNER">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="HIENTHI" ColumnName="HIENTHI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SLOGANs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.SLOGAN">
+        <MappingFragment StoreEntitySet="SLOGAN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="HIENTHI" ColumnName="HIENTHI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SPECIFICROLEs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.SPECIFICROLE">
+        <MappingFragment StoreEntitySet="SPECIFICROLE">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SRoleName" ColumnName="SRoleName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_BANNER">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.SUB_BANNER">
+        <MappingFragment StoreEntitySet="SUB_BANNER">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="HIENTHI" ColumnName="HIENTHI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="IMG_URL_MB" ColumnName="IMG_URL_MB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SUB_BANNER_">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.SUB_BANNER_">
+        <MappingFragment StoreEntitySet="SUB_BANNER_">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="HIENTHI" ColumnName="HIENTHI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TOKENs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.TOKEN">
+        <MappingFragment StoreEntitySet="TOKEN">
+          <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="TokenValue" ColumnName="TokenValue" />
+          <ScalarProperty Name="IssueOn" ColumnName="IssueOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="USERDETAILS">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.USERDETAIL">
+        <MappingFragment StoreEntitySet="USERDETAILS">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="USERNAME" ColumnName="USERNAME" />
+          <ScalarProperty Name="NAME" ColumnName="NAME" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="SEX" ColumnName="SEX" />
+          <ScalarProperty Name="BIRTHDAY" ColumnName="BIRTHDAY" />
+          <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="SYS_ACC" ColumnName="SYS_ACC" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VANBANs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.VANBAN">
+        <MappingFragment StoreEntitySet="VANBAN">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_NHOM_VANBAN" ColumnName="ID_NHOM_VANBAN" />
+          <ScalarProperty Name="ID_COQUAN_BANHANH" ColumnName="ID_COQUAN_BANHANH" />
+          <ScalarProperty Name="SO_KYHIEU" ColumnName="SO_KYHIEU" />
+          <ScalarProperty Name="NOIDUNG_TRICHYEU" ColumnName="NOIDUNG_TRICHYEU" />
+          <ScalarProperty Name="FILE_DOWNLOAD" ColumnName="FILE_DOWNLOAD" />
+          <ScalarProperty Name="NGAY_BANHANH" ColumnName="NGAY_BANHANH" />
+          <ScalarProperty Name="LINH_VUC" ColumnName="LINH_VUC" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VIDEOs">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.VIDEO">
+        <MappingFragment StoreEntitySet="VIDEO">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN_VIDEO" ColumnName="TEN_VIDEO" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="FILE_LOGO" ColumnName="FILE_LOGO" />
+          <ScalarProperty Name="FILE_VIDEO" ColumnName="FILE_VIDEO" />
+          <ScalarProperty Name="NOIBAT" ColumnName="NOIBAT" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Membership">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.webpages_Membership">
+        <MappingFragment StoreEntitySet="webpages_Membership">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ConfirmationToken" ColumnName="ConfirmationToken" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+          <ScalarProperty Name="LastPasswordFailureDate" ColumnName="LastPasswordFailureDate" />
+          <ScalarProperty Name="PasswordFailuresSinceLastSuccess" ColumnName="PasswordFailuresSinceLastSuccess" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="PasswordChangedDate" ColumnName="PasswordChangedDate" />
+          <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+          <ScalarProperty Name="PasswordVerificationToken" ColumnName="PasswordVerificationToken" />
+          <ScalarProperty Name="PasswordVerificationTokenExpirationDate" ColumnName="PasswordVerificationTokenExpirationDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_OAuthMembership">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.webpages_OAuthMembership">
+        <MappingFragment StoreEntitySet="webpages_OAuthMembership">
+          <ScalarProperty Name="Provider" ColumnName="Provider" />
+          <ScalarProperty Name="ProviderUserId" ColumnName="ProviderUserId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_Roles">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.webpages_Roles">
+        <MappingFragment StoreEntitySet="webpages_Roles">
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_UserProfile">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.webpages_UserProfile">
+        <MappingFragment StoreEntitySet="webpages_UserProfile">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="webpages_UsersInRoles">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.webpages_UsersInRoles">
+        <MappingFragment StoreEntitySet="webpages_UsersInRoles">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Capnhat_Baiviet_Lienquan" FunctionName="db_web_muoithuModel.Store.Capnhat_Baiviet_Lienquan" />
+    <FunctionImportMapping FunctionImportName="Insert_HocVien_Syn" FunctionName="db_web_muoithuModel.Store.Insert_HocVien_Syn" />
+    <FunctionImportMapping FunctionImportName="Insert_HocVien_Syn1" FunctionName="db_web_muoithuModel.Store.Insert_HocVien_Syn1" />
+    <FunctionImportMapping FunctionImportName="Insert_PhanQuyen_Menu" FunctionName="db_web_muoithuModel.Store.Insert_PhanQuyen_Menu" />
+    <FunctionImportMapping FunctionImportName="Insert_PhanQuyen_NhomBaiViet" FunctionName="db_web_muoithuModel.Store.Insert_PhanQuyen_NhomBaiViet" />
+    <FunctionImportMapping FunctionImportName="luottruycap_homnay" FunctionName="db_web_muoithuModel.Store.luottruycap_homnay" />
+    <FunctionImportMapping FunctionImportName="Reset_Baiviet_Lienquan" FunctionName="db_web_muoithuModel.Store.Reset_Baiviet_Lienquan" />
+    <FunctionImportMapping FunctionImportName="Reset_Hienthi_Banner" FunctionName="db_web_muoithuModel.Store.Reset_Hienthi_Banner" />
+    <FunctionImportMapping FunctionImportName="Reset_Hienthi_Logo" FunctionName="db_web_muoithuModel.Store.Reset_Hienthi_Logo" />
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_BACKGROUND" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_BACKGROUND">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_BACKGROUND_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="IMG" ColumnName="IMG" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_BANNER" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_BANNER">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_BANNER_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="HIENTHI" ColumnName="HIENTHI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="IMG_URL_MB" ColumnName="IMG_URL_MB" />
+          <ScalarProperty Name="SET_UP" ColumnName="SET_UP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_CHUNG_NHAN" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_CHUNG_NHAN">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_CHUNG_NHAN_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEU_DE" ColumnName="TIEU_DE" />
+          <ScalarProperty Name="IMG" ColumnName="IMG" />
+          <ScalarProperty Name="NGAY" ColumnName="NGAY" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_COMMENT" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_COMMENT">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_COMMENT_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_DANHMUC_SANPHAM" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_DANHMUC_SANPHAM">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_DANHMUC_SANPHAM_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CHUYENMUC" ColumnName="ID_CHUYENMUC" />
+          <ScalarProperty Name="TEN_BAIVIET" ColumnName="TEN_BAIVIET" />
+          <ScalarProperty Name="LOAI_HIENTHI" ColumnName="LOAI_HIENTHI" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="THUTU" ColumnName="THUTU" />
+          <ScalarProperty Name="LICHSU_SOLUONG" ColumnName="LICHSU_SOLUONG" />
+          <ScalarProperty Name="HIENTHI_BAIVIET_MENU" ColumnName="HIENTHI_BAIVIET_MENU" />
+          <ScalarProperty Name="ICON" ColumnName="ICON" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_LIEN_KET" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_LIEN_KET">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_LIEN_KET_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEU_DE" ColumnName="TIEU_DE" />
+          <ScalarProperty Name="LIEN_KET_HEF" ColumnName="LIEN_KET_HEF" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="HIENTHI_PHAI" ColumnName="HIENTHI_PHAI" />
+          <ScalarProperty Name="THUTU_PHAI" ColumnName="THUTU_PHAI" />
+          <ScalarProperty Name="HIENTHI_TRAI" ColumnName="HIENTHI_TRAI" />
+          <ScalarProperty Name="THUTU_TRAI" ColumnName="THUTU_TRAI" />
+          <ScalarProperty Name="GHI_CHU" ColumnName="GHI_CHU" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_LIEN_QUAN" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_LIEN_QUAN">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_LIEN_QUAN_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_NHOM_BAIVIET" ColumnName="ID_NHOM_BAIVIET" />
+          <ScalarProperty Name="TIEU_DE" ColumnName="TIEU_DE" />
+          <ScalarProperty Name="NOI_BAT" ColumnName="NOI_BAT" />
+          <ScalarProperty Name="TOM_TAT" ColumnName="TOM_TAT" />
+          <ScalarProperty Name="NOI_DUNG" ColumnName="NOI_DUNG" />
+          <ScalarProperty Name="IMAGE_URL" ColumnName="IMAGE_URL" />
+          <ScalarProperty Name="FILE_DOWNLOAD" ColumnName="FILE_DOWNLOAD" />
+          <ScalarProperty Name="ID_NGUOIVIETBAI" ColumnName="ID_NGUOIVIETBAI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="SP_GIA" ColumnName="SP_GIA" />
+          <ScalarProperty Name="SP_GIAKM" ColumnName="SP_GIAKM" />
+          <ScalarProperty Name="SP_BAOHANH" ColumnName="SP_BAOHANH" />
+          <ScalarProperty Name="SP_NHASANXUAT" ColumnName="SP_NHASANXUAT" />
+          <ScalarProperty Name="SP_IMGCHITIET" ColumnName="SP_IMGCHITIET" />
+          <ScalarProperty Name="SP_THONGSO" ColumnName="SP_THONGSO" />
+          <ScalarProperty Name="SP_SOLUONG" ColumnName="SP_SOLUONG" />
+          <ScalarProperty Name="HOT" ColumnName="HOT" />
+          <ScalarProperty Name="GIAMGIA" ColumnName="GIAMGIA" />
+          <ScalarProperty Name="DANHGIACAO" ColumnName="DANHGIACAO" />
+          <ScalarProperty Name="MATHANG_PHOBIEN" ColumnName="MATHANG_PHOBIEN" />
+          <ScalarProperty Name="BANCHAYNHAT" ColumnName="BANCHAYNHAT" />
+          <ScalarProperty Name="SP_SETUP" ColumnName="SP_SETUP" />
+          <ScalarProperty Name="NGAY_DANG" ColumnName="NGAY_DANG" />
+          <ScalarProperty Name="MAU_SAC" ColumnName="MAU_SAC" />
+          <ScalarProperty Name="DIADIEM_BAOHANH" ColumnName="DIADIEM_BAOHANH" />
+          <ScalarProperty Name="XUATXU" ColumnName="XUATXU" />
+          <ScalarProperty Name="THOIGIANKM_BEGIN" ColumnName="THOIGIANKM_BEGIN" />
+          <ScalarProperty Name="THOIGIANKM_END" ColumnName="THOIGIANKM_END" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_LOGO" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_LOGO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_LOGO_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TIEUDE" ColumnName="TIEUDE" />
+          <ScalarProperty Name="IMG_URL" ColumnName="IMG_URL" />
+          <ScalarProperty Name="HIENTHI" ColumnName="HIENTHI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_MENU_CHA" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_MENU_CHA">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_MENU_CHA_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN_CHUYENMUC" ColumnName="TEN_CHUYENMUC" />
+          <ScalarProperty Name="MENU_TREN" ColumnName="MENU_TREN" />
+          <ScalarProperty Name="THUTU_TREN" ColumnName="THUTU_TREN" />
+          <ScalarProperty Name="HIENTHI_TRAI" ColumnName="HIENTHI_TRAI" />
+          <ScalarProperty Name="THUTU_TRAI" ColumnName="THUTU_TRAI" />
+          <ScalarProperty Name="HIENTHI_TRANGCHU" ColumnName="HIENTHI_TRANGCHU" />
+          <ScalarProperty Name="THUTU_TRANGCHU" ColumnName="THUTU_TRANGCHU" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_MENU_CON_THEO_MENU_CHA" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_MENU_CON_THEO_MENU_CHA">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_MENU_CON_THEO_MENU_CHA_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_CHUYENMUC" ColumnName="ID_CHUYENMUC" />
+          <ScalarProperty Name="TEN_BAIVIET" ColumnName="TEN_BAIVIET" />
+          <ScalarProperty Name="LOAI_HIENTHI" ColumnName="LOAI_HIENTHI" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="THUTU" ColumnName="THUTU" />
+          <ScalarProperty Name="LICHSU_SOLUONG" ColumnName="LICHSU_SOLUONG" />
+          <ScalarProperty Name="HIENTHI_BAIVIET_MENU" ColumnName="HIENTHI_BAIVIET_MENU" />
+          <ScalarProperty Name="ICON" ColumnName="ICON" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_LAY_DS_SAN_PHAM" FunctionName="db_web_muoithuModel.Store.sp_LAY_DS_SAN_PHAM">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_LAY_DS_SAN_PHAM_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ID_NHOM_BAIVIET" ColumnName="ID_NHOM_BAIVIET" />
+          <ScalarProperty Name="TIEU_DE" ColumnName="TIEU_DE" />
+          <ScalarProperty Name="NOI_BAT" ColumnName="NOI_BAT" />
+          <ScalarProperty Name="TOM_TAT" ColumnName="TOM_TAT" />
+          <ScalarProperty Name="NOI_DUNG" ColumnName="NOI_DUNG" />
+          <ScalarProperty Name="IMAGE_URL" ColumnName="IMAGE_URL" />
+          <ScalarProperty Name="FILE_DOWNLOAD" ColumnName="FILE_DOWNLOAD" />
+          <ScalarProperty Name="ID_NGUOIVIETBAI" ColumnName="ID_NGUOIVIETBAI" />
+          <ScalarProperty Name="IP_TAO" ColumnName="IP_TAO" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_XOA" ColumnName="IP_XOA" />
+          <ScalarProperty Name="NGAY_XOA" ColumnName="NGAY_XOA" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="SP_GIA" ColumnName="SP_GIA" />
+          <ScalarProperty Name="SP_GIAKM" ColumnName="SP_GIAKM" />
+          <ScalarProperty Name="SP_BAOHANH" ColumnName="SP_BAOHANH" />
+          <ScalarProperty Name="SP_NHASANXUAT" ColumnName="SP_NHASANXUAT" />
+          <ScalarProperty Name="SP_IMGCHITIET" ColumnName="SP_IMGCHITIET" />
+          <ScalarProperty Name="SP_THONGSO" ColumnName="SP_THONGSO" />
+          <ScalarProperty Name="SP_SOLUONG" ColumnName="SP_SOLUONG" />
+          <ScalarProperty Name="HOT" ColumnName="HOT" />
+          <ScalarProperty Name="GIAMGIA" ColumnName="GIAMGIA" />
+          <ScalarProperty Name="DANHGIACAO" ColumnName="DANHGIACAO" />
+          <ScalarProperty Name="MATHANG_PHOBIEN" ColumnName="MATHANG_PHOBIEN" />
+          <ScalarProperty Name="BANCHAYNHAT" ColumnName="BANCHAYNHAT" />
+          <ScalarProperty Name="SP_SETUP" ColumnName="SP_SETUP" />
+          <ScalarProperty Name="NGAY_DANG" ColumnName="NGAY_DANG" />
+          <ScalarProperty Name="MAU_SAC" ColumnName="MAU_SAC" />
+          <ScalarProperty Name="DIADIEM_BAOHANH" ColumnName="DIADIEM_BAOHANH" />
+          <ScalarProperty Name="XUATXU" ColumnName="XUATXU" />
+          <ScalarProperty Name="THOIGIANKM_BEGIN" ColumnName="THOIGIANKM_BEGIN" />
+          <ScalarProperty Name="THOIGIANKM_END" ColumnName="THOIGIANKM_END" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_lay_luot_truycap" FunctionName="db_web_muoithuModel.Store.sp_lay_luot_truycap" />
+    <FunctionImportMapping FunctionImportName="sp_tang_luot_truycap" FunctionName="db_web_muoithuModel.Store.sp_tang_luot_truycap" />
+    <FunctionImportMapping FunctionImportName="sp_TimKiem" FunctionName="db_web_muoithuModel.Store.sp_TimKiem">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_TimKiem_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TEN" ColumnName="TEN" />
+          <ScalarProperty Name="ANH" ColumnName="ANH" />
+          <ScalarProperty Name="TOM_TAT" ColumnName="TOM_TAT" />
+          <ScalarProperty Name="NOIDUNG" ColumnName="NOIDUNG" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="NGAY_TAO" ColumnName="NGAY_TAO" />
+          <ScalarProperty Name="SP" ColumnName="SP" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_TimKiem_VanBan" FunctionName="db_web_muoithuModel.Store.sp_TimKiem_VanBan">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="db_web_muoithuModel.sp_TimKiem_VanBan_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SO_KYHIEU" ColumnName="SO_KYHIEU" />
+          <ScalarProperty Name="NOIDUNG_TRICHYEU" ColumnName="NOIDUNG_TRICHYEU" />
+          <ScalarProperty Name="NGAY_BANHANH" ColumnName="NGAY_BANHANH" />
+          <ScalarProperty Name="TEN_NHOM_VANBAN" ColumnName="TEN_NHOM_VANBAN" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Update_PhanQuyen_Menu" FunctionName="db_web_muoithuModel.Store.Update_PhanQuyen_Menu" />
+    <FunctionImportMapping FunctionImportName="Update_PhanQuyen_Nhombaiviet" FunctionName="db_web_muoithuModel.Store.Update_PhanQuyen_Nhombaiviet" />
+    <EntitySetMapping Name="UU_DIEM">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.UU_DIEM">
+        <MappingFragment StoreEntitySet="UU_DIEM">
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="HIEN_THI" ColumnName="HIEN_THI" />
+          <ScalarProperty Name="NOI_DUNG" ColumnName="NOI_DUNG" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="THONG_TIN">
+      <EntityTypeMapping TypeName="db_web_muoithuModel.THONG_TIN">
+        <MappingFragment StoreEntitySet="THONG_TIN">
+          <ScalarProperty Name="VIDEO_LINK" ColumnName="VIDEO_LINK" />
+          <ScalarProperty Name="MAP_LINK" ColumnName="MAP_LINK" />
+          <ScalarProperty Name="MAP_IMG" ColumnName="MAP_IMG" />
+          <ScalarProperty Name="CHAOMUNG" ColumnName="CHAOMUNG" />
+          <ScalarProperty Name="FACEBOOK" ColumnName="FACEBOOK" />
+          <ScalarProperty Name="NGAY_SUA" ColumnName="NGAY_SUA" />
+          <ScalarProperty Name="IP_SUA" ColumnName="IP_SUA" />
+          <ScalarProperty Name="THIET_KE" ColumnName="THIET_KE" />
+          <ScalarProperty Name="LONGTITUDE" ColumnName="LONGTITUDE" />
+          <ScalarProperty Name="LATITUDE" ColumnName="LATITUDE" />
+          <ScalarProperty Name="FAX" ColumnName="FAX" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="DIDONG" ColumnName="DIDONG" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="GIAY_PHEP" ColumnName="GIAY_PHEP" />
+          <ScalarProperty Name="DIACHI_DONVI" ColumnName="DIACHI_DONVI" />
+          <ScalarProperty Name="TEN_DONVI" ColumnName="TEN_DONVI" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

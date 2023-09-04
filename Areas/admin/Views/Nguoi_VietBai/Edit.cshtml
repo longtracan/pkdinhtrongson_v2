@@ -1,0 +1,55 @@
+﻿@model TLBD.Areas.admin.Models.Nguoi_VietBai.Nguoi_VietBai_Model
+
+@{
+    ViewBag.Title = "Cập nhật người viết bài";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script type="text/javascript">   
+    function Quaylai() {
+        window.history.back(-1);
+    }
+   
+    function Capnhat() {
+        var url = '@Url.Action("CapNhat", "Nguoi_VietBai")/@(Model==null ? "0" : Model.sID.ToString())';
+        $("#form").attr("action", url);
+        form.submit();
+    }
+
+
+</script>
+
+@using (Html.BeginForm("Edit", "Nguoi_VietBai", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin người viết bài</legend>
+            <table style="width:100%">              
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Tên
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sTEN, new { style ="width:414px;" })
+                    </td>         
+                    <td style="width:10%"></td>          
+               </tr>                                                                                                                
+                                             
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="button" onclick="Capnhat()" style="width:130px" value="Cập nhật" />                        
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>     
+                    <td style="width:10%"></td>              
+                </tr>                 
+            </table>
+        </fieldset>
+    </div>
+}

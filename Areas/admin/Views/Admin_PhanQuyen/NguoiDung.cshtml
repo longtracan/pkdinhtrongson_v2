@@ -1,0 +1,31 @@
+﻿@{
+    var List_NguoiDung = TLBD.Areas.admin.Models.Account.AccountService.List_NguoiDung();    
+}  
+
+[
+    @for (var i = 0; i < List_NguoiDung.Count; i++)
+    {
+        var item = List_NguoiDung[i];
+        if (i < List_NguoiDung.Count - 1)
+        {            
+                <text>
+                    {                                    
+                        "id":@item.sID,
+                        "text":"@item.sTEN_USER"                       
+                    },
+                </text>        
+        }
+        else if (i == List_NguoiDung.Count - 1)
+        {          
+            <text>           
+                {                                
+                    "id":@item.sID,
+                    "text":"@item.sTEN_USER"        
+                }                                        
+            </text>                    
+        }                                                                         
+    }   
+]
+
+
+

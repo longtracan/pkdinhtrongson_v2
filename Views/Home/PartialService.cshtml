@@ -1,0 +1,49 @@
+﻿@model List<TLBD.Areas.admin.Models.NhomBaiViet.NhomBaiViet_Model>
+@using TLBD.Functions;
+@using TLBD.Areas.admin.Models.NhomBaiViet;
+
+<section class="services-area two pt-100 pb-70">
+    <div class="container">
+        <div class="section-title">
+            <div class="top">
+                <span class="top-title">DỊCH VỤ</span>
+                <span class="sub-title">DỊCH VỤ</span>
+            </div>
+            <h2>DỊCH VỤ NỔI BẬT</h2>
+        </div>
+        <div class="row justify-content-center">
+            @{ 
+                foreach (var nbv in Model)
+                { 
+                      <div class="col-sm-6 col-lg-4">
+                      <div class="services-item">
+                            <div class="top">
+                                <a href="@Url.RouteUrl("DichVuNoiBat_Route", new {TenNBV = cUrlHelper.ToFriendlyUrl(nbv.TEN_BAIVIET), id = nbv.ID })">
+                                    <img src="@Url.Content(string.Format("~/Content/uploads/images/DVNOIBAT/{0}", nbv.LINK))" alt="Services">
+                                </a>
+                            </div>
+                            <div class="bottom">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <i  style="font-size:40px; padding-top:2px" class="@nbv.IP_XOA icon"></i>
+                                <h3>
+                                    <a style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height:1.5em; padding-top:2px"
+                                       href="@Url.RouteUrl("DichVuNoiBat_Route", new {TenNBV = cUrlHelper.ToFriendlyUrl(nbv.TEN_BAIVIET), id = nbv.ID })">@nbv.TEN_BAIVIET</a>
+                                </h3>
+                                <p>@nbv.ICON</p> @*Tóm tắt lưu trong cột ICON, icon lưu trong cột IP_XOA*@
+                                <a class="services-btn" href="@Url.RouteUrl("DichVuNoiBat_Route", new {TenNBV = cUrlHelper.ToFriendlyUrl(nbv.TEN_BAIVIET), id = nbv.ID })">
+                                    Xem Chi Tiết
+                                    <i class='bx bx-plus'></i>
+                                </a>
+                            </div>
+                        </div>
+                      </div>
+                }
+            }
+          
+           
+        </div>
+    </div>
+</section>

@@ -1,0 +1,17 @@
+﻿@using TLBD.Areas.admin.Models.Advantage;
+@model List<Advantage_Model>
+
+<div class="container-fluid view-box min-margin">
+    <div class="container">
+        <div class="box-body" style="background: transparent;margin: 0px;padding: 30px 0px;">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-3 col-sm-6 col-xs-12 item">
+                        <p class="advantage">@item.sNOI_DUNG</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

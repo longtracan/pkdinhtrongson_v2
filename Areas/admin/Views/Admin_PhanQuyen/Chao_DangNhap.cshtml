@@ -1,0 +1,20 @@
+﻿@model string
+<div style="border:1px solid gray;padding:3px 0px; min-height:25px;border-radius:4px; background-color:#f1faa9;">
+    <table style="width:100%;">
+        <tr>
+            <td style="width:20%;text-align:left;">
+                <div style="font-size: 18px; font-weight: bold; color: #1e43f5;float:left; margin-left:5px;">Xin chào: @Model</div>
+            </td>
+            <td style="text-align:center;color:#e212d2;font-weight:bold;">
+                QUẢN TRỊ HỆ THỐNG
+            </td>
+            <td style="width:20%; text-align:right;">
+                <div style="font-size: 18px; font-weight: bold; float: right; margin-right: 5px;">
+                    <a style="color: red" href="@Url.Action("LogOff", "Account", new { area = "admin" })"> 
+                        Log off
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

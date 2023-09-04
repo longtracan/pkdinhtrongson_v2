@@ -1,0 +1,249 @@
+﻿@model List<TLBD.Areas.admin.Models.CartItem.CartItem_Model>
+<title>Thông tin đơn hàng</title>
+@{
+
+    Layout = "~/Views/Shared/_LayoutBoostrap.cshtml";
+    var total = 0;
+    var giasp = 0;
+    TLBD.Areas.admin.Models.Account.User_Model userInfo = null;
+}
+
+@section jsFooter{
+    <script src="/js/Controller/cartController.js"></script>
+}
+<script src="@Url.Content("~/js/jquery.js")"></script>
+<link href="@Url.Content("~/js/jquery-confirm.css")" rel="stylesheet" />
+<script src="@Url.Content("~/js/jquery-confirm.js")"></script>
+
+<script src="http://sieuthiwebsitedep.com/templates/nicewebmarket/js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.blink').each(function () {
+            var elem = $(this);
+            setInterval(function () {
+                if (elem.css('visibility') == 'hidden') {
+                    elem.css('visibility', 'visible');
+                } else {
+                    elem.css('visibility', 'hidden');
+                }
+            }, 800);
+        });
+    });
+</script>
+
+<!-- page-header -->
+<div class="page-header">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="page-breadcrumb">
+                <ol class="breadcrumb">
+                    <li><a href="~/Home">Trang chủ</a></li>
+                    <li>Thanh toán</li>
+                </ol>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="content">
+    @if (@Model.Count > 0)
+    {
+        <!--#region GIO HANG-->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-head" style="border-bottom:0px">
+                        <h3 class="tieu-de">Giỏ hàng</h3>
+                    </div>
+                    <!-- cart-table-section -->
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <div class="cart">
+                                <table class="table table-bordered ">
+                                    <thead style="text-align:center">
+                                        <tr>
+                                            <th style="text-align:center">
+                                                <span>Sản phẩm</span>
+                                            </th>
+                                            <th style="text-align:center">
+                                                <span>Giá</span>
+                                            </th>
+                                            <th style="text-align:center">
+                                                <span>Số lượng</span>
+                                            </th>
+                                            <th style="text-align:center">
+                                                <span>Thành tiền</span>
+                                            </th>
+                                            <th>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <a href="#">
+                                                        <img src=@Url.Content(string.Format("~/content/BaiViet/" + item.Product.IMAGE_URL)) alt="" style="width:60px">
+                                                    </a>
+                                                    <span><a href="#">@item.Product.TIEU_DE</a></span>
+                                                </td>
+                                                <td style="text-align:center">
+                                                    @if (item.Product.SP_GIAKM != null && item.Product.SP_GIA != null)
+                                                    {
+                                                        giasp = item.Product.SP_GIAKM.Value;
+                                                    }
+                                                    else if (item.Product.SP_GIA != null)
+                                                    {
+                                                        giasp = item.Product.SP_GIA.Value;
+                                                    }
+                                                    else if (item.Product.SP_GIAKM != null)
+                                                    {
+                                                        giasp = item.Product.SP_GIAKM.Value;
+                                                    }
+                                                    else
+                                                    {
+                                                        giasp = 0;
+                                                    }
+
+                                                    @(giasp > 0 ? giasp.ToString("N0") : "---")
+                                                </td>
+                                                <td style="text-align:center">
+                                                    @item.Quantity
+                                                </td>
+                                                <td style="text-align:center">
+                                                    @(giasp > 0 ? (giasp * @item.Quantity).ToString("N0") : "---")
+                                                </td>
+
+                                                @{
+                                            total += (giasp * item.Quantity);
+                                                }
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                                <div style="text-align:right;font-size:20px"><b>Tổng cộng: @total.ToString("N0") đồng</b></div>
+                            </div>
+                            <!-- /.cart-table-section -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- cart-total -->
+        </div>
+        <!--#endregion-->
+        <!--#region THONG TIN THANH TOAN-->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box checkout-form">
+                    <!-- checkout - form -->
+                    <div class="box-head" style="border-bottom:0px">
+                        <h2 class="tieu-de">Thông tin thanh toán</h2>
+                    </div>
+
+                    @if (ViewBag.Username != null)
+                    {
+                        userInfo = TLBD.Areas.admin.Models.Account.AccountService.Get(ViewBag.Username);
+
+                        using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+                        {
+                            <div class="box-body">
+                                <div class="row">
+                                    <form>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label sr-only" for="recieverName"></label>
+                                                <input id="recieverName" name="recieverName" type="text" class="form-control" value="@userInfo.sTEN_USER" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label sr-only" for="address"></label>
+                                                <input id="address" name="address" type="text" class="form-control" value="@userInfo.sDIA_CHI" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label sr-only" for="email">Email</label>
+                                                <input id="email" name="email" type="text" class="form-control" value="@userInfo.sEMAIL" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label sr-only" for="phone"></label>
+                                                <input id="phone" name="phone" type="text" class="form-control" value="@userInfo.sSO_DIEN_THOAI" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <button class="btn btn-primary success_cart">Gửi đơn hàng</button>
+                                        </div>
+                                    </form>
+                                    <!-- /.checkout-form -->
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("Payment", "Cart", FormMethod.Post))
+                        {
+                            <div class="box-body">
+                                <div class="row">
+                                    <form>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label sr-only" for="recieverName"></label>
+                                                <input id="recieverName" name="recieverName" type="text" class="form-control" placeholder="Người nhận..." required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label sr-only" for="address"></label>
+                                                <input id="address" name="address" type="text" class="form-control" placeholder="Địa chỉ..." required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label sr-only" for="email">Email</label>
+                                                <input id="email" name="Email" type="text" class="form-control" placeholder="Địa chỉ Mail..." required>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group">
+                                                <label class="control-label sr-only" for="phone"></label>
+                                                <input id="phone" name="phone" type="text" class="form-control" placeholder="Số điện thoại....." required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                            <button class="btn btn-primary success_cart">Gởi đơn hàng</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <!--#endregion-->
+    }
+    else
+    {
+        <!--#region CHUA CO SAN PHAM TRONG GIO HANG-->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-head" style="border-bottom:0px">
+                        <h3 class="tieu-de">Đơn hàng</h3>
+                    </div>
+                    <div class="box-body">
+                        <p style="text-align: center; font-weight: bold;">Chưa có sản phẩm nào trong giỏ hàng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--#endregion-->
+    }
+</div>

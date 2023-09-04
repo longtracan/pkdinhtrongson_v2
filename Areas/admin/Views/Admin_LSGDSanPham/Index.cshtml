@@ -1,0 +1,156 @@
+﻿@using Kendo.Mvc.UI;
+@model IEnumerable<TLBD.Areas.admin.Models.LSGDSanPham.LSGDSanPham_Model>
+@{
+    ViewBag.Title = "Lịch sử giao dịch sản phẩm";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        //$(".remove_link").live("click", function (e) {
+        //    if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+        //        e.preventDefault();
+        //    }
+        //});
+
+        //$("#cbo_Nhom_BaiViet").change(function () {
+        //    var grid = $("#grid").data("kendoGrid");
+        //    grid.dataSource.read();
+        //    grid.refresh();
+        //});
+
+        //$("#dtpkr_NgayBatDau").closest(".k-widget")
+        //                .attr("id", "datepicker_wrapper");
+
+    });
+
+    //function search_DangKy() {
+    //    var grid = $("#grid").data("kendoGrid");
+    //    grid.dataSource.read();
+    //    grid.refresh();
+    //}
+
+    function filter() {
+        var val = $("#cbo_SanPham").val();
+        if (val == "")
+            val = "0";
+
+        return {
+            id_sanpham: val,
+            start_date: $("#dtpkr_NgayBatDau").data("kendoDatePicker")._value.toLocaleString(),
+            end_date: $("#dtpkr_NgayKetThuc").data("kendoDatePicker")._value.toLocaleString()
+        };
+    }
+
+    function filter_chuyenmuc() {
+        return {
+            id_nhomsanpham: $("#cbo_NhomSanPham").val()
+        };
+    }
+
+    function Them() {
+        var url = "@Url.Action("Add", "Admin_LSGDSanPham")/?id_nsp=" + $("#cbo_NhomSanPham").val() + "&id_sp=" + $("#cbo_SanPham").val();
+        window.location = url;
+        return false;
+    }
+
+    function load_bai_viet() {
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+        grid.refresh();
+    }
+</script>
+
+<div style="height: 50px; margin-top: 20px;">
+    <div style="float: left;">
+        @(Html.Kendo().DropDownList()
+            .Name("cbo_NhomSanPham")
+            .BindTo((IEnumerable<SelectListItem>)ViewData["NHOM_SANPHAM"])
+            .DataTextField("Text")
+            .DataValueField("Value"))
+    </div>
+
+    <div style="float: left;">
+        @(Html.Kendo().DropDownList()
+            .Name("cbo_SanPham")
+              .HtmlAttributes(new { style = "margin-left: 10px;" })
+              .DataTextField("Text")
+              .DataValueField("Value")
+              .DataSource(source =>
+              {
+                  source.Read(read =>
+                  {
+                      read.Action("GetSanPham", "Admin_LSGDSanPham")
+                          .Data("filter_chuyenmuc");
+                  })
+                  .ServerFiltering(true);
+              })
+              //.Events(e => e.Change("load_bai_viet"))
+              .Enable(false)
+              .AutoBind(false)
+              .CascadeFrom("cbo_NhomSanPham"))
+
+    </div>
+
+    <div style="float: left">
+        @(Html.Kendo().DatePicker().Name("dtpkr_NgayBatDau")
+                .HtmlAttributes(new { style = "margin-left: 10px;", @readonly ="readonly"})
+                .Min(new DateTime(1900, 1, 1)) 
+                .Max(new DateTime(2099, 12, 31))
+                .Format("yyyy-MM-dd")
+                .Value(DateTime.Today.AddMonths(-1)) 
+        )
+    </div>
+
+    <div style="float: left">
+        @(Html.Kendo().DatePicker().Name("dtpkr_NgayKetThuc")
+                .HtmlAttributes(new { style = "margin-left: 10px;", @readonly = "readonly" })
+                .Min(new DateTime(1900, 1, 1))
+                .Max(new DateTime(2099, 12, 31))
+                .Format("yyyy-MM-dd")
+                .Value(DateTime.Today)
+        )
+    </div>
+
+    <div>
+        <input class="k-button k-button-icontext k-grid-Edit" type="button" onclick="load_bai_viet()" style="margin-left: 10px;" value="Xem" />
+    </div>
+</div>
+
+@using (Html.BeginForm("LayDuLieu", "Admin_LSGDSanPham", FormMethod.Post, new { id = "form" }))
+{
+    @(Html.Kendo().Grid<TLBD.Areas.admin.Models.LSGDSanPham.LSGDSanPham_Model>(Model)
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.ID_donhang).Title("ID đơn hàng").Width(200);
+                c.Bound(m => m.Ngay).Title("Ngày đặt hàng").Format("{0: HH:mm dd/MM/yyyy}").Width(60);
+                c.Bound(m => m.SoLuong).Title("Số lượng").Width(150);
+                c.Bound(m => m.KhachHang).Title("Khách hàng").Width(150);
+                c.Bound(m => m.TrangThaiDonHang).Title("Trạng thái đơn hàng").Width(200);
+            })
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .PageSize(20)
+        .Read(r => r.Action("Read", "Admin_LSGDSanPham").Data("filter"))
+
+    )
+    .Events(e => e.DataBound("onDataBound"))
+    )
+}

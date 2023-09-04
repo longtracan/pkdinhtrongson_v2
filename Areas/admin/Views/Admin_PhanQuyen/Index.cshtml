@@ -1,0 +1,67 @@
+﻿ @model IList<TLBD.Areas.admin.Models.Account.User_Model>
+
+@{
+    ViewBag.Title = "Quản trị phân quyền Menu";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}	
+    <link href="~/css/Tree/easyui.css" rel="stylesheet" />
+    <link href="~/css/Tree/icon.css" rel="stylesheet" />  
+    
+    <script src="~/css/Tree/jquery.easyui.min.js"></script>    
+
+<script>
+    $(function () {
+        $('#nd').tree({
+            url: '@Url.Action("NguoiDung", "Admin_PhanQuyen")',
+            onClick: function (node) {
+                $('#tt').tree({
+                    url: "@Url.Action("Menu", "Admin_PhanQuyen")" + "/" + node.id
+                });               
+            }
+        });        
+    });
+
+    function Capnhat() {
+        var nodes = $('#tt').tree('getChecked');     
+        var usernode = $('#nd').tree('getSelected');
+        var reset = "@Url.Action("Reset_Quyen", "Admin_PhanQuyen")";
+        $.post(reset, { id_user: usernode.id }, function (response) {
+            for (var i = 0; i < nodes.length; i++) {
+                var data = {
+                    id_user: usernode.id,
+                    id_menu: nodes[i].id,
+                    trang_thai: 1
+                };
+                var url = "@Url.Action("CapNhat", "Admin_PhanQuyen")";
+
+                $.post(url, data, function (response) {
+                });
+            }
+            alert("Cập nhật phân quyền thành công");
+        });
+
+       
+    }
+</script>
+
+    <div style="float: left">
+        <fieldset style="width: 400px;">
+            <legend style="font-weight: bold; color: #21b3f3">Danh sách người dùng</legend>
+            <div>                      
+                <ul id="nd" class="eas e"></ul>          
+            </div>	
+	    </fieldset>
+    </div>
+
+    <div style="float: right">
+        <fieldset style="width: 600px;">
+            <legend style="font-weight: bold; color: #21b3f3">Quyền quản trị Menu</legend>
+            <div>                
+
+                <ul id="tt" class="easyui-tree" checkbox="true">
+	            </ul>
+                <input class="button_capnhat" type="button" onclick="Capnhat()" style="width:130px; float: left; margin-top: 10px;" value="Cập nhật" />                 
+            </div>	
+	    </fieldset>
+    </div>
+    

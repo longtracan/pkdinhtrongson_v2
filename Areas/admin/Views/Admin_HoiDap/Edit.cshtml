@@ -1,0 +1,194 @@
+﻿@model TLBD.Areas.admin.Models.CauHoi.CauHoi_Model
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Cập nhật Hỏi - Đáp";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script type="text/javascript" src="@Url.Content("~/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.ui.datepicker-vi.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.maskedinput.min.js")" type="text/javascript"></script>
+
+<link href="~/css/Tree/easyui.css" rel="stylesheet" />
+<link href="~/css/Tree/icon.css" rel="stylesheet" />
+<link href="~/css/Tree/demo.css" rel="stylesheet" />
+
+<script src="~/css/Tree/jquery.easyui.min.js"></script>
+
+<script type="text/javascript">
+    //$(function () {       
+        //$("#form").submit(function (e) {
+            //var run = true;
+            //run = kiemtra("lbl_cauhoi", "CAU_HOI", run);           
+           
+            //if (!run) {
+            //    e.preventDefault();
+
+            //}
+        //});
+    //});
+
+    //function kiemtra(label, control, run) {
+    //    var gt = $("#" + control).val();
+    //    if (gt.length == 0) {
+    //        $("#" + label).css("color", "#ff0000");
+    //        alert("Chưa nhập đủ thông tin " + label);
+    //        run = false;
+    //    }
+    //    else $("#" + label).css("color", "#000");
+    //    return run;
+    //}
+</script>
+
+<script type="text/javascript">
+    $(function () {
+		@*var basepath = '@Url.Content("~/")';*@        
+
+        //CKEDITOR.replace('TRA_LOI',
+        //{
+        //    filebrowserBrowseUrl: basepath + '/ckfinder/ckfinder.html',
+        //    filebrowserImageBrowseUrl: basepath + '/ckfinder/ckfinder.html?type=Images',
+        //    filebrowserFlashBrowseUrl: basepath + '/ckfinder/ckfinder.html?type=Flash',
+        //    filebrowserUploadUrl: basepath + '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+        //    filebrowserImageUploadUrl: basepath + '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+        //    filebrowserFlashUploadUrl: basepath + '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash'
+        //});
+
+        var url = '@Url.Action("CapNhat", "Admin_HoiDap")/@(Model == null ? "0" : Model.ID.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function Quaylai() {
+        window.history.back(-1);
+    }
+
+</script>
+
+<script type="text/ecmascript">
+
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_CauHoi", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin Hỏi - Đáp</legend>
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px" id="lbl_nguoihoi">Tên người hỏi
+                    </td>
+                    <td>
+                        @Html.TextBox("NGUOI_HOI", @Model.NGUOI_HOI, new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px" id="lbl_email">
+                        Email
+                    </td>
+                    <td>
+                        @Html.TextBox("EMAIL", @Model.EMAIL, new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px" id="lbl_address">
+                        Địa chỉ
+                    </td>
+                    <td>
+                        @Html.TextBox("DIA_CHI", @Model.DIA_CHI, new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px" id="lbl_email">
+                        Số điện thoại
+                    </td>
+                    <td>
+                        @Html.TextBox("SO_DIEN_THOAI", @Model.SO_DIEN_THOAI, new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px">Ngày hỏi
+                    </td>
+                    <td>
+                        @Html.TextBox("NGAY_DANG", string.Format("{0:dd/MM/yyyy}", Model.NGAY_DANG), new { style = "width:150px", @readonly = "readonly" })                            
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td>
+                        Hiển thị
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(m => m.HIEN_THI, new { })
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label">Câu hỏi
+                    </td>
+                    <td class="editor_field">
+                        @(Html.TextArea("CAU_HOI", @Model.CAU_HOI, new { style = "width:100%; font-size: 14px;", @readonly = "readonly" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td id="lbl_noidung">Trả lời
+                    </td>
+                    <td>
+                        @(Html.TextAreaFor(m => m.TRA_LOI, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" value="Cập nhật" />
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width: 130px; height: 35px" value="Quay lại" />
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+}
+
+

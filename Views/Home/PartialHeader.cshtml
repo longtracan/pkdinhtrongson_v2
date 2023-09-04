@@ -1,0 +1,44 @@
+﻿@using TLBD.Areas.admin.Models.Logo;
+@using TLBD.Areas.admin.Models.ThongTin;
+
+@{
+    var logo = Logo_Class.Logo();
+
+    ThongTin_Class ttClss = new ThongTin_Class();
+    var thongtin = ttClss.Get();
+}
+
+<div class="header-area">
+    <div class="container">
+        <div class="row align-items-center justify-content-center">
+            <div id="logo" class="col-sm-2 col-lg-2">
+                <div class="left">
+                    <a href="@Url.Content("~/")">
+                        <img style="max-width:none" src="@Url.Content("~/Content/Web/" + @logo.sIMG_URL)" alt="Logo">
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-10 col-lg-10">
+                <div class="right">
+                    <ul>
+                        <li>
+                            <i class="flaticon-phone"></i>
+                            <h4>Liên hệ</h4>
+                            <a href="tel:@thongtin.sSDT">@thongtin.sSDT</a>
+                        </li>
+                        <li>
+                            <i class="flaticon-medical-checkup"></i>
+                            <h4>Ngày làm việc</h4>
+                            <a href="#">Thứ hai - Chủ nhật</a>
+                        </li>
+                        <li>
+                            <i class="flaticon-fast-time"></i>
+                            <h4>Giờ làm việc</h4>
+                            <span>06:30 SA - 18:15 CH</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

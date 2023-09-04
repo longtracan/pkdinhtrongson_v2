@@ -1,0 +1,44 @@
+﻿@using TLBD.Areas.admin.Models.Lien_Ket;
+@model List<Lienket_Model>
+
+<!-- features -->
+<div class="bg-default pdt40 pdb40 hidden-xs">
+    <div class="container">
+        <div class="row">
+            <ul id="partnerLightSlider">
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <a href="@item.sLIEN_KET_HEF" target="_blank">
+
+                            <img class="img-responsive"
+                                 alt="@item.sTIEU_DE"
+                                 style="height:100px;border-style: solid;border-color:white;border-width:2px"
+                                 src="@Url.Content(string.Format("~/Content/Lienket/{0}", item.sIMG_URL))" />
+                        </a>
+                    </li>
+                }
+            </ul>
+
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/Scripts/jquery-3.3.1.js")" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+        $("#partnerLightSlider").lightSlider({
+            auto: true,
+            speed: 4000,
+            loop: true,
+            slideEndAnimation: true,
+            pager: false,
+            adaptiveHeight: false,
+            slideMargin: 10,
+            verticalHeight: 200,
+            pause: 5000,
+            item: 4,
+            controls: false
+        });
+    });
+</script>

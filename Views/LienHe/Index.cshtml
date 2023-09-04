@@ -1,0 +1,68 @@
+﻿@using TLBD.Areas.admin.Models.ThongTin;
+@model ThongTin_Model
+
+@{
+    Layout = "~/Views/Shared/_LayoutBoostrap.cshtml";
+}
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="page-breadcrumb">
+                <ol class="breadcrumb">
+                    <li><a href="~/">Trang chủ</a></li>
+                    <li>Liên hệ</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="box">
+                        <div class="">
+                            <h3 class="tieu-de">Liên hệ</h3>
+                        </div>
+                        <div class="box-body view-box min-margin" style="padding:0px">
+                            <div class="row" style="margin:15px; color:white; padding: 30px 0px">
+                                <div class="col-md-12"
+                                     style="text-align:center; font-weight:bold; font-size: 36px; padding:15px">
+                                    @Model.sTEN_DONVI
+                                </div>
+
+
+                                <div class="col-md-3 col-xs-12"><i class="fa fa-home" aria-hidden="true"></i> Địa chỉ: </div>
+                                <div class="col-md-9 col-xs-12">@Model.sDIACHI_DONVI</div>
+
+                                <div class="col-md-3 col-xs-12"><i class="fa fa-phone" aria-hidden="true"></i> Số điện thoại: </div>
+                                <div class="col-md-9 col-xs-12">@Model.sSDT</div>
+
+                                <div class="col-md-3 col-xs-12"><i class="fa fa-envelope" aria-hidden="true"></i> Email: </div>
+                                <div class="col-md-9 col-xs-12">@Model.sEMAIL</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="">
+                            <h3 class="tieu-de">Google Map</h3>
+                        </div>
+                        <div class="box-body" style="padding:0px">
+                            <div class="row" style="margin:15px;">
+                                <a href=" @Model.MAP_LINK " target=" _blank">
+                                <img src="@Url.Content("~/Content/Map/" + Model.MAP_IMG)"
+                                     alt=""
+                                     style="height:240px; object-fit:cover; object-position:center;width:100%;border-color:white; border-style:solid;border-width:2px">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

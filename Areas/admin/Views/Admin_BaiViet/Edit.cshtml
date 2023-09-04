@@ -1,0 +1,360 @@
+﻿@model TLBD.Areas.admin.Models.BaiViet.BaiViet_Model
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Cập nhật bài viết";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script type="text/javascript" src="@Url.Content("~/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.ui.datepicker-vi.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.maskedinput.min.js")" type="text/javascript"></script>
+
+<link href="~/css/Tree/easyui.css" rel="stylesheet" />
+<link href="~/css/Tree/icon.css" rel="stylesheet" />
+<link href="~/css/Tree/demo.css" rel="stylesheet" />
+
+<script src="~/css/Tree/jquery.easyui.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#form").submit(function (e) {
+            var run = true;
+            run = kiemtra("tieude", "sTIEU_DE", run);
+
+            if (!run) {
+                e.preventDefault();
+
+            }
+        });
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");
+            alert("Chưa nhập đủ thông tin " + label);
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        //var basepath = '@Url.Content("~/")';
+        var basepath = '';
+        CKEDITOR.replace('TOM_TAT',
+        {
+            filebrowserBrowseUrl: basepath + '/ckfinder/ckfinder.html',
+            filebrowserImageBrowseUrl: basepath + '/ckfinder/ckfinder.html?type=Images',
+            filebrowserFlashBrowseUrl: basepath + '/ckfinder/ckfinder.html?type=Flash',
+            filebrowserUploadUrl: basepath + '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: basepath + '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+            filebrowserFlashUploadUrl: basepath + '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash'
+        });
+
+        CKEDITOR.replace('NOI_DUNG',
+        {
+            filebrowserBrowseUrl: basepath + '/ckfinder/ckfinder.html',
+            filebrowserImageBrowseUrl: basepath + '/ckfinder/ckfinder.html?type=Images',
+            filebrowserFlashBrowseUrl: basepath + '/ckfinder/ckfinder.html?type=Flash',
+            filebrowserUploadUrl: basepath + '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Files',
+            filebrowserImageUploadUrl: basepath + '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Images',
+            filebrowserFlashUploadUrl: basepath + '/ckfinder/core/connector/aspx/connector.aspx?command=QuickUpload&type=Flash',
+            height: '1000px',
+        });
+
+        var url = '@Url.Action("CapNhat", "Admin_BaiViet")/@(Model == null ? "0" : Model.ID.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function Quaylai() {
+        window.history.back(-1);
+    }
+
+    $(function () {
+        $("#NGAY_DANG").datepicker($.datepicker.regional["vi"]);
+        $("#NGAY_DANG").mask("99/99/9999");
+    });
+
+</script>
+
+<script type="text/javascript">
+
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $("#cbo_Nhom_BaiViet_2").change(function () {
+            var grid = $("#grid").data("kendoGrid");
+            grid.dataSource.read();
+            grid.refresh();
+        });
+
+    });
+
+    function filter() {
+        return {
+            id_nhom_baiviet: $("#cbo_Nhom_BaiViet_2").val()
+        };
+    }
+
+    function hien_dsbv() {
+        $("#dsbv").toggle();
+    }
+
+    function them_bvlq(id, dome) {
+        var $id_bvlq = $("#id_bvlq");
+        var ds_bvlq = $id_bvlq.val();
+        var ar_id = ds_bvlq.split(',');
+        for (var i = 0; i < ar_id.length; i++) {
+            if (parseInt(ar_id[i]) == id) return;
+        }
+        var tieude = $(dome).parent().parent().find("td:nth-child(2)").html();
+        var li_bvlq = $("<li></li>").html(tieude).append("<a class='xoa_bvlq' hef='' onclick='xoa_bvlq(" + id + ", this)'><img src='@Url.Content(string.Format("~/content/Web/xoa.jpg"))'></a>");
+        $("#list_bvlq").append(li_bvlq);
+
+
+        ds_bvlq = ds_bvlq + "," + id;
+        $id_bvlq.val(ds_bvlq);
+    }
+
+    function xoa_bvlq(id, dome) {
+        $(dome).parent().remove();
+        var $id_bvlq = $("#id_bvlq");
+        var ds_bvlq = $id_bvlq.val();
+        var ar_id = ds_bvlq.split(',');
+        var ds_id = "";
+        for (var i = 0; i < ar_id.length; i++) {
+            if (parseInt(ar_id[i]) != id)
+                ds_id = ds_id + "," + ar_id[i];
+        }
+        $id_bvlq.val(ds_id);
+    }
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_BaiViet", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin bài viết</legend>
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px" id="tieude">
+                        Tên bài viết
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.TIEU_DE, new { style = "width:100%" })
+                        @Html.ValidationMessageFor(m => m.TIEU_DE)
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Nổi bật
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(m => m.NOI_BAT, new { })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                @*Ngày đăng*@
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px">
+                        Ngày đăng
+                    </td>
+                    <td>
+                        @if (Model == null)
+                        {
+                            @Html.TextBox("NGAY_DANG", string.Format("{0:dd/MM/yyyy}", DateTime.Now), new { style = "width:150px" }) }
+                        else
+                        {
+                            @Html.TextBox("NGAY_DANG", string.Format("{0:dd/MM/yyyy}", Model.NGAY_DANG), new { style = "width:150px" })}
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                @*Hình ảnh*@
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td>
+                        Hình ảnh
+                    </td>
+                    <td class="hinh">
+                        <input type="file" name="ImageUrl" id="ImageUrl" />
+                        @if (Model != null)
+                        {
+                            <img src="@Url.Content("~/content/Baiviet/")@Model.IMAGE_URL">}
+                    </td>
+                    <td style="width: 10%"></td> (size 178x178 )
+                </tr>
+
+                @*FileDownLoad*@
+
+
+                @*<tr>
+                <td style="width: 10%"></td>
+                <td>
+                    File download
+                </td>
+                <td class="hinh">
+                    <input type="file" name="FileUrl" id="FileUrl" />
+                    @if (Model != null)
+                    {
+        <img src="@Url.Content("~/content/File_Download/")@Model.FILE_DOWNLOAD">}
+                </td>
+                <td style="width: 10%"></td>
+            </tr>*@
+
+
+                @*Chuyên mục*@
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Chuyên mục
+                    </td>
+                    <td>
+                        @Html.DropDownList("sID_CHUYENMUC", (IEnumerable<SelectListItem>)ViewData["CHUYEN_MUC"], new { style = "width:250px; color: #000000;" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td>
+                        Nhóm bài viết
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.ID_NHOM_BAIVIET, (IEnumerable<SelectListItem>)ViewData["NHOM_BAIVIET"], new { style = "width:250px" })
+                        @Html.ValidationMessageFor(m => m.ID_NHOM_BAIVIET)
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label">
+                        Mã Icon (lưu ý copy không có dấu .):
+                    </td>
+                    <td class="editor_field">
+                        @(Html.TextAreaFor(m => m.SP_NHASANXUAT, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label">
+                        Thứ tự hiển thị (nếu có):
+                    </td>
+                    <td class="editor_field">
+                        @(Html.TextAreaFor(m => m.SP_BAOHANH, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label">
+                        Tóm tắt
+                    </td>
+                    <td class="editor_field">
+                        @(Html.TextAreaFor(m => m.TOM_TAT, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td id="noidung">
+                        Nội dung
+                    </td>
+                    <td>
+                        @(Html.TextAreaFor(m => m.NOI_DUNG, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td id="giasanpham">
+                        Giá dịch vụ
+                    </td>
+                    <td>
+                        @(Html.TextBoxFor(m => m.SP_GIA))
+                    </td>
+                    <td style="width: 20%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td id="idalbum">
+                        ID Album Ảnh
+                    </td>
+                    <td>
+                        @(Html.TextBoxFor(m => m.SP_SETUP))
+                    </td>
+                    <td style="width: 20%"></td>
+                </tr>
+
+                @*<tr>
+            <td style="width: 10%"></td>
+            <td id="giakhuyenmai">
+                Giá khuyến mãi
+            </td>
+            <td>
+                @(Html.TextBoxFor(m => m.SP_GIAKM))
+            </td>
+            <td style="width: 10%"></td>
+        </tr>*@
+
+                @*Người viết bài*@
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td>
+                        Người viết bài
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.ID_NGUOIVIETBAI, (IEnumerable<SelectListItem>)ViewData["NGUOI_VIETBAI"], new { style = "width:250px" })
+                        @Html.ValidationMessageFor(m => m.ID_NHOM_BAIVIET)
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" value="Cập nhật" />
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width: 130px; height: 35px" value="Quay lại" />
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+}
+
+

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<SelectListItem>
+@{
+    ViewBag.Title = "Quản trị chi tiết Album";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+
+        $("#cbo_Album").change(function () {
+            var grid = $("#grid").data("kendoGrid");
+            grid.dataSource.read();
+            grid.refresh();
+        });
+    });
+
+    function filter() {
+        return {
+            id_album: $("#cbo_Album").val()
+        };
+    }
+
+    function Them() {
+        var url = "@Url.Action("Add", "Admin_AlbumDetail")/" + $("#cbo_Album").val();
+        window.location = url;
+        return false;
+    }
+
+
+</script>
+<div>
+    @Html.DropDownList("cbo_Album", (IEnumerable<SelectListItem>)ViewData["ALBUM"], new { style = "width:200px;border: 1px solid #ccc;border-radius: 3px;overflow: hidden;height: 30px;background: #e6f2f7; font-family: 'Times New Roman';font-weight: bold; font-size: 14px; margin: 10px 0" }) 
+</div>
+@using Kendo.Mvc.UI;
+@using (Html.BeginForm("LayDuLieu", "Admin_AlbumDetail", FormMethod.Post, new { id = "form" }))
+{    
+    @(
+        Html.Kendo().Grid<TLBD.Areas.admin.Models.AlbumDetail.AlbumDetail_Model>()
+        .Name("grid")
+        .Columns(
+            c =>
+            {
+                c.Bound(m => m.sID).Title("ID").Width(30);
+                c.Bound(m => m.sDAI_DIEN).Title("Hình đại diện").Width(50);
+                c.Bound(m => m.sIMAGE_URL).Title("Hình ảnh").Width(200)
+                    .ClientTemplate("<img style='height:40px' src='" + Url.Content("~/Content/Album/") + "#= sIMAGE_URL #' />");
+                c.Template(m => { }).Width(10).Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_AlbumDetail", new { area = "admin" }) + "/#= sID #'>Chỉnh sửa</a>");
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_AlbumDetail") + "/#= sID #'>Xóa</a>");
+
+            })
+        .ToolBar(tb =>
+        {
+            tb.Custom().Text("Thêm").HtmlAttributes(new { @class = "button_them", href = "javascript:Them();", onclick = "Them()" });
+        })
+        .Pageable()
+        .DataSource(ds => ds
+            .Ajax()
+            .Model(m =>
+            {
+                m.Id(n => n.sID);
+            })
+            .PageSize(10)
+            .Read(r => r.Action("Read", "Admin_AlbumDetail").Data("filter"))
+
+        )
+        .Events(e=>e.DataBound("onDataBound"))
+    )
+}

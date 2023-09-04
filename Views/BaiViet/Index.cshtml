@@ -1,0 +1,148 @@
+﻿@model TLBD.Areas.admin.Models.BaiViet.List_BaiViet_View
+
+@using TLBD.Areas.admin.Models.BaiViet;
+
+<script src="@Url.Content("~/js/jquery.js")"></script>
+@*<script>
+    $(document).ready(function () {
+        $('#comment-button').off('click').on('click', function (e) {
+            var id = $(this).data('id');
+            var comment = $("#comment-box").val();
+            var name = $("#name").val();
+            $.ajax({
+                type: "POST",
+                url: "/Coment/Comment",
+                data: {
+                    id: id,
+                    comment: comment,
+                    name: name
+                },
+                contentData: "json",
+                success: function (result) {
+                    window.location.href = window.location.pathname + window.location.search + window.location.hash;
+                },
+                failure: function (response) {
+                    console.log(response.responseText);
+                },
+                error: function (response) {
+                    console.log(response.responseText);
+                }
+            });
+        });
+    });
+</script>*@
+@{ Layout = "~/Views/Shared/_Layout-Home.cshtml";}
+  @{  var clss = new TLBD.Areas.admin.Models.BaiViet.BaiViet_Class();
+    var lstComment = clss.GetListComment(@Model.BaiViet.ID);
+}
+@using TLBD.Functions
+
+@Html.Action("SlideImage2", "Home")
+
+    <div class="blog-details-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="details-item">
+                        <img src="@Url.Content(string.Format("~/Content/BaiViet/{0}", Model.BaiViet.IMAGE_URL))" alt="Details">
+                        <ul>
+                            @{ DateTime dtValue2 = (DateTime)Model.BaiViet.NGAY_DANG;
+                                <li>
+                                    <span>@dtValue2.ToShortDateString()</span>
+                                </li>
+                               }
+                            @*<li>
+                                <span>(0) Comments</span>
+                            </li>*@
+                        </ul>
+                        <h2>@Model.BaiViet.TIEU_DE</h2>
+                        <blockquote>
+                            <i class='bx bxs-quote-left'></i>
+                            <p>@Html.Raw(Model.BaiViet.TOM_TAT)</p>
+                        </blockquote>
+                        <div style="float: left; text-align:left">
+                        <p>@Html.Raw(Model.BaiViet.NOI_DUNG)</p>
+                        </div>
+                       
+                       
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="widget-area">
+                       @{
+                           BaiViet_Class bv_clss = new BaiViet_Class();
+                           List<BaiViet_Model> bv_lq_lst = new List<BaiViet_Model>();
+                           try
+                           {
+                               bv_lq_lst = bv_clss.List_Baiviet_lienquan(Model.BaiViet.ID).Take(4).ToList();
+                               if(bv_lq_lst.Count >= 1)
+                               {
+                               }
+                               else
+                               {
+                                   bv_lq_lst = bv_clss.List_Baiviet(Model.BaiViet.ID_NHOM_BAIVIET).Take(4).ToList();
+                               }
+                           }
+                           catch
+                           {
+
+                           };
+                         }
+                                
+                        <div class="post widget-item">
+                            <h3>Có thể bạn quan tâm</h3>
+                            @{ 
+                                foreach (var bv_lq in bv_lq_lst)
+                                {
+                                     <div class="inner">
+                                        <ul class="align-items-center">
+                                        <li>
+                                        <img src="@Url.Content(string.Format("~/Content/BaiViet/{0}", bv_lq.IMAGE_URL))" alt="Details">
+                                        </li>
+                                        <li>
+                                        <a href="@Url.RouteUrl("BaiViet_Route", new {TenBV = cUrlHelper.ToFriendlyUrl(bv_lq.TIEU_DE), id = bv_lq.ID })">@bv_lq.TIEU_DE</a>
+                                        @{
+                                            DateTime dtValue = (DateTime)bv_lq.NGAY_DANG;
+                                            <span>@dtValue.ToShortDateString()</span>
+                                            
+                                        }
+                                        </li>
+                                        </ul>
+                                    </div>
+
+                                }
+                            }
+                           
+                           
+                            <div class="common-doctor-contact widget-item">
+                                <div class="inner">
+                                    <i class='bx bxs-phone-call'></i>
+                                    <a href="tel:+05263527999">02563.527.999</a>
+                                    <a href="tel:+84913455278">091.3455.278</a>
+                                </div>
+                                <h4>Bạn cần tư vấn</h4>
+                                <p>Nếu bạn đang gặp các vấn đề gì về sức khỏe, đừng ngần ngại nhấc máy liên hệ với chúng tôi để được tư vấn, giải đáp và đặt lịch khám chữa bệnh cho bản thân và gia đình nhé. </p>
+                                <a class="common-btn" href="#">
+                                    Hoặc gửi Email: pkdkdinhtrongson@gmail.com
+                                    <span class="one"></span>
+                                    <span class="two"></span>
+                                </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+
+
+    <script type="text/javascript" src="@Url.Content("~/js/scrolling-nav.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/js/jquery.easing.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/js/jquery.rateyo.min.js")"></script>
+    <script src="js/jquery.desoslide.js "></script>
+
+    <script src="@Url.Content("~/Scripts/jquery-3.3.1.js")" type="text/javascript"></script>
+

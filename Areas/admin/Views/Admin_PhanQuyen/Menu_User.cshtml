@@ -1,0 +1,28 @@
+﻿@model int
+
+@{
+    var Load_Menu_PhanQuyen = TLBD.Areas.admin.Models.PhanQuyen_Menu.PhanQuyen_Menu_Class.Load_Menu_PhanQuyen(Model);
+}
+@using Kendo.Mvc.UI
+@(Html.Kendo().Menu().Name("menu").Items(
+            i =>
+            {
+                foreach (var item in Load_Menu_PhanQuyen)
+                {
+                    var List_Menu_Con = TLBD.Areas.admin.Models.PhanQuyen_Menu.PhanQuyen_Menu_Class.List_Menu_PhanQuyen_Con(item.sID_MENU, Model);
+                    if (List_Menu_Con.Count() > 0)
+                    {
+                        i.Add().Text(item.sTEN_MENU1).Items(
+                            ci =>
+                            {
+                                foreach (var item_con in List_Menu_Con)
+                                {
+                                    ci.Add().Text(item_con.sTEN_MENU1).Url(Url.Action(item_con.sVIEW, item_con.sCONTROLLER, new { area = "admin" }));
+                                }
+                            }
+                        );
+                    }
+
+                }
+
+            }))  

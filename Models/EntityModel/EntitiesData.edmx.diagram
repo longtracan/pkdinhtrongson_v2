@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6a6fa6b369a34beab915fea214106a33" Name="Diagram1">
+        <EntityTypeShape EntityType="db_web_muoithuModel.ACTIONLOG" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.ALBUM" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.ALBUMDETAIL" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.BACKGROUND" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.BAI_VIET" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.BAIVIET_LIENQUAN" Width="1.5" PointX="7.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.BANNER" Width="1.5" PointX="9.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.BIEU_QUYET" Width="1.5" PointX="10" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.CART" Width="1.5" PointX="11.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.CART_STATUS" Width="1.5" PointX="2.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.CHUNGNHAN" Width="1.5" PointX="4.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.CHUYEN_MUC" Width="1.5" PointX="13.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.COMMENT" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.COQUAN_BANHANH" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.DANGKY" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.DANGKYHOC" Width="1.5" PointX="14.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.DANGKYHOC_SYN" Width="1.5" PointX="6.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.DANHMUC_BIEUQUYET" Width="1.5" PointX="7.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.DM_DVHC" Width="1.5" PointX="15.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.DM_GIOITINH" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.DM_HANGDT" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.DM_HANGGP" Width="1.5" PointX="2.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.DM_QUOCTICH" Width="1.5" PointX="16.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.HOI_DAP" Width="1.5" PointX="16.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.KHOAHOC" Width="1.5" PointX="8.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.LIEN_KET" Width="1.5" PointX="10.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.LOAI_HIENTHI" Width="1.5" PointX="2.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.LOAIHINHDAOTAO" Width="1.5" PointX="17.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.LOGO" Width="1.5" PointX="12.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.LUOT_TRUY_CAP" Width="1.5" PointX="17.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.MENU" Width="1.5" PointX="5.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.NGUOI_VIETBAI" Width="1.5" PointX="14.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.NHOM_BAIVIET" Width="1.5" PointX="5" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.NHOM_VANBAN" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.ORDER" Width="1.5" PointX="16.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.ORDER_DETAIL" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.ORDER_STATUS" Width="1.5" PointX="18.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.PHANQUYEN_CHUYENMUC" Width="1.5" PointX="18.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.PHANQUYEN_MENU" Width="1.5" PointX="8" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.PRODUCT" Width="1.5" PointX="18.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.PRODUCTCATELOGY" Width="1.5" PointX="2.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.RATING" Width="1.5" PointX="4.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.ROLEINGROUP" Width="1.5" PointX="19.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.SAN_PHAM_ALBUM" Width="1.5" PointX="19.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.SLIDE" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.SLIDEBANNER" Width="1.5" PointX="20.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.SLOGAN" Width="1.5" PointX="20.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.SPECIFICROLE" Width="1.5" PointX="20.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.SUB_BANNER" Width="1.5" PointX="21.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.SUB_BANNER_" Width="1.5" PointX="12.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.TOKEN" Width="1.5" PointX="22.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.USERDETAIL" Width="1.5" PointX="4.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.VANBAN" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.VIDEO" Width="1.5" PointX="22.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.webpages_Membership" Width="1.5" PointX="6.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.webpages_OAuthMembership" Width="1.5" PointX="8.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.webpages_Roles" Width="1.5" PointX="5.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.webpages_UserProfile" Width="1.5" PointX="22.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.webpages_UsersInRoles" Width="1.5" PointX="8" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="db_web_muoithuModel.FK_BIEU_QUYET_DANHMUC_BIEUQUYET" ManuallyRouted="false" />
+        <AssociationConnector Association="db_web_muoithuModel.FK_VANBAN_COQUAN_BANHANH" ManuallyRouted="false" />
+        <AssociationConnector Association="db_web_muoithuModel.FK_NHOM_BAIVIET_LOAI_HIENTHI" ManuallyRouted="false" />
+        <AssociationConnector Association="db_web_muoithuModel.FK_PHANQUYEN_MENU_MENU" ManuallyRouted="false" />
+        <AssociationConnector Association="db_web_muoithuModel.FK_VANBAN_NHOM_VANBAN" ManuallyRouted="false" />
+        <AssociationConnector Association="db_web_muoithuModel.fk_RoleId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.UU_DIEM" Width="1.5" PointX="17.375" PointY="22.75" />
+        <EntityTypeShape EntityType="db_web_muoithuModel.THONG_TIN" Width="1.5" PointX="0.75" PointY="23.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,158 @@
+﻿@model TLBD.Areas.admin.Models.ThongTin.ThongTin_Model
+
+@{
+    ViewBag.Title = "Thông tin";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#form").submit(function (e) {
+            var run = true;
+            run = kiemtra("tendonvi", "sTEN_DONVI", run);
+            run = kiemtra("diachi", "sDIACHI_DONVI", run);
+
+            if (!run) {
+                e.preventDefault();
+
+            }
+        });
+
+        var url = '@Url.Action("CapNhat", "Admin_ThongTin")/@(Model==null ? "0" : Model.sID.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");
+            alert("Chưa nhập đủ thông tin!");
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }  
+</script>
+
+@using (Html.BeginForm("Index", "ThongTin", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{   
+    <div>
+        <fieldset>
+            <legend>Thông tin</legend>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px" id="tendonvi">
+                        Tên đơn vị 
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sTEN_DONVI, new { style ="width:100%" })                       
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px" id="diachi">
+                        Địa chỉ
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sDIACHI_DONVI, new { style ="width:100%" })                       
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>     
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Số điện thoại
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sSDT, new { style ="width:100%" })                       
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>      
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Email
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sEMAIL, new { style ="width:100%" })                       
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>  
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Chào mừng
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.CHAO_MUNG, new { style = "width:100%" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr> 
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Video
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.VIDEO_LINK, new { style = "width:100%" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>  
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Google map
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.MAP_LINK, new { style = "width:100%" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>  
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        
+                    </td>
+                    <td class="hinh">
+                        <input type="file" name="ImageUrl" id="ImageUrl" />
+                        @if (Model != null)
+                        {
+                            <img src="@Url.Content("~/content/Map/")@Model.MAP_IMG">
+                        }
+                        @Html.ValidationMessageFor(m => m.MAP_IMG)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+                                                      
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" style="width:130px" value="Cập nhật" />                        
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>     
+                    <td style="width:10%"></td>              
+                </tr>                 
+            </table>
+        </fieldset>
+    </div>
+}

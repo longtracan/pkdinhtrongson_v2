@@ -1,0 +1,64 @@
+﻿@using TLBD.Areas.admin.Models.ThongTin;
+@using TLBD.Areas.admin.Models.BaiViet;
+@using TLBD.Functions;
+@model ThongTin_Model
+@{ BaiViet_Class bv_clss = new BaiViet_Class();
+    var bv = bv_clss.Get(1074); }
+
+<div class="about-area two three pt-100 pb-70">
+    <div class="container">
+        <div class="row align-items-end">
+            <div class="col-lg-6">
+                <div class="about-img-two">
+                    <img src="@Url.Content(string.Format("~/Content/BaiViet/{0}", bv.IMAGE_URL))" alt="About">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-content">
+                    <div class="section-title">
+                        <div class="top">
+                            <span class="top-title">Giới Thiệu</span>
+                            <span class="sub-title">Về chúng tôi</span>
+                        </div>
+                        <h2>TẦM NHÌN – SỨ MỆNH – GIÁ TRỊ CỐT LÕI</h2>
+                        <p>@Html.Raw(bv.TOM_TAT)</p>
+                        <ul>
+                            <li>
+                                <a href="https://www.youtube.com/watch?v=Cgvx_jwROo8" class="popup-youtube">
+                                    <i class='bx bx-play'></i>
+                                </a>
+                                <span>Xem  Video</span>
+                            </li>
+
+
+
+
+                            <li>
+                                <a class="common-btn" href="@Url.RouteUrl("BaiViet_Route", new {TenBV = cUrlHelper.ToFriendlyUrl(bv.TIEU_DE), id = bv.ID })">
+                                    Xem chi tiết về chúng tôi
+                                    <span class="one"></span>
+                                    <span class="two"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            @*<button type="button" class="btn btn-primary video-btn" data-bs-toggle="modal" data-src="https://www.youtube.com/embed/Jfrjeg26Cwk" data-bs-target="#myModal">
+                Play Video 1 - autoplay
+            </button>*@
+
+            @*// iframe youtube*@
+            <!-- Modal -->
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+

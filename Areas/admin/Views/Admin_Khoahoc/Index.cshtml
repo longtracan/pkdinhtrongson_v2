@@ -1,0 +1,115 @@
+﻿@using Kendo.Mvc.UI;
+@model IEnumerable<TLBD.Areas.admin.Models.Khoahoc.KhoahocModel>
+@{
+    ViewBag.Title = "Quản trị khóa học";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script>
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+
+        $("#cbo_Loaihinhdaotao").change(function () {
+            var grid = $("#grid").data("kendoGrid");
+            grid.dataSource.read();
+            grid.refresh();
+        });
+
+    });
+
+    function filter() {
+        var val = $("#cbo_Loaihinhdaotao").val();
+        if (val == "")
+            val = "0";
+        return {
+            loaihinhId: val
+        };
+    }    
+
+    function Them() {
+        var url = "@Url.Action("Add", "Admin_Khoahoc")?loaihinhId=" + $("#cbo_Loaihinhdaotao").val();
+        window.location = url;
+        return false;
+    }
+
+    function load_khoahoc() {
+
+        var grid = $("#grid").data("kendoGrid");
+        grid.dataSource.read();
+        grid.refresh();
+    }
+</script>
+
+<div style="height: 50px; margin-top: 20px;">
+    <div style="float: left;">
+        @(Html.Kendo().DropDownList()
+            .Name("cbo_Loaihinhdaotao")
+            .BindTo((IEnumerable<SelectListItem>)ViewData["DanhMucLoaihinhDaotao"])
+            .DataTextField("Text")
+            .DataValueField("Value")
+            .HtmlAttributes(new { style = "width:500px" }))        
+    </div>
+    
+    <div>
+        <input class="k-button k-button-icontext k-grid-Edit" type="button" onclick="load_khoahoc()" value="Xem"/>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("LayDuLieu", "Admin_Khoahoc", FormMethod.Post, new { id = "form" }))
+    {    
+        @(
+            Html.Kendo().Grid<TLBD.Areas.admin.Models.Khoahoc.KhoahocModel>(Model)
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.KhoahocId).Title("ID").Width(30);          
+                c.Bound(m => m.KhoahocTen).Title("Tên").Width(200);                
+                c.Bound(m => m.Khaigiang).Title("Khai giảng").Format("{0:dd/MM/yyyy}").Width(100);
+                c.Bound(m => m.Sathach).Title("Sát hạch").Format("{0:dd/MM/yyyy}").Width(100);
+                c.Bound(m => m.Hocphi).Title("Học phí").Width(100);
+                c.Bound(m => m.SoHVien).Title("Số học viên").Width(100);
+                c.Bound(m => m.MAPID).Title("MAPID").Width(100);
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_Khoahoc", new { area = "admin" }) + "/#= KhoahocId #'>Chỉnh sửa</a>");                    
+                c.Template(m => { }).Width(50).Title("")
+                    .ClientTemplate("<a id = 'button_xoa' class='k-button k-button-icontext k-grid-Edit remove_link' href='" + Url.Action("Delete", "Admin_Khoahoc", new { area = "admin" }) + "/#= KhoahocId #'>Xóa</a>");  
+
+            })
+    .ToolBar(tb =>
+        {
+            tb.Custom().Text("Thêm").HtmlAttributes(new { @class = "button_them", href = "javascript:Them();", onclick = "Them()" });                                
+        })
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(n => n.KhoahocId);
+        })
+        .PageSize(20)
+        .Read(r => r.Action("Read", "Admin_Khoahoc").Data("filter"))
+        
+    )
+    .Events(e=>e.DataBound("onDataBound"))
+    )
+    }

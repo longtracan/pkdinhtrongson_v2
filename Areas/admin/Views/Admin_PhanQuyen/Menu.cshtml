@@ -1,0 +1,166 @@
+﻿@model int
+
+@{
+    var List_Menu_PhanQuyen = TLBD.Areas.admin.Models.PhanQuyen_Menu.PhanQuyen_Menu_Class.List_Menu_PhanQuyen(Model);
+}
+    [
+@for (var i = 0; i < List_Menu_PhanQuyen.Count; i++)
+{
+    var item = List_Menu_PhanQuyen[i];
+    if (i < List_Menu_PhanQuyen.Count - 1)
+    {
+        <text>
+            {
+            "id":@item.sID_MENU,
+            "text":"@item.sTEN_MENU1",
+            @if (item.sTRANG_THAI == 0)
+            {
+                <text>
+                    "checked": false,
+                </text>
+            }
+            else
+            {
+                <text>
+                    "checked": true,
+                </text>
+            }
+            "children":
+            [
+            @{
+        var List_Menu_PhanQuyen_menucon = TLBD.Areas.admin.Models.PhanQuyen_Menu.PhanQuyen_Menu_Class.List_Menu_PhanQuyen_menucon(Model, item.sID_MENU);
+            }
+            @for (int a = 0; a < List_Menu_PhanQuyen_menucon.Count; a++)
+            {
+                var item_con = List_Menu_PhanQuyen_menucon[a];
+                if (a < List_Menu_PhanQuyen_menucon.Count - 1)
+                {
+                    <text>
+                        {
+                        "id":@item_con.sID_MENU,
+                        "text":"@item_con.sTEN_MENU1",
+                        @if (item_con.sTRANG_THAI == 0)
+                        {
+                            <text>
+                                "checked": false,
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                                "checked": true,
+                            </text>
+                        }
+                        "state":"open"
+                        },
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        {
+                        "id":@item_con.sID_MENU,
+                        "text":"@item_con.sTEN_MENU1",
+                        @if (item_con.sTRANG_THAI == 0)
+                        {
+                            <text>
+                                "checked": false,
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                                "checked": true,
+                            </text>
+                        }
+                        "state":"open"
+                        }
+                    </text>
+                }
+
+            }
+            ],
+
+            "state":"open"
+            },
+        </text>
+    }
+    else if (i == List_Menu_PhanQuyen.Count - 1)
+    {
+        <text>
+            {
+            "id":@item.sID_MENU,
+            "text":"@item.sTEN_MENU1",
+            @if (item.sTRANG_THAI == 0)
+            {
+                <text>
+                    "checked": false,
+                </text>
+            }
+            else
+            {
+                <text>
+                    "checked": true,
+                </text>
+            }
+            "children":
+            [
+            @{
+        var List_Menu_PhanQuyen_menucon = TLBD.Areas.admin.Models.PhanQuyen_Menu.PhanQuyen_Menu_Class.List_Menu_PhanQuyen_menucon(Model, item.sID_MENU);
+            }
+            @for (int a = 0; a < List_Menu_PhanQuyen_menucon.Count; a++)
+            {
+                var item_con = List_Menu_PhanQuyen_menucon[a];
+                if (a < List_Menu_PhanQuyen_menucon.Count - 1)
+                {
+                    <text>
+                        {
+                        "id":@item_con.sID_MENU,
+                        "text":"@item_con.sTEN_MENU1",
+                        @if (item_con.sTRANG_THAI == 0)
+                        {
+                            <text>
+                                "checked": false,
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                                "checked": true,
+                            </text>
+                        }
+                        "state":"open"
+                        },
+                    </text>
+                }
+                else
+                {
+                    <text>
+                        {
+                        "id":@item_con.sID_MENU,
+                        "text":"@item_con.sTEN_MENU1",
+                        @if (item_con.sTRANG_THAI == 0)
+                        {
+                            <text>
+                                "checked": false,
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                                "checked": true,
+                            </text>
+                        }
+                        "state":"open"
+                        }
+                    </text>
+                }
+
+            }
+            ],
+            "state":"open"
+            }
+        </text>
+    }
+}
+    ]

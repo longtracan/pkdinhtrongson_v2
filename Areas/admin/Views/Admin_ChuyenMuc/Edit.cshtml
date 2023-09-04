@@ -1,0 +1,121 @@
+﻿@model TLBD.Areas.admin.Models.ChuyenMuc.ChuyenMuc_Model
+
+@{
+    ViewBag.Title = "Cập nhật chuyên mục";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        $("#form").submit(function (e) {
+            var run = true;
+            run = kiemtra("tenchuyenmuc", "sTEN_CHUYENMUC", run);
+
+            if (!run) {
+                e.preventDefault();
+
+            }
+        });
+
+        var url = '@Url.Action("CapNhat", "Admin_ChuyenMuc")/@(Model==null ? "0" : Model.ID.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");
+            alert("Chưa nhập đủ thông tin!");
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }
+
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_ChuyenMuc", FormMethod.Post, new { id = "form" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin chuyên mục</legend>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px" id="tenchuyenmuc">
+                        Tên chuyên mục
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.TEN_CHUYENMUC, new { style = "width:100%" })
+                        @Html.ValidationMessageFor(m => m.TEN_CHUYENMUC)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Hiển thị menu
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(m => m.MENU_TREN, new { })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Hiển thị trang chủ
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(m => m.HIENTHI_TRANGCHU, new { })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Thứ tự menu trên
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.THUTU_TREN, new { style = "width:250px" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px">
+                        Link
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.LINK, new { style = "width:100%" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" style="width:130px" value="Cập nhật" />
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+}

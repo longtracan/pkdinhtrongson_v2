@@ -1,0 +1,251 @@
+﻿@model  TLBD.Areas.admin.Models.Khoahoc.KhoahocModel
+@using Kendo.Mvc.UI
+@{
+    ViewBag.Title = "Cập nhật khóa học";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script type="text/javascript" src="@Url.Content("~/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.ui.datepicker-vi.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.maskedinput.min.js")" type="text/javascript"></script>
+
+<link href="~/css/Tree/easyui.css" rel="stylesheet" />
+<link href="~/css/Tree/icon.css" rel="stylesheet" />
+<link href="~/css/Tree/demo.css" rel="stylesheet" />
+
+<script src="~/css/Tree/jquery.easyui.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {       
+        $("#form").submit(function (e) {
+            var run1 = true, run2 = true, run3 = true, run4 = true;
+            run1 = kiemtra("lblKhoahocTen", "KhoahocTen", run1);
+            run2 = kiemtra("lblSoHVien", "SoHVien", run2);
+            run3 = kiemtra("lblTuoitoithieu", "Tuoitoithieu", run3);
+            run4 = kiemtra("lblHocphi", "Hocphi", run4);
+           
+            if (!run1 || !run2 || !run3 || !run4) {
+                alert("Chưa nhập đủ thông tin ");
+                e.preventDefault();
+            }
+        });
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");            
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+<script type="text/javascript">
+    $(function (){ 		
+
+        var url = '@Url.Action("Capnhat", "Admin_Khoahoc")/@(Model == null ? "0" : Model.KhoahocId.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function Quaylai() {
+        window.history.back(-1);
+    }
+
+    $(function () {
+        $("#Khaigiang").datepicker($.datepicker.regional["vi"]);
+        //$("#Khaigiang").mask("99/99/9999");
+        $("#Begiang").datepicker($.datepicker.regional["vi"]);
+        //$("#Begiang").mask("99/99/9999");
+        $("#Ngaythi").datepicker($.datepicker.regional["vi"]);
+        //$("#Ngaythi").mask("99/99/9999");
+        $("#Sathach").datepicker($.datepicker.regional["vi"]);
+        //$("#Sathach").mask("99/99/9999");
+    });
+
+</script>
+
+<script type="text/ecmascript">
+
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_Khoahoc", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin khóa học</legend>
+            <table style="width: 100%">
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label" id="lblKhoahocTen">
+                        Tên khóa học
+                    </td>
+                    <td class="editor_field">
+                        @(Html.TextBoxFor(m => m.KhoahocTen, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Loại hình đào tạo
+                    </td>
+                    <td>
+                        @Html.DropDownList("LoaihinhDaotaoId", (IEnumerable<SelectListItem>)ViewData["DanhMucLoaihinhDaoTao"], new { style = "width:250px; color: #000000;" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+                
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px">Ngày khai giảng
+                    </td>
+                    <td>
+                        @if (Model == null)
+                        {
+                            @Html.TextBox("Khaigiang", string.Format("{0:dd/MM/yyyy}", DateTime.Now), new { style = "width:150px" })                            
+                        }
+                        else
+                        {
+                            @Html.TextBox("Khaigiang", string.Format("{0:dd/MM/yyyy}", Model.Khaigiang), new { style = "width:150px" })                            
+                        }
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px">
+                        Ngày bế giảng
+                    </td>
+                    <td>
+                        @if (Model == null)
+                        {
+                            @Html.TextBox("Begiang", string.Format("{0:dd/MM/yyyy}", DateTime.Now), new { style = "width:150px" })
+                        }
+                        else
+                        {
+                            @Html.TextBox("Begiang", string.Format("{0:dd/MM/yyyy}", Model.Begiang), new { style = "width:150px" })
+                        }
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px">
+                        Ngày thi
+                    </td>
+                    <td>
+                        @if (Model == null)
+                        {
+                            @Html.TextBox("Ngaythi", string.Format("{0:dd/MM/yyyy}", DateTime.Now), new { style = "width:150px" })
+                        }
+                        else
+                        {
+                            @Html.TextBox("Ngaythi", string.Format("{0:dd/MM/yyyy}", Model.Ngaythi), new { style = "width:150px" })
+                        }
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px">
+                        Ngày sát hạch
+                    </td>
+                    <td>
+                        @if (Model == null)
+                        {
+                            @Html.TextBox("Sathach", string.Format("{0:dd/MM/yyyy}", DateTime.Now), new { style = "width:150px" })
+                        }
+                        else
+                        {
+                            @Html.TextBox("Sathach", string.Format("{0:dd/MM/yyyy}", Model.Sathach), new { style = "width:150px" })
+                        }
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>                                             
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label" id="lblSoHVien">
+                        Số học viên
+                    </td>
+                    <td class="editor_field">
+                        @(Html.TextBoxFor(m => m.SoHVien, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label">
+                        Tuổi tối thiểu
+                    </td>
+                    <td class="editor_field" id="lblTuoitoithieu">
+                        @(Html.TextBoxFor(m => m.Tuoitoithieu, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label">
+                        Học phí
+                    </td>
+                    <td class="editor_field" id="lblHocphi">
+                        @(Html.TextBoxFor(m => m.Hocphi, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>             
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label">
+                        Ánh xạ khóa học
+                    </td>
+                    <td class="editor_field">
+                        @(Html.TextBoxFor(m => m.MAPID, new { style = "width:100%" }))
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr> 
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td class="editor_label">
+                        Hiển thị khóa học
+                    </td>
+                    <td class="editor_field">
+                        @Html.CheckBoxFor(m => m.isActive, new { })
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" value="Cập nhật" />
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width: 130px; height: 35px" value="Quay lại" />
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+}
+
+

@@ -1,0 +1,148 @@
+﻿@model TLBD.Areas.admin.Models.OrderItem.OrderItem_Model
+
+@{
+    ViewBag.Title = "Chi tiết đơn hàng";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script type="text/javascript">
+    $(function () {
+        var url = '@Url.Action("CapNhat", "Admin_Order")/@(Model==null ? "0" : Model.OrderID)';
+        $("#form").attr("action", url);
+    });
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }
+</script>
+
+@using (Html.BeginForm("CapNhat", "Admin_Order", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Đơn hàng</legend>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px">
+                        Mã đơn hàng
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.OrderID, new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px">
+                        Người đặt hàng
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.FullName, new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px">
+                        Địa chỉ
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Address, new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px">
+                        Số điện thoại
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Phone, new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px">
+                        Ngày đặt hàng
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Date, new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Trạng thái đơn hàng
+                    </td>
+                    <td>
+                        @Html.DropDownListFor(m => m.StatusID, (IEnumerable<SelectListItem>)ViewData["TRANG_THAI"], new { style = "width:250px" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px">
+                        Tổng giá đơn hàng
+                    </td>
+                    <td>
+                        @Html.TextBox("Total", TLBD.Areas.admin.Controllers.cHelper.ToStringCurrency(Model.Total), new { style = "width:100%", @readonly = "readonly" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+
+                    <td>
+                        <input class="button_capnhat" type="submit" style="width:130px" value="Cập nhật" />
+                    </td>
+
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div>
+        @using Kendo.Mvc.UI;
+        @using (Html.BeginForm("LayDuLieu", "Admin_Order", FormMethod.Post, new { id = "form" }))
+        {
+            @(Html.Kendo().Grid<TLBD.Areas.admin.Models.CartItem.CartItem_Model>()
+                                .Name("grid")
+                                .Columns(
+                                    c =>
+                                    {
+                                        c.Bound(m => m.Product.TIEU_DE)
+                                            .Title("Tên sản phẩm")
+                                            .Width(200);
+                                        c.Bound(m => m.Product.SP_GIAKM)
+                                            .Title("Đơn giá")
+                                            .Width(200);
+                                        c.Bound(m => m.Quantity)
+                                            .Title("Số lượng")
+                                            .Width(200);
+                                    })
+                                .Pageable()
+                                .DataSource(ds => ds
+                                    .Ajax()
+                                    .PageSize(10)
+                                    .Read(r => r.Action("DetailRead", "Admin_Order", new { id_donhang = @Model.OrderID })))
+            )
+        }
+    </div>
+}

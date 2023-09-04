@@ -1,0 +1,90 @@
+﻿@{ Layout = "~/Views/Shared/_Layout-Home.cshtml"; }
+
+
+
+
+@model TLBD.Areas.admin.Models.BaiViet.List_BaiViet_View
+@{ ViewBag.Title = Model.Nhom_BaiViet.TEN_BAIVIET; }
+@using TLBD.Functions
+
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+@Html.Action("SlideImage2", "Home")
+
+<section class="services-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <div class="top">
+                <span class="top-title">Dịch vụ nổi bật</span>
+                <span class="sub-title">Dịch vụ nổi bật</span>
+            </div>
+            <h2>@Model.List_BaiViet[0].TEN_BAIVIET</h2>
+        </div>
+        <div class="row justify-content-center">
+            @{ foreach (var item_baiviet in Model.List_BaiViet)
+                {
+    <div class="col-sm-6 col-lg-4">
+        <div class="services-item">
+            <div class="top">
+                <a href="@Url.RouteUrl("BaiViet_Route", new { TenBV = cUrlHelper.ToFriendlyUrl(item_baiviet.TIEU_DE), id = item_baiviet.ID })">
+                    <img src="@Url.Content(string.Format("~/Content/BaiViet/{0}", item_baiviet.IMAGE_URL))" alt="Services">
+
+                </a>
+            </div>
+            <div class="bottom">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <i class="@item_baiviet.SP_NHASANXUAT icon"></i>
+                <h3>
+                    <a  href="@Url.RouteUrl("BaiViet_Route", new { TenBV = cUrlHelper.ToFriendlyUrl(item_baiviet.TIEU_DE), id = item_baiviet.ID })">@item_baiviet.TIEU_DE</a>
+                </h3>
+                <div style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; line-height:1.5em;">
+                    @Html.Raw(item_baiviet.TOM_TAT)
+                </div>
+               
+                <a class="services-btn" href="@Url.RouteUrl("BaiViet_Route", new { TenBV = cUrlHelper.ToFriendlyUrl(item_baiviet.TIEU_DE), id = item_baiviet.ID })">
+                    Xem chi tiết
+                    <i class='bx bx-plus'></i>
+                </a>
+            </div>
+        </div>
+    </div> } }
+
+
+        </div>
+
+        @if ((int)ViewData["tongtrang"] != 1)
+        {
+<div class="pagination-area">
+    <ul>
+        <li id="pagination-here"></li>
+    </ul>
+</div>}
+
+
+
+
+    </div>
+</section>
+
+@section scripts
+{
+    <script src="@Url.Content("~/css/jquery-bootpag/jquery.bootpag.min.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#pagination-here').bootpag({
+                total: '@ViewData["tongtrang"]',
+                page: '@ViewData["trang"]',
+                maxVisible: 10,
+                leaps: true
+            }).on("page", function (event, num) {
+                var url = "@Url.Action("DichVuNoiBat", "NhomBaiViet")" + "/?id=@Model.Nhom_BaiViet.ID&trang=" + num;
+                window.location.href = url;
+            });
+        });
+    </script>
+
+}
+

@@ -1,0 +1,154 @@
+﻿@model TLBD.Areas.admin.Models.VanBan.VanBan_Model
+
+@{
+    ViewBag.Title = "Cập nhật văn bản";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script type="text/javascript" src="@Url.Content("~/ckeditor/ckeditor.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.ui.datepicker-vi.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.maskedinput.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#form").submit(function (e) {
+            var run = true;
+            run = kiemtra("sokyhieu", "sSO_KYHIEU", run);
+            run = kiemtra("noidung", "sNOIDUNG_TRICHYEU", run);
+
+            if (!run) {
+                e.preventDefault();
+
+            }
+        });
+
+        var url = '@Url.Action("CapNhat", "Admin_VanBan")/@(Model==null ? "0" : Model.sID.ToString())';
+        $("#form").attr("action", url);
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");
+            alert("Chưa nhập đủ thông tin!");
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }       
+
+    $(function () {
+        $("#sNGAY_BANHANH").datepicker($.datepicker.regional["vi"]);
+        $("#sNGAY_BANHANH").mask("99/99/9999");
+    });
+
+
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_VanBan", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin văn bản pháp luật</legend>
+            <table style="width:100%"> 
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Lĩnh vực
+                    </td>
+                    <td>
+                        @Html.DropDownList("sID_NHOM_VANBAN", (IEnumerable<SelectListItem>)ViewData["TEN_NHOM_VANBAN"], new { style = "width:250px" })
+                        @Html.ValidationMessageFor(m => m.sID_NHOM_VANBAN)
+                    </td>         
+                    <td style="width:10%"></td>          
+                </tr>   
+                                              
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px" id="sokyhieu">
+                        Số/ ký hiệu
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sSO_KYHIEU, new { style ="width:100%" })
+                        @Html.ValidationMessageFor(m => m.sSO_KYHIEU)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px" id="noidung">
+                        Nội dung trích yếu
+                    </td>
+                    <td>
+                        @Html.TextAreaFor(m => m.sNOIDUNG_TRICHYEU, new { style ="width:100%; height:50px" })
+                        @Html.ValidationMessageFor(m => m.sNOIDUNG_TRICHYEU)              
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        File download
+                    </td>
+                    <td class="hinh">
+                        <input type="file" name="FileUrl" id="FileUrl" />                          
+                    </td>         
+                    <td style="width:10%"></td>          
+                </tr> 
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Ngày ban hành
+                    </td>
+                    <td>
+                        @if (Model == null)
+                        {
+                            @Html.TextBox("sNGAY_BANHANH", string.Format("{0:dd/MM/yyyy}", DateTime.Now), new { style ="width:150px" })                            
+                        }
+                        else
+                        {
+                            @Html.TextBox("sNGAY_BANHANH", string.Format("{0:dd/MM/yyyy}", Model.sNGAY_BANHANH), new { style ="width:150px" })                            
+                        }                                                           
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>                                           
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Cơ quan ban hành
+                    </td>
+                    <td>
+                        @Html.DropDownList("sID_COQUAN_BANHANH", (IEnumerable<SelectListItem>)ViewData["COQUAN_BANHANH"], new { style = "width:250px" })
+                        @Html.ValidationMessageFor(m => m.sID_NHOM_VANBAN)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr> 
+                
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit"  style="width:130px" value="Cập nhật" />                        
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>     
+                    <td style="width:10%"></td>              
+                </tr>                 
+            </table>
+        </fieldset>
+    </div>
+}

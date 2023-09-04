@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "DoiNguBacSi";
+    Layout = "~/Views/Shared/_Layout-Home.cshtml";
+}
+
+
+
+@model TLBD.Areas.admin.Models.BaiViet.List_BaiViet_View
+@{ ViewBag.Title = Model.Nhom_BaiViet.TEN_BAIVIET; }
+@using TLBD.Functions
+
+@Html.Action("SlideImage2", "Home")
+
+
+<section class="doctors-area ptb-100">
+    <div class="container">
+        <div class="section-title">
+            <div class="top">
+                <span class="top-title">@Model.List_BaiViet[0].TEN_BAIVIET</span>
+                <span class="sub-title">TẤT CẢ CÁC KHOA</span>
+            </div>
+            <h2>@Model.List_BaiViet[0].TEN_BAIVIET</h2>
+        </div>
+        <div class="row">
+
+            @{
+                foreach (var item_baiviet in Model.List_BaiViet)
+                {
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="doctors-item">
+                            <div class="top">
+                                <img src="@Url.Content(string.Format("~/Content/BaiViet/{0}", item_baiviet.IMAGE_URL))" alt="Doctor">
+
+                            </div>
+                            <div class="bottom">
+                                <div class="left">
+                                    <i class='bx @item_baiviet.SP_NHASANXUAT button'></i>
+                                </div>
+                                <div class="right">
+                                    <h3>
+                                        <a href="#">@item_baiviet.TIEU_DE</a>
+                                    </h3>
+                                    <span>@Html.Raw(item_baiviet.TOM_TAT)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+
+        </div>
+
+        @if ((int)ViewData["tongtrang"] != 1)
+        {
+            <div class="pagination-area">
+                <ul>
+                    <li id="pagination-here"></li>
+                </ul>
+            </div>
+        }
+
+    </div>
+</section>
+
+@section scripts
+{
+    <script src="@Url.Content("~/css/jquery-bootpag/jquery.bootpag.min.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+           
+            $('#pagination-here').bootpag({
+                total: '@ViewData["tongtrang"]',
+                page: '@ViewData["trang"]',
+                maxVisible: 10,
+                leaps: true
+            }).on("page", function (event, num) {
+                var url = "@Url.Action("DoiNguBacSi", "NhomBaiViet")" + "/?id=@Model.Nhom_BaiViet.ID&trang=" + num;
+                window.location.href = url;
+            });
+        });
+    </script>
+}

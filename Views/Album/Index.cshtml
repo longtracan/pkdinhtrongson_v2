@@ -1,0 +1,49 @@
+﻿@using TLBD.Areas.admin.Models.Album;
+@using TLBD.Functions;
+@model List<Album_Model>
+
+@{
+    Layout = "~/Views/Shared/_LayoutBoostrap.cshtml";    
+}
+
+<div class="page-header">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="page-breadcrumb">
+                <ol class="breadcrumb">
+                    <li><a href="~/">Trang chủ</a></li>
+                    <li>Hình ảnh</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="row">
+                <!--#region SAN-PHAM -->
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mb30">
+                        <div class="product-block">
+                            <div class="product-img">
+                                <a href="@Url.RouteUrl("AlbumDetail_Route", new { TenAlbum = cUrlHelper.ToFriendlyUrl(item.sTIEU_DE), id = item.sID })" class="produc class=" product-title">
+                                    <img src="@Url.Content(string.Format("~/content/Album/" + item.sIMAGE_URL))" alt="" s alt="" style="height: 200px; object-fit: cover">
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <h5 style="font-weight:bold; color:black">
+                                    <a href="@Url.RouteUrl("AlbumDetail_Route", new { TenAlbum = cUrlHelper.ToFriendlyUrl(item.sTIEU_DE), id = item.sID })" class="produc class=" product-title">
+                                        @item.sTIEU_DE
+                                    </a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

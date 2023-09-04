@@ -1,0 +1,99 @@
+﻿@using Kendo.Mvc.UI
+@(Html.Kendo().Menu().Name("menu").Items(
+        i =>
+        {
+            i.Add().Text("Hệ thống").Items(
+                ci =>
+                {
+                    ci.Add().Text("Đổi mật khẩu").Url(Url.Action("ChangePassword", "Account", new { area = "admin" }));
+                    ci.Add().Text("Đăng xuất").Url(Url.Action("LogOff", "Account", new { area = "admin" }));
+                });
+            //i.Add().Text("Quản trị người dùng").Items(
+            //       ci =>
+            //       {
+            //           ci.Add().Text("Người dùng").Url(Url.Action("Index", "Admin_NguoiDung", new { area = "admin" }));
+            //           ci.Add().Text("Phân quyền Menu").Url(Url.Action("Index", "Admin_PhanQuyen", new { area = "admin" }));
+            //           ci.Add().Text("Phân quyền chuyên mục").Url(Url.Action("Index", "Admin_PhanQuyen_NhomBaiViet", new { area = "admin" }));
+            //       });
+            i.Add().Text("Quản trị thông tin chung").Items(
+                ci =>
+                {
+                    ci.Add().Text("Banner").Url(Url.Action("Index", "Admin_Banner", new { area = "admin" }));
+                    //ci.Add().Text("Sub-banner").Url(Url.Action("Index", "Admin_SubBanner", new { area = "admin" }));
+                    ci.Add().Text("Slide").Url(Url.Action("Index", "Admin_Slide", new { area = "admin" }));
+                    ci.Add().Text("Logo").Url(Url.Action("Index", "Admin_Logo", new { area = "admin" }));
+                    ci.Add().Text("Hình nền").Url(Url.Action("Index", "Admin_Background", new { area = "admin" }));
+                    ci.Add().Text("Ưu điểm").Url(Url.Action("Index", "Admin_Advantage", new { area = "admin" }));
+                    ci.Add().Text("Thông tin").Url(Url.Action("Index", "Admin_ThongTin", new { area = "admin" }));
+                    ci.Add().Text("Liên kết").Url(Url.Action("Index", "Admin_Lienket", new { area = "admin" }));
+                    //ci.Add().Text("Slogan").Url(Url.Action("Index", "Admin_Slogan", new { area = "admin" }));
+                    //ci.Add().Text("Video").Url(Url.Action("Index", "Admin_Video", new { area = "admin" }));
+                });
+            //i.Add().Text("Thăm dò ý kiến").Items(
+            //    ci =>
+            //    {
+            //        ci.Add().Text("Danh mục thăm dò ý kiến").Url(Url.Action("Index", "Admin_DanhMuc_BieuQuyet", new { area = "admin" }));
+            //        ci.Add().Text("Thăm dò ý kiến").Url(Url.Action("Index", "Admin_BieuQuyet", new { id = 1, area = "admin" }));
+            //    });
+            //i.Add().Text("Quản trị văn bản").Items(
+            //    ci =>
+            //    {
+            //        ci.Add().Text("Cơ quan ban hành").Url(Url.Action("Index", "Admin_CoQuan_BanHanh", new { area = "admin" }));
+            //        ci.Add().Text("Nhóm văn bản").Url(Url.Action("Index", "Admin_Nhom_VanBan", new { area = "admin" }));
+            //        ci.Add().Text("Văn bản").Url(Url.Action("Index", "Admin_VanBan", new { id = 1, area = "admin" }));
+            //    });
+            i.Add().Text("Thông tin bài viết").Items(
+                ci =>
+                {
+                    ci.Add().Text("Chuyên mục").Url(Url.Action("Index", "Admin_ChuyenMuc", new { area = "admin" }));
+                    ci.Add().Text("Nhóm bài viết").Url(Url.Action("Index", "Admin_NhomBaiViet", new { id = 1, area = "admin" }));
+                    ci.Add().Text("Danh sách bài viết").Url(Url.Action("Index", "Admin_BaiViet", new { id_cm = 1, id_nh = 1, area = "admin" }));
+                    //ci.Add().Text("Người viết bài").Url(Url.Action("Index", "Nguoi_VietBai", new { area = "admin" }));
+                });
+            //i.Add().Text("Sản phẩm").Items(
+            //    ci =>
+            //    {
+            //        ci.Add().Text("Nhóm sản phẩm").Url(Url.Action("Index", "Admin_NhomSanPham", new { area = "admin" }));
+            //        ci.Add().Text("Danh sách sản phẩm").Url(Url.Action("Index", "Admin_SanPham", new { area = "admin" }));
+            //        ci.Add().Text("Danh sách hình ảnh sản phẩm").Url(Url.Action("Index", "Admin_SanPhamAlbum", new { id_nsp = 1, id_sp = 1, area = "admin" }));
+            //    });
+            //i.Add().Text("Thống kê").Items(
+            //    ci =>
+            //    {
+            //        //ci.Add().Text("Lịch sử giao dịch sản phẩm").Url(Url.Action("Index", "Admin_LSGDSanPham", new { id_nsp = 1, id_sp = 1, area = "admin" }));
+            //        ci.Add().Text("Lịch sử giao dịch").Url(Url.Action("LSGD", "Admin_LSGDSanPham", new { area = "admin" }));
+            //    });
+            //i.Add().Text("Quản lý đơn hàng").Items(
+            //    ci =>
+            //    {
+            //        ci.Add().Text("Đơn hàng").Url(Url.Action("Index", "Admin_Order", new { area = "admin" }));
+            //    });
+            //i.Add().Text("Đăng ký/Khóa học").Items(
+            //    ci =>
+            //    {
+            //        ci.Add().Text("Quản lý khóa học").Url(Url.Action("Index", "Admin_Khoahoc", new { area = "admin" }));
+            //        ci.Add().Text("Loại hình đào tạo").Url(Url.Action("Index", "Admin_LoaihinhDaotao", new { area = "admin" }));
+            //        //ci.Add().Text("Danh sách đăng ký").Url(Url.Action("Index", "Admin_DangKyLopHoc", new { area = "admin" }));
+            //        //ci.Add().Text("Excel file").Url(Url.Action("ExportToExcel", "Admin_DangKyLopHoc", new { area = "admin" }));
+            //    });
+
+            //i.Add().Text("Hỏi đáp").Items(
+            //    ci =>
+            //    {
+            //        ci.Add().Text("Quản lý câu hỏi").Url(Url.Action("Index", "Admin_HoiDap", new { area = "admin" }));
+            //    });
+            i.Add().Text("Quản lý Album").Items(
+                ci =>
+                {
+                    ci.Add().Text("Danh sách Album").Url(Url.Action("Index", "Admin_Album", new { area = "admin" }));
+                    ci.Add().Text("Chi tiết Album").Url(Url.Action("Index", "Admin_AlbumDetail", new { id = 1, area = "admin" }));
+                });
+
+            //i.Add().Text("Quản lý thành viên").Items(
+            //    ci =>
+            //    {
+            //        ci.Add().Text("Danh sách thành viên").Url(Url.Action("Index", "Admin_Webuser", new { area = "admin" }));
+            //        //ci.Add().Text("Thăm dò ý kiến").Url(Url.Action("Index", "Admin_BieuQuyet", new { id = 1, area = "admin" }));
+            //    });
+        })
+)  

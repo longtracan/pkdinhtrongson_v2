@@ -1,0 +1,25 @@
+﻿@using TLBD.Areas.admin.Models.BaiViet;
+@using TLBD.Functions;
+@using TLBD.Areas.admin.Models.AlbumDetail;
+@model List<AlbumDetail_Model>
+
+<div class="banner-area two" id="banner_phu">
+    <ul class="adaptive" style="padding-top: 5%">
+        @{ foreach (var item in Model)
+            {
+                <li data-thumb="@Url.Content(string.Format("~/content/Album/" + item.sIMAGE_URL))">
+                    <img src="@Url.Content(string.Format("~/content/Album/" + item.sIMAGE_URL))" />
+                </li>
+            }
+        }
+    </ul>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (screen.width < 1100) {
+            $("#banner_phu").css("margin-top", "2.5em");
+            /* $("logo").hide();*/
+        }
+    });
+</script>

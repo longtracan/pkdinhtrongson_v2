@@ -1,0 +1,59 @@
+﻿@model int
+@{
+    var List_ChuyenMuc_PhanQuyen = TLBD.Areas.admin.Models.PhanQuyen_NhomBaiViet.PhanQuyen_NhomBaiViet_Class.List_ChuyenMuc_PhanQuyen(Model);
+}
+
+  [{"id":0,
+    "text":"Chuyên mục",
+    "children":
+               [
+@for (var i = 0; i < List_ChuyenMuc_PhanQuyen.Count; i++)
+{
+    var item = List_ChuyenMuc_PhanQuyen[i];
+    if (i < List_ChuyenMuc_PhanQuyen.Count - 1)
+    {
+        <text>
+            {
+            "id":@item.sID_NHOMBAIVIET,
+            "text":"@item.sTEN_NHOMBAIVIET1",
+            @if (item.sTRANG_THAI == 0)
+            {
+                <text>
+                    "checked": false,
+                </text>
+            }
+            else
+            {
+                <text>
+                    "checked": true,
+                </text>
+            }
+            "state":"open"
+            },
+        </text>
+    }
+    else if (i == List_ChuyenMuc_PhanQuyen.Count - 1)
+    {
+        <text>
+            {
+            "id":@item.sID_NHOMBAIVIET,
+            "text":"@item.sTEN_NHOMBAIVIET1",
+            @if (item.sTRANG_THAI == 0)
+            {
+                <text>
+                    "checked": false,
+                </text>
+            }
+            else
+            {
+                <text>
+                    "checked": true,
+                </text>
+            }
+            "state":"open"
+            }
+        </text>
+    }
+}
+                ]
+}]

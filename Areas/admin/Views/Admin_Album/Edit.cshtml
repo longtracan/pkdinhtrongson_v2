@@ -1,0 +1,105 @@
+﻿@model TLBD.Areas.admin.Models.Album.Album_Model
+
+@{
+    ViewBag.Title = "Cập nhật Album";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.ui.datepicker-vi.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.maskedinput.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $("#form").submit(function (e) {
+            var run = true;
+            run = kiemtra("tenalbum", "sTIEU_DE", run);                       
+
+            if (!run) {
+                e.preventDefault();
+
+            }
+        });
+
+        var url = '@Url.Action("CapNhat", "Admin_Album")/@(Model==null ? "0" : Model.sID.ToString())';
+        $("#form").attr("action", url);
+
+        //
+        $(function () {
+            $("#sNGAY_DANG").datepicker($.datepicker.regional["vi"]);
+            $("#sNGAY_DANG").mask("99/99/9999");
+        });
+    });
+
+    function kiemtra(label, control, run) {
+        var gt = $("#" + control).val();
+        if (gt.length == 0) {
+            $("#" + label).css("color", "#ff0000");
+            alert("Chưa nhập đủ thông tin!");
+            run = false;
+        }
+        else $("#" + label).css("color", "#000");
+        return run;
+    }
+
+</script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }
+      
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_Album", FormMethod.Post, new { id = "form"}))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin Album</legend>
+            <table style="width:100%">
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:200px" id="tenalbum">
+                        Tên Album
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sTIEU_DE, new { style ="width:100%" })
+                        @Html.ValidationMessageFor(m => m.sTIEU_DE)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+                
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px">
+                        Ngày đăng
+                    </td>
+                    <td>
+                        @if (Model == null)
+                        {
+                            @Html.TextBox("sNGAY_DANG", string.Format("{0:dd/MM/yyyy}", DateTime.Now), new { style = "width:150px" })
+                        }
+                        else
+                        {
+                            @Html.TextBox("sNGAY_DANG", string.Format("{0:dd/MM/yyyy}", Model.sNGAY_DANG), new { style = "width:150px" })
+                        }
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="submit" style="width:130px" value="Cập nhật" />                        
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>     
+                    <td style="width:10%"></td>              
+                </tr>                 
+            </table>
+        </fieldset>
+    </div>
+}

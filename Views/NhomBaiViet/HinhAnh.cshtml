@@ -1,0 +1,56 @@
+﻿@{ Layout = "~/Views/Shared/_Layout-Home.cshtml"; }
+@model TLBD.Areas.admin.Models.BaiViet.List_BaiViet_View
+@{ ViewBag.Title = Model.Nhom_BaiViet.TEN_BAIVIET; }
+@using TLBD.Functions
+@Html.Action("SlideImage2", "Home")
+
+<section class="blog-area ptb-100">
+    <div class="container">
+       
+        <div class="row justify-content-center">
+            @{
+                foreach (var item_baiviet in Model.List_BaiViet)
+                {
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="blog-item">
+                            <div class="top">
+                                <a href="@Url.RouteUrl("AlbumDetail_Route", new {TenAlbum = cUrlHelper.ToFriendlyUrl(item_baiviet.TIEU_DE), id = item_baiviet.SP_SETUP })"> @*SP_SETUP được gán là ID Album trong admin_bài viết*@
+                                    <img src="@Url.Content(string.Format("~/Content/BaiViet/{0}", item_baiviet.IMAGE_URL))" alt="Blog">
+                                </a>
+                            </div>
+                            <div class="bottom">
+                                <h3>
+                                    <a href="@Url.RouteUrl("AlbumDetail_Route", new {TenAlbum = cUrlHelper.ToFriendlyUrl(item_baiviet.TIEU_DE), id = item_baiviet.SP_SETUP })">@item_baiviet.TIEU_DE</a>
+                                </h3>
+                                <div style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical" ;>
+                                    @Html.Raw(item_baiviet.TOM_TAT)
+                                </div>
+                                <ul>
+                                    @{ DateTime dtValue = (DateTime)item_baiviet.NGAY_DANG;
+
+                                        <li>
+                                            <span>@dtValue.ToShortDateString()</span>
+                                        </li>
+                                    }
+                                    <li>
+                                        @*<a href="@Url.RouteUrl("NhomBaiViet_Route", new { TenCM = cUrlHelper.ToFriendlyUrl(item_baiviet.TEN_CHUYENMUC), TenNBV = cUrlHelper.ToFriendlyUrl(item_baiviet.TEN_BAIVIET), id = item_baiviet.ID_NHOM_BAIVIET })"><span>Chuyên mục: @item_baiviet.TEN_BAIVIET</span></a>*@
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            @if ((int)ViewData["tongtrang"] != 1)
+            {
+                <div class="pagination-area">
+                    <ul>
+                        <li id="pagination-here"></li>
+                    </ul>
+                </div>
+             }
+
+        </div>
+       
+    </div>
+</section>

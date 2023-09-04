@@ -1,0 +1,39 @@
+﻿@model List<TLBD.Areas.admin.Models.BaiViet.BaiViet_Model>
+@using TLBD.Functions;
+@using TLBD.Areas.admin.Models.NhomBaiViet;
+
+<section class="features-area two pt-100 pb-70">
+    <div class="features-shape">
+        <img src="assets/images/features-shape1.png" alt="Shape">
+        <img src="assets/images/features-shape2.png" alt="Shape">
+    </div>
+    <div class="container">
+        <div class="section-title">
+            <div class="top">
+                <span class="top-title">CHUYÊN KHOA ĐIỀU TRỊ</span>
+                <span class="sub-title">CHUYÊN KHOA ĐIỀU TRỊ</span>
+            </div>
+            <h2>Phòng Khám - Cận Lâm Sàng</h2>
+        </div>
+        <div class=" row partner-slider owl-theme owl-carousel">
+            @{ for (int i = 0; i < Model.Count(); i++)
+                {
+                    <div class="features-item">
+                        <span>@string.Format("{0:00}", i+1)</span>
+                        <i style="font-size:50px" class="@Model[i].SP_NHASANXUAT icon"></i>
+                        <h3>
+                            <a href="#">@Model[i].TIEU_DE</a>
+                        </h3>
+                        <div style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;">@Html.Raw(Model[i].TOM_TAT)</div>
+                        <a class="features-btn" href="#"></a>
+                    </div>
+                    
+                  
+                }
+            }
+
+
+        </div>
+    </div>
+</section>
+

@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SelectListItem>
+@{
+    ViewBag.Title = "Quản trị Slogan";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script>    
+    function onDataBound(e) {
+        var grid = $("#grid").data("kendoGrid");
+        var data = grid.dataSource.data();
+        $.each(data, function (i, row) {
+            if (row.TRANG_THAIs == 1) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "#ffd800");
+            }
+            else if (row.TRANG_THAIs == 2) {
+                $('tr[data-uid="' + row.uid + '"] ').css("background-color", "red");
+            }
+        });
+    }
+
+    $(function () {
+        $(".remove_link").live("click", function (e) {
+            if (!confirm("Bạn có muốn xóa thông tin này không!")) {
+                e.preventDefault();
+            }
+        });
+    });
+
+
+</script>
+@using Kendo.Mvc.UI
+@using (Html.BeginForm("LayDuLieu", "Admin_Slogan", FormMethod.Post, new { id = "form" }))
+    {    
+        @(
+ Html.Kendo().Grid<TLBD.Areas.admin.Models.Slogan.Slogan_Model>()
+            .Name("grid")
+            .Columns(
+            c =>
+            {
+                c.Bound(m => m.ID).Title("ID").Width(30);                               
+                c.Bound(m => m.IMG_URL).Title("Hình ảnh").Width(150)
+                    .ClientTemplate("<img style='height:40px' src='" + Url.Content("~/Content/Slogan/") + "#= IMG_URL #' />");
+                c.Bound(m => m.LINK).Title("Link").Width(300);
+                c.Bound(m => m.HIENTHI).Title("Hiển thị").Width(50);                                                                                                  
+                c.Template(m => { }).Width(10).Title("")
+                    .ClientTemplate("<a id = 'button_chinhsua' class='k-button k-button-icontext k-grid-Edit' content_dlg href='" + Url.Action("Edit", "Admin_Slogan", new { area = "admin" }) + "/#= ID #'>Chỉnh sửa</a>");                
+
+            })    
+    .Pageable()
+    .DataSource(ds => ds
+        .Ajax()
+        .Model(m =>
+        {
+            m.Id(n => n.ID);
+        })
+        .PageSize(20)
+        .Read(r => r.Action("Read", "Admin_Slogan"))
+        
+    )
+    .Events(e=>e.DataBound("onDataBound"))
+    )
+    }

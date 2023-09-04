@@ -1,0 +1,14 @@
+﻿@model int
+
+
+@if (Model == TLBD.Areas.admin.Controllers.cHelper.ADMINISTRATOR_ID)
+{
+    @Html.Action("Menu_Admin", "Admin_PhanQuyen")   
+    
+}
+else 
+{
+    @Html.Action("Menu_user", "Admin_PhanQuyen")  
+    
+    
+}    

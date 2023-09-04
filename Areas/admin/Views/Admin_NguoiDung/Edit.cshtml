@@ -1,0 +1,184 @@
+﻿@model TLBD.Areas.admin.Models.Account.User_Model
+
+@{
+    ViewBag.Title = "Cập nhật người dùng";
+    Layout = "~/Areas/admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="~/Content/Admin_Style.css" rel="stylesheet" />
+<script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.ui.datepicker-vi.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.maskedinput.min.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    function Quaylai() {
+        window.history.back(-1);
+    }
+
+    function Capnhat() {
+        var url = '@Url.Action("CapNhat", "Admin_NguoiDung")/@(Model==null ? "0" : Model.sID.ToString())';
+        $("#form").attr("action", url);
+        form.submit();
+    }
+
+    $(function () {
+        $("#sNGAY_SINH").datepicker($.datepicker.regional["vi"]);
+        $("#sNGAY_SINH").mask("99/99/9999");
+    });
+
+
+</script>
+
+@using (Html.BeginForm("Edit", "Admin_NguoiDung", FormMethod.Post, new { id = "form", enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true, "Thay đổi không thành công. Vui lòng cập nhật lại thông tin.")
+    <div>
+        <fieldset>
+            <legend>Thông tin người dùng</legend>
+            <table style="width:100%">
+
+                @if (Model == null)
+                {
+                    <tr>
+                        <td style="width:10%"></td>
+                        <td style="width:100px">
+                            Mã người dùng
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m.sUSERNAME, new { style = "width:100%" })
+                            @Html.ValidationMessageFor(m => m.sUSERNAME)
+                        </td>
+                        <td style="width:10%"></td>
+                    </tr>
+                }
+
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Tên người dùng
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sTEN_USER, new { style = "width:100%" })
+                        @Html.ValidationMessageFor(m => m.sTEN_USER)
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                @if (Model == null)
+                {
+                    <tr>
+                        <td style="width:10%"></td>
+                        <td style="width:100px">
+                            Password
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m.sPASSWORD, new { style = "width:100%" })
+                            @Html.ValidationMessageFor(m => m.sPASSWORD)
+                        </td>
+                        <td style="width:10%"></td>
+                    </tr>
+                }
+
+                @*<tr>
+                        <td style="width:10%"></td>
+                        <td>
+                            Hình ảnh
+                        </td>
+                        <td class="hinh">
+                            <input type="file" name="ImageUrl" id="ImageUrl" />
+                            @if (Model != null)
+                            {
+                                <img src="@Url.Content("~/content/User/")@Model.sIMG_URL">
+                            }
+                        </td>
+                        <td style="width:10%"></td>
+                    </tr>*@
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        Giới tính
+                    </td>
+                    <td>
+                        @Html.DropDownList("sGIOI_TINH", (IEnumerable<SelectListItem>)ViewData["GIOI_TINH"], new { style = "width:150px; color: #000000;" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td style="width: 100px">
+                        Ngày sinh
+                    </td>
+                    <td>
+                        @if (Model == null)
+                        {
+                            @Html.TextBox("sNGAY_SINH", string.Format("{0:dd/MM/yyyy}", DateTime.Now), new { style = "width:150px" })
+                        }
+                        else
+                        {
+                            @Html.TextBox("sNGAY_SINH", string.Format("{0:dd/MM/yyyy}", Model.sNGAY_SINH), new { style = "width:150px" })
+                        }
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Số điện thoại
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sSO_DIEN_THOAI, new { style = "width:100%" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Email
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sEMAIL, new { style = "width:100%" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td style="width:100px">
+                        Địa chỉ
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.sDIA_CHI, new { style = "width:100%" })
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+
+                <tr>
+                    <td style="width: 10%"></td>
+                    <td>
+                        Tài khoản hệ thống
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(m => m.sSYSTEM_ACCOUNT, new { })
+                    </td>
+                    <td style="width: 10%"></td>
+                </tr>
+
+
+                <tr>
+                    <td style="width:10%"></td>
+                    <td>
+                        <input class="button_capnhat" type="button" onclick="Capnhat()" style="width:130px" value="Cập nhật" />
+                    </td>
+                    <td>
+                        <input class="button_quaylai" type="button" onclick="Quaylai()" style="width:130px" value="Quay lại" />
+                    </td>
+                    <td style="width:10%"></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+}
