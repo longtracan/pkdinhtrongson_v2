@@ -19,6 +19,9 @@ using TLBD.Areas.admin.Models.Cart;
 using Newtonsoft.Json;
 using TLBD.Areas.admin.Models.Advantage;
 using TLBD.Areas.admin.Models.AlbumDetail;
+using System.Data.SqlClient;
+using System.Data;
+using TLBD.Areas.admin.Models.Account;
 
 namespace TLBD.Controllers
 {
@@ -68,6 +71,17 @@ namespace TLBD.Controllers
 
         public ActionResult Menu()
         {
+            ViewData["SendZalo"] = 0;
+            var username = User.Identity.Name;
+            if(username != "")
+            {
+                User_Model user = SELECT_USERDETAIL(username);
+                if(user.sEMAIL == "SendZalo@gmail.com")
+                {
+                    ViewData["SendZalo"] = 1;
+                }
+
+            }
             ChuyenMuc_Class clss = new ChuyenMuc_Class();
             return PartialView("PartialMenu", clss.List_Menu());
         }
@@ -146,6 +160,33 @@ namespace TLBD.Controllers
         public ActionResult Error()
         {
             return PartialView("Error");
+        }
+
+        public User_Model SELECT_USERDETAIL(string username)
+        {
+            User_Model user = new User_Model();
+            SqlConnection connetion = null;
+            SqlDataReader reader = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("SELECT_USERDETAIL", connetion);
+            dCmd.CommandType = CommandType.StoredProcedure;
+            dCmd.Parameters.Add(new SqlParameter("@USERNAME", username));
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            DataTable table = new DataTable();
+            // execute the command
+            reader = dCmd.ExecuteReader();
+            while (reader.Read())
+            {
+                //user.sEMAIL = int.Parse(reader["ID"].ToString());
+                user.sEMAIL = reader["EMAIL"].ToString();
+               
+            }
+            connetion.Close();
+            return user;
         }
     }
 }

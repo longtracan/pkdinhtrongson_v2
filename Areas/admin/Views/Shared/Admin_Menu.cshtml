@@ -8,13 +8,13 @@
                     ci.Add().Text("Đổi mật khẩu").Url(Url.Action("ChangePassword", "Account", new { area = "admin" }));
                     ci.Add().Text("Đăng xuất").Url(Url.Action("LogOff", "Account", new { area = "admin" }));
                 });
-            //i.Add().Text("Quản trị người dùng").Items(
-            //       ci =>
-            //       {
-            //           ci.Add().Text("Người dùng").Url(Url.Action("Index", "Admin_NguoiDung", new { area = "admin" }));
-            //           ci.Add().Text("Phân quyền Menu").Url(Url.Action("Index", "Admin_PhanQuyen", new { area = "admin" }));
-            //           ci.Add().Text("Phân quyền chuyên mục").Url(Url.Action("Index", "Admin_PhanQuyen_NhomBaiViet", new { area = "admin" }));
-            //       });
+            i.Add().Text("Quản trị người dùng").Items(
+                   ci =>
+                   {
+                       ci.Add().Text("Người dùng").Url(Url.Action("Index", "Admin_NguoiDung", new { area = "admin" }));
+                       ci.Add().Text("Phân quyền Menu").Url(Url.Action("Index", "Admin_PhanQuyen", new { area = "admin" }));
+                       ci.Add().Text("Phân quyền chuyên mục").Url(Url.Action("Index", "Admin_PhanQuyen_NhomBaiViet", new { area = "admin" }));
+                   });
             i.Add().Text("Quản trị thông tin chung").Items(
                 ci =>
                 {

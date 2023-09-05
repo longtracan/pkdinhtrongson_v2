@@ -40,63 +40,66 @@
 
                                     if (item.LINK.StartsWith("http") == false)
                                     {
-            <li class="nav-item">
-                <a href="@Url.Action("Index", item.LINK, new { })" class="nav-link">@item.TEN_CHUYENMUC</a>
-            </li> }
+                                        <li class="nav-item">
+                                            <a href="@Url.Action("Index", item.LINK, new { })" class="nav-link">@item.TEN_CHUYENMUC</a>
+                                        </li>
+                                    }
 
                                     else
                                     {
 
-            <li class="nav-item">
-                <a href="@item.LINK" class="nav-link">@item.TEN_CHUYENMUC</a>
-            </li> }
+                                        <li class="nav-item">
+                                            <a href="@item.LINK" class="nav-link">@item.TEN_CHUYENMUC</a>
+                                        </li>
+                                    }
 
                                 }
                                 else // link null
                                 {
-            <li class="nav-item">
-                <a href="#" class="nav-link">@item.TEN_CHUYENMUC</a>
-            </li>
- }
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">@item.TEN_CHUYENMUC</a>
+                                    </li>
+                                }
 
-    }
-    if (List_Nhom_Baiviet_ChuyenMuc.Count > 0) // trường hợp có menu con
-    {
-<li class="nav-item">
-    <a href="#" class="nav-link dropdown-toggle">@item.TEN_CHUYENMUC <i class='bx bx-chevron-down'></i></a>
-    <ul class="dropdown-menu">
-        @{ foreach (var item_nhombaiviet in List_Nhom_Baiviet_ChuyenMuc)
-            {
+                            }
+                            if (List_Nhom_Baiviet_ChuyenMuc.Count > 0) // trường hợp có menu con
+                            {
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link dropdown-toggle">@item.TEN_CHUYENMUC <i class='bx bx-chevron-down'></i></a>
+                                    <ul class="dropdown-menu">
+                                        @{ foreach (var item_nhombaiviet in List_Nhom_Baiviet_ChuyenMuc)
+                                            {
 
-                if (item_nhombaiviet.HIENTHI_BAIVIET_MENU == false)
-                {
-<li class="nav-item">
-    <a href="@Url.RouteUrl("NhomBaiViet_Route", new { TenCM = cUrlHelper.ToFriendlyUrl(@item.TEN_CHUYENMUC), TenNBV = cUrlHelper.ToFriendlyUrl(item_nhombaiviet.TEN_BAIVIET), id = item_nhombaiviet.ID })" class="nav-link">
-        @item_nhombaiviet.TEN_BAIVIET
-    </a>
-</li> }
-                        else // phân cấp thứ 3 của menu, web này không dùng đến
-                        {
+                                                if (item_nhombaiviet.HIENTHI_BAIVIET_MENU == false)
+                                                {
+                                                    <li class="nav-item">
+                                                        <a href="@Url.RouteUrl("NhomBaiViet_Route", new { TenCM = cUrlHelper.ToFriendlyUrl(@item.TEN_CHUYENMUC), TenNBV = cUrlHelper.ToFriendlyUrl(item_nhombaiviet.TEN_BAIVIET), id = item_nhombaiviet.ID })" class="nav-link">
+                                                            @item_nhombaiviet.TEN_BAIVIET
+                                                        </a>
+                                                    </li>
+                                                }
+                                                else // phân cấp thứ 3 của menu, web này không dùng đến
+                                                {
+
+                                                }
+
+
+                                            } }
+
+
+                                    </ul>
+                                </li>
+                            }
+
 
                         }
 
-
-                    } }
-
-
-    </ul>
-</li>
-}
-
-
-}
-
-                        @*@{ 
-                            if(ad.sHIEN_THI == true)
-                            {*@
-                                <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle active">HÌNH ẢNH <i class='bx bx-chevron-down'></i></a>
-                                <ul class="dropdown-menu">
+                        @*@{
+        if(ad.sHIEN_THI == true)
+        {*@
+                        <li class="nav-item">
+                            <a href="#" class="nav-link dropdown-toggle active">HÌNH ẢNH <i class='bx bx-chevron-down'></i></a>
+                            <ul class="dropdown-menu">
                                 <li class="nav-item">
                                     <a href="@Url.Content("~/hinh-anh/2267")" class="nav-link active">HOẠT ĐỘNG PHÒNG KHÁM</a>
                                 </li>
@@ -104,11 +107,11 @@
                                     <a href="@Url.Content("~/hinh-anh/2268")" class="nav-link">ẢNH NỘI BỘ</a>
                                 </li>
 
-                                </ul>
-                                </li>
-                            @*}
-                        }*@
-                        
+                            </ul>
+                        </li>
+                        @*}
+        }*@
+
                         <li>
                             <a style="border:solid" class="common-btn" href="@Url.Content("~/Dang-Ky-Kham-Tong-Quat")">
                                 <span class="one"></span>
@@ -116,6 +119,20 @@
                                 KHÁM SỨC KHỎE TỔNG QUÁT
                             </a>
                         </li>
+
+                        @{try
+                            {
+                                if ((int)ViewData["SendZalo"] == 1)
+                                {
+                                    <li class="nav-item">
+                                        <a href="@Url.Content("~/SendZalo")" class="nav-link">Gửi Zalo </a>
+                                    </li>
+                                }
+
+                            }
+                            catch { }
+
+                        }
 
                     </ul>
 

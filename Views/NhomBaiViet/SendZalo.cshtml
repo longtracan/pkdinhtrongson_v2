@@ -3,37 +3,43 @@
     Layout = "~/Views/Shared/_Layout-Home.cshtml";
 }
 
-<div class="checkout-area pt-100 pb-70">
+<div class="checkout-area pt-100 pb-20">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="background-color:burlywood">
                 <form id="formInfo">
 
                     <div class="billing">
-                        <h3>Thông Tin Trên Form ZALO khách hàng</h3>
+                        <h3>ĐẶT LỊCH KHÁM</h3>
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label style="color:crimson">Họ Và Tên Người đặt lịch khám</label>
-                                    <input id="customer_name" value="Họ Và Tên" type="text" class="form-control" required minlength="5">
+                                    <label>Nhân viên đặt lịch</label>
+                                    <input id="staff_name" type="text" class="form-control" required maxlength="30" minlength="2">
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="form-group">
+                                    <label>Họ Và Tên Người Khám</label>
+                                    <input id="customer_name" type="text" class="form-control" required maxlength="30" minlength="5">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label style="color:crimson">Năm Sinh*</label>
-                                    <input id="number" value="1990" type="text" class="form-control" required minlength="4" maxlength="20">
+                                    <label>Năm Sinh*</label>
+                                    <input id="number" type="text" class="form-control" required minlength="4" maxlength="20">
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="form-group">
                                     <label>Ngày đặt lịch khám</label>
-                                    <input value="21/12/2023" id="schedule_time" type="text" class="form-control">
+                                    <input placeholder="định dạng 10:00:00 10/10/2020" id="schedule_time" type="text" class="form-control">
                                 </div>
                             </div>
 
                             <div class="col-lg-3">
                                 <div class="form-group">
-                                    <label style="color:crimson">Số điện thoại*</label>
+                                    <label>Số điện thoại *</label>
                                     <input id="phone_number" type="text" class="form-control" value="" required minlength="9">
                                 </div>
                             </div>
@@ -47,26 +53,83 @@
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Chi tiết dịch vụ khám</label>
-                                    <textarea id="product_name" rows="8" class="form-control"></textarea>
+                                    <textarea id="product_name" rows="2" class="form-control" maxlength="100"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-group">
                                     <label>Mã Code</label>
-                                    <textarea id="code" rows="8" class="form-control"></textarea>
+                                    <textarea id="code" rows="4" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     @*<label style="color:crimson">Số điện thoại gửi Zalo</label>*@
-                                    <input value="84941845992" placeholder="Số điện thoại gửi Zalo" id="phone_sendzalo" type="text" class="form-control" required minlength="9">
+                                    <input value="" placeholder="Số điện thoại gửi Zalo (thay 0 = 84)" id="phone_sendzalo" type="text" class="form-control" required minlength="9">
                                 </div>
                             </div>
                             <div class="col-lg-8">
                                 <button type='button' id="SendAPIZalo" class="common-btn">
                                     <span class="one"></span>
                                     <span class="two"></span>
-                                    Gửi Zalo
+                                    Gửi Zalo đặt lịch khám
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="checkout-area pb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="background-color:darkcyan">
+                <form id="formInfo2">
+
+                    <div class="billing">
+                        <h3>ĐÁNH GIÁ DỊCH VỤ</h3>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @*<label style="color:crimson">Họ Và Tên Người Khám</label>*@
+                                    <input placeholder="Tên khách hàng" id="customer_name_2" type="text" class="form-control" required minlength="5">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @*<label style="color:crimson">Họ Và Tên Người Khám</label>*@
+                                    <input placeholder="Mã khách hàng" id="customer_code_2" type="text" class="form-control" required minlength="5">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @*<label>Ngày khám</label>*@
+                                    <input placeholder="Ngày khám(định dạng 00/00/0000)" id="schedule_time_2" type="text" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Mã Code</label>
+                                    <textarea id="code_2" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @*<label style="color:crimson">Số điện thoại gửi Zalo</label>*@
+                                    <input value="" placeholder="Số điện thoại gửi Zalo (thay 0=84)" id="phone_sendzalo_2" type="text" class="form-control" required minlength="9">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <button type='button' id="SendAPIZalo_2" class="common-btn">
+                                    <span class="one"></span>
+                                    <span class="two"></span>
+                                    Gửi Zalo đánh giá dịch vụ
                                 </button>
                             </div>
                         </div>

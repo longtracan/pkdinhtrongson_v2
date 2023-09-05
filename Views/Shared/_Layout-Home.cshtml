@@ -539,10 +539,6 @@
             //});
 
             $("#SendAPIZalo").click(function () {
-
-
-                //alert('123');
-
                 if ($("#phone_sendzalo").val().substring(0, 2) != "84") {
                     alert("Số điện thoại gửi zalo phải bắt đầu bằng 84");
                     return;
@@ -558,6 +554,7 @@
                 $.ajax({
                     url: '/NhomBaiViet/SendAPIZalo',
                     data: {
+                        
                         phone: $("#phone_sendzalo").val(),
                         number: $("#number").val(),
                         schedule_time: $("#schedule_time").val(),
@@ -565,7 +562,8 @@
                         customer_name: $("#customer_name").val(),
                         product_name: $("#product_name").val(),
                         customer_code: $("#customer_code").val(),
-                        token: $("#code").val()
+                        token: $("#code").val(),
+                        staff_name: $("#staff_name").val()
 
                     },
                     contentData: 'json',
@@ -576,7 +574,37 @@
                 });
             });
 
+            $("#SendAPIZalo_2").click(function () {
+                alert('123');
+                if ($("#phone_sendzalo_2").val().substring(0, 2) != "84") {
+                    alert("Số điện thoại gửi zalo phải bắt đầu bằng 84");
+                    return;
+                }
+                var phone = "";
+                var number = "";
+                var schedule_time = "";
+                var phone_number = "";
+                var customer_name = "";
+                var product_name = "";
+                var customer_code = "";
+                //e.preventDefault();
+                $.ajax({
+                    url: '/NhomBaiViet/SendAPIZalo_danhgiadichvu',
+                    data: {
 
+                        phone: $("#phone_sendzalo_2").val(),
+                        schedule_time: $("#schedule_time_2").val(),
+                        customer_name: $("#customer_name_2").val(),
+                        customer_code: $("#customer_code_2").val(),
+                        token: $("#code_2").val(),
+                    },
+                    contentData: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        alert(res);
+                    }
+                });
+            });
 
         });
     </script>
