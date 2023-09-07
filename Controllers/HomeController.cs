@@ -73,10 +73,10 @@ namespace TLBD.Controllers
         {
             ViewData["SendZalo"] = 0;
             var username = User.Identity.Name;
-            if(username != "")
+            if (username != "")
             {
                 User_Model user = SELECT_USERDETAIL(username);
-                if(user.sEMAIL == "SendZalo@gmail.com")
+                if (user.sEMAIL == "SendZalo@gmail.com")
                 {
                     ViewData["SendZalo"] = 1;
                 }
@@ -169,7 +169,7 @@ namespace TLBD.Controllers
             SqlDataReader reader = null;
             //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
             //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
-            connetion = new SqlConnection(@"data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
 
             connetion.Open();
             SqlCommand dCmd = new SqlCommand("SELECT_USERDETAIL", connetion);

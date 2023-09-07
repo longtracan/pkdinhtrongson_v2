@@ -167,7 +167,7 @@ namespace TLBD.Controllers
 
             return View("SendZalo");
         }
-
+        
         public string SendAPIZalo(string phone, string number, string schedule_time, string phone_number, string customer_name, string product_name, string customer_code, string token, string staff_name)
         {
             var username = User.Identity.Name;
@@ -177,6 +177,7 @@ namespace TLBD.Controllers
             //    GhiChu = "World",
             //    DanhSachGiayToDinhKem = ""
             //};
+            
             var obj = new
             {
                 phone = phone,
@@ -192,7 +193,6 @@ namespace TLBD.Controllers
                 },
                 tracking_id = customer_code
             };
-            //var token = "6Tz9GdLuHGCGsaH5UtfE1H7GHq1zR1rPJyzcNdqRAnzrmsW-GIitD5RoDmjQDsSXKUa1ErytGYmmx2arCYff3Wl-DomyMsCs1OeMBI1JHcWYiXnSEs52Ro-UAoS5LKer6Qe603vCLY0ojZa26trp00FMA1KE7dCVFzKUF2D-VouyeYir4rLW8osJ33yRO5WLS88sEc4ZVWz-t7v6Io0g05VeQXn6DmazRDTzE4KjDImryKOD7ZONIZ3s5sWr35fLMj8dNMvpSHX7k0mySrWO85-U61zgPc0SSO8KN4TyHXXPsHH5VIn_KnBn314W1arH2_SNIJWoUsWpb0TLFsX94Lgu0IHfK7G10uTx0pzsAHqlhbCi6LCR5c5TaZbmS6D12m";
             const string URL = "https://business.openapi.zalo.me/message/template";
             string urlParameters = "";
             HttpClient client = new HttpClient();
@@ -202,28 +202,22 @@ namespace TLBD.Controllers
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Add("access_token", token);
+            
 
-            // List data response.
-            //HttpResponseMessage response = client.GetAsync(urlParameters).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
             HttpResponseMessage response = client.PostAsJsonAsync(URL, obj).Result;
             var responseContent = "FAILURE";
             if (response.IsSuccessStatusCode)
             {
                 responseContent = response.Content.ReadAsStringAsync().Result;
-                // Parse the response body.
-
             }
-            // Make any other calls using HttpClient here.
-
-            // Dispose once all HttpClient calls are complete. This is not necessary if the containing object will be disposed of; for example in this case the HttpClient instance will be disposed automatically when the application terminates so the following call is superfluous.
             GhiLogSendZalo(phone, number, schedule_time, phone_number, customer_name, product_name, customer_code, responseContent, staff_name, username, 255076);
             client.Dispose();
             return responseContent;
         }
 
-        public string SendAPIZalo_danhgiadichvu(string phone, string schedule_date,  string customer_name,  string customer_code, string token)
+        public string SendAPIZalo_danhgiadichvu(string phone, string schedule_date, string customer_name, string customer_code, string token)
         {
-            //var username = User.Identity.Name;
+            var username = User.Identity.Name;
             //var obj = new
             //{
             //    SoBienNhan = "000.00.BD.H08-230411-0004",
@@ -276,7 +270,7 @@ namespace TLBD.Controllers
             SqlDataReader rdr = null;
             //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
             //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
-            connetion = new SqlConnection(@"data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
 
             connetion.Open();
             SqlCommand dCmd = new SqlCommand("INSERT_LOG_ZALO", connetion);

@@ -552,9 +552,9 @@
                 var customer_code = "";
                 //e.preventDefault();
                 $.ajax({
-                    url: '/NhomBaiViet/SendAPIZalo',
+                    url:"/NhomBaiViet/SendAPIZalo",
                     data: {
-                        
+
                         phone: $("#phone_sendzalo").val(),
                         number: $("#number").val(),
                         schedule_time: $("#schedule_time").val(),
@@ -575,7 +575,7 @@
             });
 
             $("#SendAPIZalo_2").click(function () {
-                alert('123');
+                //alert('123');
                 if ($("#phone_sendzalo_2").val().substring(0, 2) != "84") {
                     alert("Số điện thoại gửi zalo phải bắt đầu bằng 84");
                     return;
@@ -593,10 +593,10 @@
                     data: {
 
                         phone: $("#phone_sendzalo_2").val(),
-                        schedule_time: $("#schedule_time_2").val(),
+                        schedule_date: $("#schedule_time_2").val(),
                         customer_name: $("#customer_name_2").val(),
                         customer_code: $("#customer_code_2").val(),
-                        token: $("#code_2").val(),
+                        token: $("#code_2").val()
                     },
                     contentData: 'json',
                     type: 'POST',
