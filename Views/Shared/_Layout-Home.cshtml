@@ -57,7 +57,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/nanogallery2@3/dist/css/nanogallery2.min.css" rel="stylesheet" type="text/css"> @*Album hình ảnh*@
 
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <title>PKĐK Đinh Trọng Sơn - Uy tín -Thân thiện - Hiệu quả </title>
     <link rel="icon" type="image/png" href="~/assets/images/favicon.png">
@@ -126,8 +126,12 @@
     @*slide ảnh cơ sở vật chất *@ @*http: //sachinchoolur.github.io/lightslider/index.html*@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="~/lightslider/js/lightslider.js"></script>
+    
+     @*chọn từ ngày đến ngày gửi zalo*@
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         $(document).ready(function () {
+            $(".flatpickr").flatpickr();
             if (screen.width < 600) {
                 $("#slider_trangchu").css("margin-top", "35px");
                 $("#arrow_gotop").css("margin-bottom", "12%");
@@ -457,90 +461,42 @@
             })
 
 
-            //$("#nanogallery2").nanogallery2({
+            // autofill 
+            $('#phone_number').on('input propertychange paste', function () {
+                // do your stuff
+                var phone_number = $('#phone_number').val();
+                var phone_sendzalo = phone_number.replace(phone_number.charAt(0), "84");
+                $('#phone_sendzalo').val(phone_sendzalo);
 
-            //    // GALLERY AND THUMBNAIL LAYOUT
-            //    galleryMosaic: [                       // default layout
-            //        { w: 2, h: 2, c: 1, r: 1 },
-            //        { w: 1, h: 1, c: 3, r: 1 },
-            //        { w: 1, h: 1, c: 3, r: 2 },
-            //        { w: 1, h: 2, c: 4, r: 1 },
-            //        { w: 2, h: 1, c: 5, r: 1 },
-            //        { w: 2, h: 2, c: 5, r: 2 },
-            //        { w: 1, h: 1, c: 4, r: 3 },
-            //        { w: 2, h: 1, c: 2, r: 3 },
-            //        { w: 1, h: 2, c: 1, r: 3 },
-            //        { w: 1, h: 1, c: 2, r: 4 },
-            //        { w: 2, h: 1, c: 3, r: 4 },
-            //        { w: 1, h: 1, c: 5, r: 4 },
-            //        { w: 1, h: 1, c: 6, r: 4 }
-            //    ],
-            //    galleryMosaicXS: [                     // layout for XS width
-            //        { w: 2, h: 2, c: 1, r: 1 },
-            //        { w: 1, h: 1, c: 3, r: 1 },
-            //        { w: 1, h: 1, c: 3, r: 2 },
-            //        { w: 1, h: 2, c: 1, r: 3 },
-            //        { w: 2, h: 1, c: 2, r: 3 },
-            //        { w: 1, h: 1, c: 2, r: 4 },
-            //        { w: 1, h: 1, c: 3, r: 4 }
-            //    ],
-            //    galleryMosaicSM: [                     // layout for SM width
-            //        { w: 2, h: 2, c: 1, r: 1 },
-            //        { w: 1, h: 1, c: 3, r: 1 },
-            //        { w: 1, h: 1, c: 3, r: 2 },
-            //        { w: 1, h: 2, c: 1, r: 3 },
-            //        { w: 2, h: 1, c: 2, r: 3 },
-            //        { w: 1, h: 1, c: 2, r: 4 },
-            //        { w: 1, h: 1, c: 3, r: 4 }
-            //    ],
-            //    galleryMaxRows: 1,
-            //    galleryDisplayMode: 'rows',
-            //    gallerySorting: 'random',
-            //    thumbnailDisplayOrder: 'random',
+                $('#customer_code').val(randString(4));
+                 
+            });
 
-            //    thumbnailHeight: '180', thumbnailWidth: '220',
-            //    thumbnailAlignment: 'scaled',
-            //    thumbnailGutterWidth: 0, thumbnailGutterHeight: 0,
-            //    thumbnailBorderHorizontal: 0, thumbnailBorderVertical: 0,
+            function randString(n) {
+                if (!n) {
+                    n = 5;
+                }
 
-            //    thumbnailToolbarImage: null,
-            //    thumbnailToolbarAlbum: null,
-            //    thumbnailLabel: { display: false },
+                var text = '';
+                var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-            //    // DISPLAY ANIMATION
-            //    // for gallery
-            //    galleryDisplayTransitionDuration: 1500,
-            //    // for thumbnails
-            //    thumbnailDisplayTransition: 'imageSlideUp',
-            //    thumbnailDisplayTransitionDuration: 1200,
-            //    thumbnailDisplayTransitionEasing: 'easeInOutQuint',
-            //    thumbnailDisplayInterval: 60,
+                for (var i = 0; i < n; i++) {
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
 
-            //    // THUMBNAIL HOVER ANIMATION
-            //    thumbnailBuildInit2: 'image_scale_1.15',
-            //    thumbnailHoverEffect2: 'thumbnail_scale_1.00_1.05_300|image_scale_1.15_1.00',
-            //    touchAnimation: true,
-            //    touchAutoOpenDelay: 500,
+                return text;
+            }
 
-            //    // LIGHTBOX
-            //    viewerToolbar: { display: false },
-            //    viewerTools: {
-            //        topLeft: 'label',
-            //        topRight: 'shareButton, rotateLeft, rotateRight, fullscreenButton, closeButton'
-            //    },
-
-            //    // GALLERY THEME
-            //    galleryTheme: {
-            //        thumbnail: { background: '#111' },
-            //    },
-
-            //    // DEEP LINKING
-            //    locationHash: true
-            //});
+            // Handle click event on group checkbox
 
             $("#SendAPIZalo").click(function () {
                 if ($("#phone_sendzalo").val().substring(0, 2) != "84") {
                     alert("Số điện thoại gửi zalo phải bắt đầu bằng 84");
+                    return;
+                }
+               
+                if ($("#schedule_time").val().length < 11) {
+                    alert("Nhập đầy đủ giờ phút ngày đặt lịch khám");
                     return;
                 }
                 var phone = "";
@@ -552,7 +508,7 @@
                 var customer_code = "";
                 //e.preventDefault();
                 $.ajax({
-                    url:"/NhomBaiViet/SendAPIZalo",
+                    url: "/NhomBaiViet/SendAPIZalo",
                     data: {
 
                         phone: $("#phone_sendzalo").val(),
@@ -606,8 +562,40 @@
                 });
             });
 
+            $("#tracuulichsudatlich").click(function () {
+                $.ajax({
+                    url: "/NhomBaiViet/SELECT_LOG_ZALO",
+                    data: {
+                        TUNGAY: $("#ngaytracuu").val()
+                    },
+                    contentData: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        alert(res);
+                        
+                        var Object = $.parseJSON(res);
+                       
+                        $('#tracuudatlichkham').DataTable({
+                             "stateSave": true,
+                            "bDestroy": true,
+                            "data": Object,
+                            "columns": [
+                                { "data": "SCHEDULE_TIME" },
+                                { "data": "CUSTOMER_NAME" },
+                                { "data": "NUMBER" },
+                                { "data": "PRODUCT_NAME" },
+                                { "data": "GHI_CHU" },
+                                { "data": "NGAY_GUI_CHAR" },
+                            ]
+                        });
+                    }
+                });
+            });
+
         });
     </script>
+
+
 
 
     @*<script type="text/javascript" charset="utf8" src="https ://code.jquery.com/jquery-3.5.1.js"></script>*@

@@ -227,7 +227,7 @@ namespace TLBD.Controllers
             var obj = new
             {
                 phone = phone,
-                template_id = "280810",
+                template_id = "281848",
                 template_data = new
                 {
                     schedule_date = schedule_date,
@@ -292,6 +292,46 @@ namespace TLBD.Controllers
             // execute the command
             rdr = dCmd.ExecuteReader();
             connetion.Close();
+        }
+
+        public JsonResult SELECT_LOG_ZALO(string TUNGAY)
+        {
+            //TUNGAY = "08/10/2023";
+            DataTable dt = new DataTable();
+            SqlConnection connetion = null;
+            SqlDataReader rdr = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            //connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("SELECT_LOG_ZALO", connetion);
+            dCmd.CommandType = CommandType.StoredProcedure;
+            dCmd.Parameters.Add(new SqlParameter("@TUNGAY", TUNGAY));
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            da.Fill(dt);
+            // execute the command
+            rdr = dCmd.ExecuteReader();
+            DataTable dtData = new DataTable("Data");
+            DataTable dtSchema = new DataTable("Schema");
+          
+            
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in dt.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in dt.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            var String_rows = serializer.Serialize(rows);
+            
+            connetion.Close();
+            return Json(String_rows, JsonRequestBehavior.AllowGet);
         }
     }
 }
