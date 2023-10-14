@@ -20,6 +20,7 @@ using System.Net.Http.Headers;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web.Security;
+using System.Web.Script.Serialization;
 
 namespace TLBD.Controllers
 {
@@ -202,15 +203,17 @@ namespace TLBD.Controllers
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.Add("access_token", token);
-            
-
             HttpResponseMessage response = client.PostAsJsonAsync(URL, obj).Result;
-            var responseContent = "FAILURE";
+            var responseContent = "FAIL";
+            string responseContent_message = "ZALO KHÔNG PHẢN HỒI";
             if (response.IsSuccessStatusCode)
             {
                 responseContent = response.Content.ReadAsStringAsync().Result;
+                var json_serializer = new JavaScriptSerializer();
+                dynamic item = json_serializer.Deserialize<object>(responseContent);
+                responseContent_message = item["message"];
             }
-            GhiLogSendZalo(phone, number, schedule_time, phone_number, customer_name, product_name, customer_code, responseContent, staff_name, username, 255076);
+            GhiLogSendZalo(phone, number, schedule_time, phone_number, customer_name, product_name, customer_code, responseContent_message, staff_name, username, 255076);
             client.Dispose();
             return responseContent;
         }
@@ -269,7 +272,7 @@ namespace TLBD.Controllers
             SqlConnection connetion = null;
             SqlDataReader rdr = null;
             //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
-            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
             connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
 
             connetion.Open();
@@ -301,8 +304,8 @@ namespace TLBD.Controllers
             SqlConnection connetion = null;
             SqlDataReader rdr = null;
             //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
-            connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
-            //connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
 
             connetion.Open();
             SqlCommand dCmd = new SqlCommand("SELECT_LOG_ZALO", connetion);
@@ -330,6 +333,47 @@ namespace TLBD.Controllers
             }
             var String_rows = serializer.Serialize(rows);
             
+            connetion.Close();
+            return Json(String_rows, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SELECT_LOG_ZALO_TUNGAY_DENNGAY(string TUNGAY, string DENNGAY)
+        {
+            //TUNGAY = "08/10/2023";
+            DataTable dt = new DataTable();
+            SqlConnection connetion = null;
+            SqlDataReader rdr = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("SELECT_LOG_ZALO_TUNGAY_DENNGAY", connetion);
+            dCmd.CommandType = CommandType.StoredProcedure;
+            dCmd.Parameters.Add(new SqlParameter("@TUNGAY", TUNGAY));
+            dCmd.Parameters.Add(new SqlParameter("@DENNGAY", DENNGAY));
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            da.Fill(dt);
+            // execute the command
+            rdr = dCmd.ExecuteReader();
+            DataTable dtData = new DataTable("Data");
+            DataTable dtSchema = new DataTable("Schema");
+
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in dt.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in dt.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            var String_rows = serializer.Serialize(rows);
+
             connetion.Close();
             return Json(String_rows, JsonRequestBehavior.AllowGet);
         }

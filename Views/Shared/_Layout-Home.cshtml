@@ -132,6 +132,15 @@
     <script>
         $(document).ready(function () {
             $(".flatpickr").flatpickr();
+            $("#schedule_time").flatpickr({
+                dateFormat: "H:i d/m/Y", //change format also 
+                enableTime: true,
+                weekNumbers: true,
+                altInput: true,
+                altFormat: "H:i d/m/Y",
+                time_24hr: true
+            });
+           
             if (screen.width < 600) {
                 $("#slider_trangchu").css("margin-top", "35px");
                 $("#arrow_gotop").css("margin-bottom", "12%");
@@ -526,6 +535,7 @@
                     type: 'POST',
                     success: function (res) {
                         alert(res);
+                        var Object = $.parseJSON(res);
                     }
                 });
             });
@@ -571,8 +581,6 @@
                     contentData: 'json',
                     type: 'POST',
                     success: function (res) {
-                        alert(res);
-                        
                         var Object = $.parseJSON(res);
                        
                         $('#tracuudatlichkham').DataTable({
@@ -584,6 +592,40 @@
                                 { "data": "CUSTOMER_NAME" },
                                 { "data": "NUMBER" },
                                 { "data": "PRODUCT_NAME" },
+                                { "data": "GHI_CHU" },
+                                { "data": "NGAY_GUI_CHAR" },
+                                { "data": "RESULT" },
+                            ]
+                        });
+                    }
+                });
+            });
+
+            $("#tracuulichsudatlich_theongaydat").click(function () {
+                $.ajax({
+                    url: "/NhomBaiViet/SELECT_LOG_ZALO_TUNGAY_DENNGAY",
+                    data: {
+                        TUNGAY: $("#tungaytracuu").val(),
+                        DENNGAY: $("#denngaytracuu").val()
+                    },
+                    contentData: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        alert(res);
+
+                        var Object = $.parseJSON(res);
+
+                        $('#table_tracuudatlichkham_theongaydat').DataTable({
+                            "stateSave": true,
+                            "bDestroy": true,
+                            "data": Object,
+                            "columns": [
+                                { "data": "SCHEDULE_TIME" },
+                                { "data": "CUSTOMER_NAME" },
+                                { "data": "NUMBER" },
+                                { "data": "PRODUCT_NAME" },
+                                { "data": "PHONE_SEND_ZALO" },
+                                { "data": "RESULT" },
                                 { "data": "GHI_CHU" },
                                 { "data": "NGAY_GUI_CHAR" },
                             ]
