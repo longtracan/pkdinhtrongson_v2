@@ -21,6 +21,12 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Web.Security;
 using System.Web.Script.Serialization;
+using System.Reflection;
+using AttributeRouting.Helpers;
+using Newtonsoft.Json.Linq;
+using System.Web.Helpers;
+using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 
 namespace TLBD.Controllers
 {
@@ -257,6 +263,8 @@ namespace TLBD.Controllers
             if (response.IsSuccessStatusCode)
             {
                 responseContent = response.Content.ReadAsStringAsync().Result;
+                
+                //var data = data_json.data;
                 // Parse the response body.
 
             }
@@ -267,6 +275,55 @@ namespace TLBD.Controllers
             client.Dispose();
             return responseContent;
         }
+        public string lay_ds_phanhoi(string from_time, string to_time, string token)
+        {
+            //convert time to timestamp 
+            string year_from_time = from_time.Substring(6, 4);
+            string month_from_time = from_time.Substring(3, 2);
+            string day_from_time = from_time.Substring(0, 2);
+
+            string year_to_time = to_time.Substring(6, 4);
+            string month_to_time = to_time.Substring(3, 2);
+            string day_to_time = to_time.Substring(0, 2);
+
+
+            var date_from_time = new DateTime(Int32.Parse(year_from_time), Int32.Parse(month_from_time), Int32.Parse(day_from_time), 00, 0, 0, DateTimeKind.Utc);
+            var dateWithOffset = new DateTimeOffset(date_from_time).ToUniversalTime();
+            long from_time_timestamp = dateWithOffset.ToUnixTimeMilliseconds();
+
+            var date_to_time = new DateTime(Int32.Parse(year_to_time), Int32.Parse(month_to_time), Int32.Parse(day_to_time), 00, 0, 0, DateTimeKind.Utc);
+            var dateWithOffset2 = new DateTimeOffset(date_to_time).ToUniversalTime();
+            long to_time_timestamp = dateWithOffset2.ToUnixTimeMilliseconds();
+            //token = "nzkIVANpyqhEtfzxg_7uJC_Kd7wjv_aBYuwTIwd5dptEdPjKxCh-ClUZ-LlDqPnj_BsQ3kUJdtcCxun8gRQJ5vJ_WdsbXeSRXF7WUB7UXKYOak8xcCVrNepewm2gc8T0oTA02zA1u5lmtlOLpQdp9klVaKw8zFPyaw7pJOk8dtcCre4ogRc6UvVSvG-Cyk91igZc9ABM-4wz-Ea3ZwxjKu_AZ1-CbPfvjjoDJwQ3Y3k0x8voXyENHupeYJ2Bjfe0hfdtDytFubFpa-CUy__vAFAtwa3BtDWZsvkqKx2rqZMgnyXTcvJwDQgnd6sEnRmbyAYUSFdseH_TlvvepDMmESYvXs6ezfWHWwQWU9h9cGUicgPwlQgc4OQQa2IAq-bKgFZ94QwSf4Ma-wWRfj79QQNqhpVFXgbTKnrK1w3ezq8";
+            const string URL = "https://business.openapi.zalo.me/rating/get?template_id=281848";
+            string urlParameters = "https://business.openapi.zalo.me/rating/get?template_id=281848&from_time=" + from_time_timestamp + "&to_time=" + to_time_timestamp + "&offset=0&limit=5";
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(URL);
+
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(
+            new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("access_token", token);
+
+            // List data response.
+            HttpResponseMessage response = client.GetAsync(urlParameters).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+            //HttpResponseMessage response = client.PostAsJsonAsync(URL, obj).Result;
+            var responseContent_data = "LỖI - ZALO KHÔNG PHẢN HỒI";
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = response.Content.ReadAsStringAsync().Result;
+                dynamic jsonObj = JObject.Parse(responseContent)["data"]["data"];
+                responseContent_data = JsonConvert.SerializeObject(jsonObj);
+
+            }
+            // Dispose once all HttpClient calls are complete. This is not necessary if the containing object will be disposed of; for example in this case the HttpClient instance will be disposed automatically when the application terminates so the following call is superfluous.
+            //GhiLogSendZalo(phone, number, schedule_time, phone_number, customer_name, product_name, customer_code, responseContent, "", username, 255076);
+            //client.Dispose();
+            return responseContent_data;
+        }
+
+
         public void GhiLogSendZalo(string phone, string number, string schedule_time, string phone_number, string customer_name, string product_name, string customer_code, string result, string ghichu, string taikhoan, int templat_id)
         {
             SqlConnection connetion = null;

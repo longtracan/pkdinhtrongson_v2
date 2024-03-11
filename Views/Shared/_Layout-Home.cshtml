@@ -231,6 +231,7 @@
             var huyenKH = " ";
             var EmailKH = " ";
             var luuyKH = " ";
+            var tenKH2 = $("#tenKH").val();
 
             var table = $('#table_id').DataTable({
                 oLanguage: {
@@ -243,6 +244,11 @@
                         exportOptions: {
                             columns: [1, 2, 3, 5],
                             margin: [1, 0, 0, 0],
+                              orthogonal: "export",
+                              rows: function(idx, data, node) { // xuat thu tu
+                                number = 1;
+                                return true;
+                              }
                         },
                         footer: true,
                         customize: function (doc) {
@@ -255,7 +261,7 @@
                                     + '- Số điện thoại liên hệ: ' + sodienthoaiKH + " \n"
                                     + '- Nơi ở hiện nay: ' + huyenKH + " \n"
                                     + '- Email: ' + EmailKH + " \n"
-                                    + '- Lưu ý: ' + luuyKH + " \n"
+                                    + '- Ghi chú: ' + luuyKH + " \n"
                                 /**/
 
                             });
@@ -263,8 +269,8 @@
 
 
                         },
-                        title: "BẢNG DỊCH VỤ KHÁM SỨC KHỎE TỔNG QUÁT",
-                        messageBottom: ' \n \n - Xin vui lòng liên hệ hotline 02563.527.999 để được tư vấn trực tiếp và đặt lịch khám trên bảng dịch vụ này. Hoặc gửi file này cho chúng tôi bằng cách nhấp vào biểu tượng trò chuyện bên góc phải màn hình website. Xin cảm ơn vì đã lựa chọn chúng tôi.: '
+                        title: "BẢNG DỊCH VỤ KHÁM SỨC KHỎE TỔNG QUÁT THEO YÊU CẦU",
+                        messageBottom: ' \n \n - Xin vui lòng liên hệ hotline 02563.527.999 hoặc ZalO Offical Acoount https://zalo.me/3376748631085780924 để được tư vấn trực tiếp và đặt lịch khám trên bảng dịch vụ này. \n \n - Xin cảm ơn vì đã lựa chọn dịch vụ khám và chăm sóc sức khỏe của chúng tôi.: '
                     },
                 ],
                 rowReorder: {
@@ -284,10 +290,16 @@
                         }
 
                     },
-                    {
-                        "targets": 1,
-                        "width": "5%",
+                    //{
+                    //    "targets": 1,
+                    //    "width": "5%",
 
+                    //},
+                    {
+                        targets: 1,
+                        render: function (data, type) {
+                            return type === 'export' ? number++ : data;
+                        }
                     },
                     {
                         "targets": 2,
@@ -309,6 +321,7 @@
                         "visible": false,
                         "searchable": false
                     },
+                   
 
 
                 ],
@@ -628,6 +641,38 @@
                                 { "data": "RESULT" },
                                 { "data": "GHI_CHU" },
                                 { "data": "NGAY_GUI_CHAR" },
+                            ]
+                        });
+                    }
+                });
+            });
+
+            $("#lay_ds_phanhoi").click(function () {
+                $.ajax({
+                    url: "/NhomBaiViet/lay_ds_phanhoi",
+                    data: {
+                        from_time: $("#tungay").val(),
+                        to_time: $("#denngay").val(),
+                        token: $("#code_3").val()
+                    },
+                    contentData: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        alert(res);
+
+                        var Object = $.parseJSON(res);
+
+                        $('#table_lay_ds_phanhoi').DataTable({
+                            "stateSave": true,
+                            "bDestroy": true,
+                            "data": Object,
+                            "columns": [
+                                { "data": "rate" },
+                                { "data": "trackingId" },
+                                { "data": "note" },
+                                { "data": "feedbacks" },
+                                { "data": "submitDate" },
+                               
                             ]
                         });
                     }

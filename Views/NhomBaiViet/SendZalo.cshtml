@@ -176,7 +176,7 @@
 
 
 
-<div class="checkout-area pb-70">
+<div class="checkout-area pb-20">
     <div class="container">
         <div class="row">
             <div class="col-lg-12" style="background-color:darkcyan">
@@ -187,21 +187,21 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label style="color:crimson">Họ Và Tên Người Khám</label>
+                                   
                                     <input placeholder="Tên khách hàng" id="customer_name_2" type="text" class="form-control" required minlength="5">
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label style="color:crimson">Họ Và Tên Người Khám</label>
+                                   
                                     <input placeholder="Mã khách hàng" id="customer_code_2" type="text" class="form-control" required minlength="5">
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>Ngày khám</label>
+                                   
                                     <input placeholder="Ngày khám(định dạng 00/00/0000)" id="schedule_time_2" type="text" class="form-control">
                                 </div>
                             </div>
@@ -230,6 +230,54 @@
             </div>
 
         </div>
+    </div>
+</div>
+
+<div class="checkout-area pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="background-color:darkslategrey">
+                <form id="formInfo">
+                    <div class="billing">
+                        <h3>LẤY KẾT QUẢ PHẢN HỒI</h3>
+
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Mã Code</label>
+                                    <textarea id="code_3" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <input type='text' id="tungay" class='flatpickr' data-date-format="d/m/Y" placeholder="TỪ NGÀY">
+                            <input type='text' id="denngay" class='flatpickr' data-date-format="d/m/Y" placeholder="ĐẾN NGÀY">
+                            <button type='button' id="lay_ds_phanhoi" class="common-btn">
+                                <span class="one"></span>
+                                <span class="two"></span>
+                                LẤY DANH SÁCH
+                            </button>
+                        </div>
+
+                        <table id="table_lay_ds_phanhoi" class="display" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+
+                                    <th>Số sao</th>
+                                    <th>ID khách hàng</th>
+                                    <th>Nội dung</th>
+                                    <th>Ghi chú</th>
+                                    <th>Thời gian</th>
+                                   
+                                </tr>
+                            </thead>
+
+                        </table>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
     </div>
 </div>
 
