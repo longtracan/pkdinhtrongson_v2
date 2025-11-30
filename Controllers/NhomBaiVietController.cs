@@ -175,7 +175,7 @@ namespace TLBD.Controllers
             return View("SendZalo");
         }
         
-        public string SendAPIZalo(string phone, string number, string schedule_time, string phone_number, string customer_name, string product_name, string customer_code, string token, string staff_name)
+        public string SendAPIZalo(string phone, string number, string schedule_time, string phone_number, string customer_name, string product_name, string customer_code, string token, string note, string staff_name)
         {
             var username = User.Identity.Name;
             //var obj = new
@@ -188,7 +188,7 @@ namespace TLBD.Controllers
             var obj = new
             {
                 phone = phone,
-                template_id = "255076",
+                template_id = "421018",
                 template_data = new
                 {
                     number = number,
@@ -196,7 +196,8 @@ namespace TLBD.Controllers
                     phone_number = phone_number,
                     customer_name = customer_name,
                     product_name = product_name,
-                    customer_code = customer_code
+                    customer_code = customer_code,
+                    note = note
                 },
                 tracking_id = customer_code
             };
@@ -219,7 +220,7 @@ namespace TLBD.Controllers
                 dynamic item = json_serializer.Deserialize<object>(responseContent);
                 responseContent_message = item["message"];
             }
-            GhiLogSendZalo(phone, number, schedule_time, phone_number, customer_name, product_name, customer_code, responseContent_message, staff_name, username, 255076);
+            GhiLogSendZalo(phone, number, schedule_time, phone_number, customer_name, product_name, customer_code, responseContent_message, staff_name, username, 421018);
             client.Dispose();
             return responseContent;
         }
@@ -296,7 +297,7 @@ namespace TLBD.Controllers
             long to_time_timestamp = dateWithOffset2.ToUnixTimeMilliseconds();
             //token = "nzkIVANpyqhEtfzxg_7uJC_Kd7wjv_aBYuwTIwd5dptEdPjKxCh-ClUZ-LlDqPnj_BsQ3kUJdtcCxun8gRQJ5vJ_WdsbXeSRXF7WUB7UXKYOak8xcCVrNepewm2gc8T0oTA02zA1u5lmtlOLpQdp9klVaKw8zFPyaw7pJOk8dtcCre4ogRc6UvVSvG-Cyk91igZc9ABM-4wz-Ea3ZwxjKu_AZ1-CbPfvjjoDJwQ3Y3k0x8voXyENHupeYJ2Bjfe0hfdtDytFubFpa-CUy__vAFAtwa3BtDWZsvkqKx2rqZMgnyXTcvJwDQgnd6sEnRmbyAYUSFdseH_TlvvepDMmESYvXs6ezfWHWwQWU9h9cGUicgPwlQgc4OQQa2IAq-bKgFZ94QwSf4Ma-wWRfj79QQNqhpVFXgbTKnrK1w3ezq8";
             const string URL = "https://business.openapi.zalo.me/rating/get?template_id=281848";
-            string urlParameters = "https://business.openapi.zalo.me/rating/get?template_id=281848&from_time=" + from_time_timestamp + "&to_time=" + to_time_timestamp + "&offset=0&limit=5";
+            string urlParameters = "https://business.openapi.zalo.me/rating/get?template_id=281848&from_time=" + from_time_timestamp + "&to_time=" + to_time_timestamp + "&offset=0&limit=1000";
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(URL);
 
@@ -318,7 +319,7 @@ namespace TLBD.Controllers
 
             }
             // Dispose once all HttpClient calls are complete. This is not necessary if the containing object will be disposed of; for example in this case the HttpClient instance will be disposed automatically when the application terminates so the following call is superfluous.
-            //GhiLogSendZalo(phone, number, schedule_time, phone_number, customer_name, product_name, customer_code, responseContent, "", username, 255076);
+            //GhiLogSendZalo(phone, number, schedule_time, phone_number, customer_name, product_name, customer_code, responseContent, "", username, 421018);
             //client.Dispose();
             return responseContent_data;
         }
@@ -434,5 +435,343 @@ namespace TLBD.Controllers
             connetion.Close();
             return Json(String_rows, JsonRequestBehavior.AllowGet);
         }
+
+        [GET("SendVoucher")]
+        public ActionResult SendVoucher() /*Danh sách bài viết theo nhóm bài viết*/
+        {
+
+            return View("SendVoucher");
+        }
+
+        [GET("tra-cuu-Voucher")]
+        public ActionResult GetVoucher() /*Danh sách bài viết theo nhóm bài viết*/
+        {
+
+            return View("GetVoucher");
+        }
+
+        public void GhiLogSendAPIVoucher(string voucher_code, string start_date, string end_date, string value, string customer_name, string customer_code, string customer_year, string phone_number, string event_name, string event_condition, string event_date, string phone_sendzalo, string staff_name, string responseContent_message, string ID_template)
+        {
+            SqlConnection connetion = null;
+            SqlDataReader rdr = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("INSERT_LOG_VOUCHER", connetion);
+            dCmd.CommandType = CommandType.StoredProcedure;
+            dCmd.Parameters.Add(new SqlParameter("@VOUCHER_CODE", voucher_code));
+            dCmd.Parameters.Add(new SqlParameter("@FROM_DATE", start_date));
+            dCmd.Parameters.Add(new SqlParameter("@TO_DATE", end_date));
+            dCmd.Parameters.Add(new SqlParameter("@VOUCHER_VALUE", value));
+            dCmd.Parameters.Add(new SqlParameter("@CUSTOMER_NAME", customer_name));
+            dCmd.Parameters.Add(new SqlParameter("@CUSTOMER_ID", customer_code));
+            dCmd.Parameters.Add(new SqlParameter("@CUSTOMER_YEAR", customer_year));
+            dCmd.Parameters.Add(new SqlParameter("@CUSTOMER_PHONE", phone_number));
+            dCmd.Parameters.Add(new SqlParameter("@EVENT_NAME", event_name));
+            dCmd.Parameters.Add(new SqlParameter("@EVENT_CONDITION", event_condition));
+            dCmd.Parameters.Add(new SqlParameter("@EVENT_DATE", event_date));
+            dCmd.Parameters.Add(new SqlParameter("@PHONE_SEND_ZALO", phone_sendzalo));
+            dCmd.Parameters.Add(new SqlParameter("@NGAY_GUI", "")); // trong db lay ngay hien tai
+            dCmd.Parameters.Add(new SqlParameter("@NGUOI_THUC_HIEN", staff_name));
+            dCmd.Parameters.Add(new SqlParameter("@RESULT", responseContent_message));
+            dCmd.Parameters.Add(new SqlParameter("@ID_TEMPLATE", ID_template));
+
+
+
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            DataTable table = new DataTable();
+            // execute the command
+            rdr = dCmd.ExecuteReader();
+            connetion.Close();
+        }
+
+        public void GhiLogVoucher(string voucher_code, string start_date, string end_date, string value, string customer_name, string customer_code, string customer_year, string phone_number, string event_name, string event_condition, string event_date, string phone_sendzalo, string staff_name, string ID_template)
+        {
+            SqlConnection connetion = null;
+            SqlDataReader rdr = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("INSERT_VOUCHER", connetion);
+            dCmd.CommandType = CommandType.StoredProcedure;
+            dCmd.Parameters.Add(new SqlParameter("@VOUCHER_CODE", voucher_code));
+            dCmd.Parameters.Add(new SqlParameter("@FROM_DATE", start_date));
+            dCmd.Parameters.Add(new SqlParameter("@TO_DATE", end_date));
+            dCmd.Parameters.Add(new SqlParameter("@VOUCHER_VALUE", value));
+            dCmd.Parameters.Add(new SqlParameter("@CUSTOMER_NAME", customer_name));
+            dCmd.Parameters.Add(new SqlParameter("@CUSTOMER_ID", customer_code));
+            dCmd.Parameters.Add(new SqlParameter("@CUSTOMER_YEAR", customer_year));
+            dCmd.Parameters.Add(new SqlParameter("@CUSTOMER_PHONE", phone_number));
+            dCmd.Parameters.Add(new SqlParameter("@EVENT_NAME", event_name));
+            dCmd.Parameters.Add(new SqlParameter("@EVENT_CONDITION", event_condition));
+            dCmd.Parameters.Add(new SqlParameter("@EVENT_DATE", event_date));
+            dCmd.Parameters.Add(new SqlParameter("@PHONE_SEND_ZALO", phone_sendzalo));
+            dCmd.Parameters.Add(new SqlParameter("@NGAY_GUI", "")); // trong db lay ngay hien tai
+            dCmd.Parameters.Add(new SqlParameter("@NGUOI_THUC_HIEN", staff_name));
+            dCmd.Parameters.Add(new SqlParameter("@ID_TEMPLATE", ID_template));
+
+
+
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            DataTable table = new DataTable();
+            // execute the command
+            rdr = dCmd.ExecuteReader();
+            connetion.Close();
+        }
+
+        public string SendAPIVoucher(string event_name, string event_date, string value, string customer_name, string customer_year, string phone_number, string event_condition, string start_date, string end_date, string voucher_code, string customer_code, string token, string phone_sendzalo, string staff_name)
+        {
+            var username = User.Identity.Name;
+            var obj = new
+            {
+                phone = phone_sendzalo,
+                template_id = "387768",
+                template_data = new
+                {
+                    event_name = event_name,
+                    event_date = event_date,
+                    value = value,
+                    customer_name = customer_name,
+                    event_condition = event_condition,
+                    start_date = start_date,
+                    end_date = end_date,
+                    voucher_code = voucher_code,
+                    customer_id = customer_code
+                },
+                tracking_id = customer_code
+            };
+            const string URL = "https://business.openapi.zalo.me/message/template";
+            string urlParameters = "";
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(URL);
+
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(
+            new MediaTypeWithQualityHeaderValue("application/json"));
+            client.DefaultRequestHeaders.Add("access_token", token);
+            HttpResponseMessage response = client.PostAsJsonAsync(URL, obj).Result;
+            var responseContent = "FAIL";
+            string responseContent_message = "ZALO KHÔNG PHẢN HỒI";
+            if (response.IsSuccessStatusCode)
+            {
+                responseContent = response.Content.ReadAsStringAsync().Result;
+                var json_serializer = new JavaScriptSerializer();
+                dynamic item = json_serializer.Deserialize<object>(responseContent);
+               responseContent_message = item["message"];
+            }
+            GhiLogSendAPIVoucher(voucher_code, start_date, end_date, value, customer_name, customer_code, customer_year, phone_number, event_name, event_condition, event_date, phone_sendzalo, staff_name, responseContent_message, "387768");
+            if(responseContent_message == "Success")
+            {
+                GhiLogVoucher(voucher_code, start_date, end_date, value, customer_name, customer_code, customer_year, phone_number, event_name, event_condition, event_date, phone_sendzalo, staff_name , "387768");
+            }
+            client.Dispose();
+            return responseContent;
+        }
+
+        public JsonResult SELECT_LOG_VOUCHER_TUNGAY_DENNGAY(string TUNGAY, string DENNGAY)
+        {
+            //TUNGAY = "08/10/2023";
+            DataTable dt = new DataTable();
+            SqlConnection connetion = null;
+            SqlDataReader rdr = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("SELECT_LOG_VOUCHER_TUNGAY_DENNGAY", connetion);
+            dCmd.CommandType = CommandType.StoredProcedure;
+            dCmd.Parameters.Add(new SqlParameter("@TUNGAY", TUNGAY));
+            dCmd.Parameters.Add(new SqlParameter("@DENNGAY", DENNGAY));
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            da.Fill(dt);
+            // execute the command
+            rdr = dCmd.ExecuteReader();
+            DataTable dtData = new DataTable("Data");
+            DataTable dtSchema = new DataTable("Schema");
+
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in dt.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in dt.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            var String_rows = serializer.Serialize(rows);
+
+            connetion.Close();
+            return Json(String_rows, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SELECT_VOUCHER_TUNGAY_DENNGAY(string TUNGAY, string DENNGAY)
+        {
+            //TUNGAY = "08/10/2023";
+            DataTable dt = new DataTable();
+            SqlConnection connetion = null;
+            SqlDataReader rdr = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("SELECT_VOUCHER_TUNGAY_DENNGAY", connetion);
+            dCmd.CommandType = CommandType.StoredProcedure;
+            dCmd.Parameters.Add(new SqlParameter("@TUNGAY", TUNGAY));
+            dCmd.Parameters.Add(new SqlParameter("@DENNGAY", DENNGAY));
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            da.Fill(dt);
+            // execute the command
+            rdr = dCmd.ExecuteReader();
+            DataTable dtData = new DataTable("Data");
+            DataTable dtSchema = new DataTable("Schema");
+
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in dt.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in dt.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            var String_rows = serializer.Serialize(rows);
+
+            connetion.Close();
+            return Json(String_rows, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SELECT_VOUCHER_ALL()
+        {
+            //TUNGAY = "08/10/2023";
+            DataTable dt = new DataTable();
+            SqlConnection connetion = null;
+            SqlDataReader rdr = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("SELECT_VOUCHER_ALL", connetion);
+            dCmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            da.Fill(dt);
+            // execute the command
+            rdr = dCmd.ExecuteReader();
+            DataTable dtData = new DataTable("Data");
+            DataTable dtSchema = new DataTable("Schema");
+
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in dt.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in dt.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            var String_rows = serializer.Serialize(rows);
+
+            connetion.Close();
+            return Json(String_rows, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult CHECKIN_VOUCHER(string ID)
+        {
+            //TUNGAY = "08/10/2023";
+            DataTable dt = new DataTable();
+            SqlConnection connetion = null;
+            SqlDataReader rdr = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("CHECKIN_VOUCHER", connetion);
+            dCmd.Parameters.Add(new SqlParameter("@ID", ID));
+            dCmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            da.Fill(dt);
+            // execute the command
+            rdr = dCmd.ExecuteReader();
+            DataTable dtData = new DataTable("Data");
+            DataTable dtSchema = new DataTable("Schema");
+
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in dt.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in dt.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            var String_rows = serializer.Serialize(rows);
+
+            connetion.Close();
+            return Json(String_rows, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult HUY_CHECKIN_VOUCHER(string ID)
+        {
+            //TUNGAY = "08/10/2023";
+            DataTable dt = new DataTable();
+            SqlConnection connetion = null;
+            SqlDataReader rdr = null;
+            //data source = localhost\SQLEXPRESS2014; initial catalog = pkdkdinhtrongson; user id = pkdkdinhtrongson_admin; password = kid@1412; MultipleActiveResultSets = True; App = EntityFramework
+            //connetion = new SqlConnection("Data Source=HUYDT-BDH;Initial Catalog=pkdkdinhtrongson_v2;Integrated Security=True;MultipleActiveResultSets=True;App=EntityFramework");
+            connetion = new SqlConnection(@"data source=localhost\SQLEXPRESS2014;initial catalog=pkdkdinhtrongson_v2;user id=pkdkdinhtrongson_admin;password=kid@1412;MultipleActiveResultSets=True;App=EntityFramework");
+
+            connetion.Open();
+            SqlCommand dCmd = new SqlCommand("HUY_CHECKIN_VOUCHER", connetion);
+            dCmd.Parameters.Add(new SqlParameter("@ID", ID));
+            dCmd.CommandType = CommandType.StoredProcedure;
+            SqlDataAdapter da = new SqlDataAdapter(dCmd);
+            da.Fill(dt);
+            // execute the command
+            rdr = dCmd.ExecuteReader();
+            DataTable dtData = new DataTable("Data");
+            DataTable dtSchema = new DataTable("Schema");
+
+
+            System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in dt.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in dt.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+            var String_rows = serializer.Serialize(rows);
+
+            connetion.Close();
+            return Json(String_rows, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

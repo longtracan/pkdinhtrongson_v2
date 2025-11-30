@@ -51,10 +51,16 @@
                                 </div>
                             </div>
 
-                            <div class="col-lg-10">
+                            <div class="col-lg-7">
                                 <div class="form-group">
                                     <label>Chi tiết dịch vụ khám</label>
                                     <textarea id="product_name" rows="2" class="form-control" maxlength="100"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="form-group">
+                                    <label>Ghi chú</label>
+                                    <textarea id="note" rows="2" class="form-control" maxlength="100"></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -96,7 +102,7 @@
 
                         <div class="col-lg-8">
                             <input type='text' id="ngaytracuu" class='flatpickr' data-date-format="d/m/Y" placeholder="CHỌN NGÀY TRA CỨU">
-                            
+
                             <button type='button' id="tracuulichsudatlich" class="common-btn">
                                 <span class="one"></span>
                                 <span class="two"></span>
@@ -125,7 +131,7 @@
             </div>
 
         </div>
-       
+
     </div>
 </div>
 
@@ -175,6 +181,63 @@
 </div>
 
 
+<div class="checkout-area pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="background-color:darkcyan">
+                <form id="formInfo">
+                    <div class="billing">
+                        <h3>TRA CỨU THÔNG TIN GỬI VOUCHER</h3>
+
+                        <div class="col-lg-8">
+                            <div style="display:none">
+                                <input type='text' id="voucher_tungay" class='flatpickr' data-date-format="Y/m/d" placeholder="TỪ NGÀY">
+                                <input type='text' id="voucher_denngay" class='flatpickr' data-date-format="Y/m/d" placeholder="ĐẾN NGÀY">
+                                <button type='button' id="tracuu_voucher_theongaydat" class="common-btn">
+                                    <span class="one"></span>
+                                    <span class="two"></span>
+                                    LẤY DANH SÁCH
+                                </button>
+                            </div>
+                           
+
+                            <button type='button' id="tracuu_voucher_all" class="common-btn" style="margin-bottom:20px;">
+                                <span class="one"></span>
+                                <span class="two"></span>
+                                LẤY TẤT CẢ
+                            </button>
+                        </div>
+
+                        <table id="table_tracuu_Voucher" class="display" cellspacing="0" width="100%" style="display:none;">
+                            <thead>
+                                <tr>
+                                    <th>Ngày gửi</th>
+                                    <th>Họ Tên</th>
+                                    <th>NS</th>
+                                    <th>Điện thoại</th>
+                                    <th>Voucher</th>
+                                    <th>Từ Ngày</th>
+                                    <th>Tới ngày</th>
+                                    <th>Trạng Thái</th>
+                                    <th></th>
+                                   
+                                </tr>
+                            </thead>
+
+                        </table>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
 
 <div class="checkout-area pb-20">
     <div class="container">
@@ -187,21 +250,21 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                   
+
                                     <input placeholder="Tên khách hàng" id="customer_name_2" type="text" class="form-control" required minlength="5">
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                   
+
                                     <input placeholder="Mã khách hàng" id="customer_code_2" type="text" class="form-control" required minlength="5">
                                 </div>
                             </div>
 
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                   
+
                                     <input placeholder="Ngày khám(định dạng 00/00/0000)" id="schedule_time_2" type="text" class="form-control">
                                 </div>
                             </div>
@@ -213,7 +276,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                  
+
                                     <input value="" placeholder="Số điện thoại gửi Zalo (thay 0=84)" id="phone_sendzalo_2" type="text" class="form-control" required minlength="9">
                                 </div>
                             </div>
@@ -266,7 +329,7 @@
                                     <th>Nội dung</th>
                                     <th>Ghi chú</th>
                                     <th>Thời gian</th>
-                                   
+
                                 </tr>
                             </thead>
 

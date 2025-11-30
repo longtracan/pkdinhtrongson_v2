@@ -2,12 +2,12 @@
 @using TLBD.Areas.admin.Models.Banner;
 
 @*@{
-    Banner_Class bnClss = new Banner_Class();
-    var banner = bnClss.GetBanner();
-    
-    Background_Class bgClss = new Background_Class();
-    var background = bgClss.Background();
-}*@
+        Banner_Class bnClss = new Banner_Class();
+        var banner = bnClss.GetBanner();
+
+        Background_Class bgClss = new Background_Class();
+        var background = bgClss.Background();
+    }*@
 
 @using TLBD.Functions
 <!DOCTYPE html>
@@ -126,21 +126,45 @@
     @*slide ảnh cơ sở vật chất *@ @*http: //sachinchoolur.github.io/lightslider/index.html*@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="~/lightslider/js/lightslider.js"></script>
-    
-     @*chọn từ ngày đến ngày gửi zalo*@
+
+    @*chọn từ ngày đến ngày gửi zalo*@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         $(document).ready(function () {
             $(".flatpickr").flatpickr();
             $("#schedule_time").flatpickr({
-                dateFormat: "H:i d/m/Y", //change format also 
+                dateFormat: "H:i d/m/Y", //change format also
                 enableTime: true,
                 weekNumbers: true,
                 altInput: true,
                 altFormat: "H:i d/m/Y",
                 time_24hr: true
             });
-           
+            $("#start_date").flatpickr({
+                dateFormat: "d/m/Y", //change format also
+                enableTime: false,
+                weekNumbers: true,
+                altInput: true,
+                altFormat: "d/m/Y",
+                time_24hr: true
+            });
+            $("#end_date").flatpickr({
+                dateFormat: "d/m/Y", //change format also
+                enableTime: false,
+                weekNumbers: true,
+                altInput: true,
+                altFormat: "d/m/Y",
+                time_24hr: true
+            });
+            $("#event_date").flatpickr({
+                dateFormat: "d/m/Y", //change format also
+                enableTime: false,
+                weekNumbers: true,
+                altInput: true,
+                altFormat: "d/m/Y",
+                time_24hr: true
+            });
+
             if (screen.width < 600) {
                 $("#slider_trangchu").css("margin-top", "35px");
                 $("#arrow_gotop").css("margin-bottom", "12%");
@@ -241,17 +265,19 @@
                 buttons: [
                     {
                         extend: 'pdfHtml5',
+
                         exportOptions: {
                             columns: [1, 2, 3, 5],
                             margin: [1, 0, 0, 0],
-                              orthogonal: "export",
-                              rows: function(idx, data, node) { // xuat thu tu
+                            orthogonal: "export",
+                            rows: function (idx, data, node) { // xuat thu tu
                                 number = 1;
                                 return true;
-                              }
+                            }
                         },
                         footer: true,
                         customize: function (doc) {
+                            doc.content[0].text = "PHÒNG KHÁM ĐA KHOA ĐINH TRỌNG SƠN" + "\n" + "BẢNG DỊCH VỤ KHÁM SỨC KHỎE TỔNG QUÁT THEO YÊU CẦU";
                             doc.content.splice(1, 0, {
                                 margin: [0, 0, 0, 12],
                                 alignment: 'left',
@@ -269,7 +295,7 @@
 
 
                         },
-                        title: "BẢNG DỊCH VỤ KHÁM SỨC KHỎE TỔNG QUÁT THEO YÊU CẦU",
+                        title: "Bao gia goi kham PDF" + tenKH,
                         messageBottom: ' \n \n - Xin vui lòng liên hệ hotline 02563.527.999 hoặc ZalO Offical Acoount https://zalo.me/3376748631085780924 để được tư vấn trực tiếp và đặt lịch khám trên bảng dịch vụ này. \n \n - Xin cảm ơn vì đã lựa chọn dịch vụ khám và chăm sóc sức khỏe của chúng tôi.: '
                     },
                 ],
@@ -321,7 +347,7 @@
                         "visible": false,
                         "searchable": false
                     },
-                   
+
 
 
                 ],
@@ -483,15 +509,30 @@
             })
 
 
-            // autofill 
+            // autofill
             $('#phone_number').on('input propertychange paste', function () {
                 // do your stuff
                 var phone_number = $('#phone_number').val();
                 var phone_sendzalo = phone_number.replace(phone_number.charAt(0), "84");
                 $('#phone_sendzalo').val(phone_sendzalo);
 
+
+
                 $('#customer_code').val(randString(4));
-                 
+                if (window.location.href.includes('sendvoucher')) {
+
+                    $("#voucher_code").val($("#event_code").val() + "-" + getFirstChar($("#customer_name").val()) + $("#customer_year").val().slice(-2) + "-" + $('#phone_number').val().slice(-3));
+                }
+
+            });
+            // autofill
+            $('#customer_name').on('input propertychange paste', function () {
+                $("#voucher_code").val($("#event_code").val()+ "-" + getFirstChar($("#customer_name").val()) + $("#customer_year").val().slice(-2) + "-" + $('#phone_number').val().slice(-3));
+            });
+
+            // autofill
+            $('#customer_year').on('input propertychange paste', function () {
+                $("#voucher_code").val($("#event_code").val() + "-" + getFirstChar($("#customer_name").val()) + $("#customer_year").val().slice(-2) + "-" + $('#phone_number').val().slice(-3));
             });
 
             function randString(n) {
@@ -509,14 +550,19 @@
                 return text;
             }
 
-            // Handle click event on group checkbox
+            function getFirstChar($str) {
+                var $result = $str.split(' ').map(function (item) { return item[0] }).join('');
+                return $result.toUpperCase();
+            }
 
+            // Handle click event on group checkbox
+            // gui zalo dat lich kham
             $("#SendAPIZalo").click(function () {
                 if ($("#phone_sendzalo").val().substring(0, 2) != "84") {
                     alert("Số điện thoại gửi zalo phải bắt đầu bằng 84");
                     return;
                 }
-               
+
                 if ($("#schedule_time").val().length < 11) {
                     alert("Nhập đầy đủ giờ phút ngày đặt lịch khám");
                     return;
@@ -528,6 +574,7 @@
                 var customer_name = "";
                 var product_name = "";
                 var customer_code = "";
+                var note = "";
                 //e.preventDefault();
                 $.ajax({
                     url: "/NhomBaiViet/SendAPIZalo",
@@ -541,6 +588,7 @@
                         product_name: $("#product_name").val(),
                         customer_code: $("#customer_code").val(),
                         token: $("#code").val(),
+                        note: $("#note").val(),
                         staff_name: $("#staff_name").val()
 
                     },
@@ -552,7 +600,7 @@
                     }
                 });
             });
-
+            // danh gia dich vu
             $("#SendAPIZalo_2").click(function () {
                 //alert('123');
                 if ($("#phone_sendzalo_2").val().substring(0, 2) != "84") {
@@ -595,9 +643,9 @@
                     type: 'POST',
                     success: function (res) {
                         var Object = $.parseJSON(res);
-                       
+
                         $('#tracuudatlichkham').DataTable({
-                             "stateSave": true,
+                            "stateSave": true,
                             "bDestroy": true,
                             "data": Object,
                             "columns": [
@@ -672,13 +720,335 @@
                                 { "data": "note" },
                                 { "data": "feedbacks" },
                                 { "data": "submitDate" },
-                               
+
                             ]
                         });
                     }
                 });
             });
 
+            $("#btn_sendVoucher").click(function () {
+                if ($("#phone_sendzalo").val().substring(0, 2) != "84") {
+                    alert("Số điện thoại gửi zalo phải bắt đầu bằng 84");
+                    return;
+                }
+
+                if ($(".Date_time").val().length < 9) {
+                    alert("Nhập đầy đủ từ ngày đến ngày");
+                    return;
+                }
+                if ($(".batbuoc").val().length < 3) {
+                    alert("Nhập đầy đủ thông tin bắt buộc");
+                    return;
+                }
+                var event_name = "";
+                var event_date = "";
+                var value = "";
+                var customer_name = "";
+                var customer_year = "";
+                var phone_number = "";
+                var event_condition = "";
+                var start_date = "";
+                var end_date = "";
+                var voucher_code = "";
+                var customer_code = ""; var code = ""; var staff_name = "";
+                //e.preventDefault();
+                $.ajax({
+                    url: "/NhomBaiViet/SendAPIVoucher",
+                    data: {
+
+                        event_name: $("#event_name").val(),
+                        event_date: $("#event_date").val(),
+                        value: $("#value").val(),
+                        customer_name: $("#customer_name").val(),
+                        customer_year: $("#customer_year").val(),
+                        phone_number: $("#phone_number").val(),
+                        event_condition: $("#event_condition").val(),
+                        start_date: $("#start_date").val(),
+                        end_date: $("#end_date").val(),
+                        voucher_code: $("#voucher_code").val(),
+                        customer_code: $("#customer_code").val(),
+                        //
+                        token: $("#code").val(),
+                        phone_sendzalo: $("#phone_sendzalo").val(),
+                        staff_name: $("#staff_name").val()
+
+                    },
+                    contentData: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        alert(res);
+                        var Object = $.parseJSON(res);
+                    }
+                });
+            });
+
+            $("#tracuu_logvoucher_theongaydat").click(function () {
+                $.ajax({
+                    url: "/NhomBaiViet/SELECT_LOG_VOUCHER_TUNGAY_DENNGAY",
+                    data: {
+                        TUNGAY: $("#logvoucher_tungay").val(),
+                        DENNGAY: $("#logvoucher_denngay").val()
+                    },
+                    contentData: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        alert(res);
+
+                        var Object = $.parseJSON(res);
+                        $('#table_tracuu_logVoucher').css("display", "block");
+                        $('#table_tracuu_logVoucher').DataTable({
+                            dom: 'Bfrtip',
+                            buttons: [
+                                {
+                                    extend: 'excel',
+                                    text: 'Xuất Excel',
+                                    title: 'Thống kê lượt gửi voucher',
+                                    exportOptions: {
+                                        modifier: {
+                                            page: 'current'
+                                        }
+                                    }
+                                }
+                            ],
+
+                            "stateSave": true,
+                            "bDestroy": true,
+                            "data": Object,
+                            "columns": [
+                                { "data": "NGAY_GUI_CHAR" },
+                                { "data": "EVENT_NAME" },
+                                { "data": "CUSTOMER_NAME" },
+                                { "data": "CUSTOMER_YEAR" },
+
+                                { "data": "PHONE_SEND_ZALO" },
+
+                                { "data": "VOUCHER_CODE" },
+                                { "data": "TO_DATE" },
+                                { "data": "RESULT" },
+                                { "data": "NGUOI_THUC_HIEN" },
+                            ]
+                        });
+                    }
+                });
+            });
+
+            $("#tracuu_voucher_theongaydat").click(function () {
+                $.ajax({
+                    url: "/NhomBaiViet/SELECT_VOUCHER_TUNGAY_DENNGAY",
+                    data: {
+                        TUNGAY: $("#voucher_tungay").val(),
+                        DENNGAY: $("#voucher_denngay").val()
+                    },
+                    contentData: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        alert(res);
+
+                        var Object = $.parseJSON(res);
+                        $('#table_tracuu_Voucher').css("display", "block");
+                        $('#table_tracuu_Voucher').DataTable({
+                            "stateSave": true,
+                            "bDestroy": true,
+                            "data": Object,
+                            "columns": [
+                                { "data": "NGAY_GUI_CHAR" },
+                                { "data": "CUSTOMER_NAME" },
+                                { "data": "CUSTOMER_YEAR" },
+                                { "data": "PHONE_SEND_ZALO" },
+                                { "data": "VOUCHER_CODE" },
+                                { "data": "FROM_DATE" },
+                                { "data": "TO_DATE" },
+                                { "data": "TRANG_THAI" },
+
+                            ]
+                        });
+                    }
+                });
+            });
+
+            var table_tracuu_Voucher = null; // dung de luu gia tri object khi goi su kien tracuu_voucher_all click, dung khi bam nut check in
+
+            $("#tracuu_voucher_all").click(function () {
+                $.ajax({
+                    url: "/NhomBaiViet/SELECT_VOUCHER_ALL",
+
+                    contentData: 'json',
+                    type: 'POST',
+                    success: function (res) {
+                        //alert(res);
+
+                        var Object = $.parseJSON(res); // object o day ne
+                        $('#table_tracuu_Voucher').css("display", "block");
+
+                        table_tracuu_Voucher = $('#table_tracuu_Voucher').DataTable({
+                            oLanguage: {
+                                "sSearch": "Tìm kiếm từ khóa:"
+                            },
+                            dom: 'Bfrtip',
+                            buttons: [
+
+                                {
+                                    title: "PTN_Voucher",
+                                    extend: 'pdfHtml5',
+                                    alignment: 'CENTER',
+                                    text: 'In phiếu tiếp nhận',
+                                    orientation: 'portrait',
+                                    pageSize: 'A7',
+                                    exportOptions: {
+                                        columns: [1, 2, 3, 4],
+                                        margin: [0, 0, 0, 0],
+                                        orthogonal: "export",
+
+                                    },
+                                    footer: true,
+                                    customize: function (doc) {
+                                        doc.content[0].text = "Phòng khám đa khoa Đinh Trọng Sơn" + "\n" + "131 - 131/1 - 133 Nguyễn Thái Học" + "\n" + "\n" + "PHIẾU TIẾP NHẬN" + "\n" + "VOUCHER KHÁM SỨC KHỎE";
+
+                                        doc.defaultStyle.fontSize = 8;
+                                        doc.styles.tableHeader.fontSize = 8;
+                                        //doc.defaultStyle.alignment = 'left';
+                                        doc.pageMargins = [0, 0, 0, 50];
+                                        doc.styles.title.fontSize = 9;
+                                        doc.content.splice(1, 0, {
+                                            margin: [0, 0, 0, 10],
+                                            alignment: 'left',
+
+                                            text:
+                                                '* Các hạng mục khám miễn phí gồm: ' + "\n" + "\n"
+                                                + '  1. Đo sinh hiệu, huyết áp ' + "\n"
+                                                + '  2. Xét nghiệm đường huyết' + " \n"
+                                                + '  3. Xét nghiệm phân tích tế bào máu' + " \n"
+                                                + '  4. Siêu âm ổ bụng tổng quát ' + " \n"
+                                                + '  5. Vệ sinh răng miệng ' + " \n"
+                                                //+ '  6. Siêu âm doppler tuyến giáp ' + " \n"
+                                                + '  6. Tư vấn sức khỏe/ chăm sóc răng miệng ' + " \n" + " \n"
+                                                + '--------------------------------------' + " \n"
+                                                + '* Thông tin khách hàng: ' + " \n"
+                                            /**/
+
+                                        });
+                                        //doc.watermark = { text: 'PKDK DINH TRONG SON', color: 'blue', opacity: 0.1 };
+                                        var now = new Date();
+                                        var jsDate = now.getDate() + '-' + (now.getMonth() + 1) + '-' + now.getFullYear();
+                                        doc['footer'] = (function (page, pages) {
+                                            return {
+                                                columns: [
+                                                    {
+                                                        alignment: 'left',
+                                                        text: ['Ngày thực hiện: ', { text: jsDate.toString() }]
+                                                    }
+                                                ],
+                                                margin: 20
+                                            }
+                                        });
+
+
+                                    },
+                                    //title: "PHIẾU TIẾP NHẬN VOUCHER ",
+                                    //messageBottom: ' \n \n - Xin vui lòng liên hệ hotline 02563.527.999 hoặc ZalO Offical Acoount https://zalo.me/3376748631085780924 để được tư vấn trực tiếp và đặt lịch khám trên bảng dịch vụ này. \n \n - Xin cảm ơn vì đã lựa chọn dịch vụ khám và chăm sóc sức khỏe của chúng tôi.: '
+
+
+                                },
+                            ],
+
+                            "stateSave": true,
+                            "bDestroy": true,
+                            "data": Object,
+                            "columns": [
+                                { "data": "NGAY_GUI_CHAR" },
+                                { "data": "CUSTOMER_NAME" },
+                                { "data": "CUSTOMER_YEAR" },
+                                { "data": "PHONE_SEND_ZALO" },
+                                { "data": "VOUCHER_CODE" },
+                                { "data": "FROM_DATE" },
+                                { "data": "TO_DATE" },
+                                { "data": "TRANG_THAI" },
+                                {
+                                    data: null,
+                                    className: "center",
+                                    defaultContent: '<a href="" class="check_in">Check-in</a> / <a href="" class="revert_check_in">Hủy check in</a>'
+                                }
+
+                            ],
+
+
+
+                            select: true,
+                            pageLength: 1
+
+
+                        });
+                    }
+                });
+            });
+
+
+            $('#table_tracuu_Voucher').on('click', 'a.check_in', function (e) {
+                e.preventDefault();
+
+                var data = table_tracuu_Voucher.row($(this).closest('tr')).data(); // lay toan bo object o day ne
+                var ID = data[Object.keys(data)[0]];
+                var DA_SU_DUNG = data[Object.keys(data)[15]];
+                if (DA_SU_DUNG == 0) {
+                    $.ajax({
+                        url: "/NhomBaiViet/CHECKIN_VOUCHER",
+                        data: {
+                            ID: ID
+                        },
+                        contentData: 'json',
+                        type: 'POST',
+                        success: function (res) {
+                            alert("Check-in thành công!");
+
+                            $('#tracuu_voucher_all').trigger('click');
+                        }
+                    });
+
+                }
+                else {
+                    alert("KH đã check-in, vui lòng hủy checkin trước");
+                }
+
+
+            });
+
+            $('#table_tracuu_Voucher').on('click', 'a.revert_check_in', function (e) {
+                e.preventDefault();
+                var data = table_tracuu_Voucher.row($(this).closest('tr')).data(); // lay toan bo object o day ne
+                var text = 'Xác nhận hủy check-in KH: ' + data[Object.keys(data)[5]] + ' - mã Voucher: ' + data[Object.keys(data)[1]];
+                if (confirm(text) == true) {
+                    var ID = data[Object.keys(data)[0]];
+                    var DA_SU_DUNG = data[Object.keys(data)[15]];
+                    if (DA_SU_DUNG == 1) {
+                        $.ajax({
+                            url: "/NhomBaiViet/HUY_CHECKIN_VOUCHER",
+                            data: {
+                                ID: ID
+                            },
+                            contentData: 'json',
+                            type: 'POST',
+                            success: function (res) {
+                                $('#tracuu_voucher_all').trigger('click');
+                            }
+                        });
+                    }
+                    else {
+                        alert('KH chưa check-in, KHÔNG THỂ HỦY CHECK-IN');
+                    }
+
+                } else {
+                    return;
+                }
+
+
+
+            });
+
+
+
+
+            //end
         });
     </script>
 

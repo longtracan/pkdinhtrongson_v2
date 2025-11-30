@@ -1,0 +1,184 @@
+﻿@{
+    ViewBag.Title = "SendZalo";
+    Layout = "~/Views/Shared/_Layout-Home.cshtml";
+}
+
+<div class="checkout-area pt-100 pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="background-color:darkcyan">
+                <form id="formInfo">
+
+                    <div class="billing" style="background-color:lightblue">
+                            <h3>THÔNG TIN SỰ KIỆN</h3>
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Người nhập thông tin</label>
+                                        <input id="staff_name" type="text" class="form-control" required maxlength="30" minlength="2">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Tên sự kiện</label>
+                                        <input id="event_name" type="text" class="form-control" required maxlength="30" minlength="2" value="">
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label>Mã sự kiện</label>
+                                        <input id="event_code" type="text" class="form-control" required maxlength="4" minlength="1" value="">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <div class="form-group ">
+                                        <label>Ngày sự kiện</label>
+                                        <input type='text' id="event_date" class='form-control Date_time' data-enabletime=false data-date-format="Y/m/d" placeholder="định dạng 21/10/2023">
+                                        @*<input placeholder="định dạng 08:30 21/10/2023" id="schedule_time" type="text" class="form-control">*@
+                                    </div>
+                                </div>
+
+
+                                <h3>THÔNG TIN VOUCHER</h3>
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label>Giá trị</label>
+                                            <input id="value" value="300000" type="text" class="form-control" required maxlength="7" minlength="6">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group ">
+                                            <label>Họ Và Tên KH</label>
+                                            <input id="customer_name" value="" type="text" class="form-control batbuoc" required maxlength="30" minlength="5">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group ">
+                                            <label>Năm Sinh</label>
+                                            <input id="customer_year" value="" type="text" class="form-control batbuoc" required minlength="4" maxlength="20">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="form-group ">
+                                            <label>Số điện thoại *</label>
+                                            <input id="phone_number" type="text" class="form-control batbuoc" value="" required minlength="9">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group ">
+                                            <label>Điều khoản sử dụng</label>
+                                            <input required id="event_condition" placeholder="Dành cho ... hoặc để trống" type="text" class="form-control batbuoc" value="   ">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-3">
+                                        <div class="form-group ">
+                                            <label>Giá trị từ ngày</label>
+                                            <input type='text' id="start_date" class='form-control Date_time' data-enabletime=false data-date-format="Y/m/d" placeholder="định dạng 21/10/2023">
+                                            @*<input placeholder="định dạng 08:30 21/10/2023" id="schedule_time" type="text" class="form-control">*@
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group ">
+                                            <label>Giá trị đến ngày</label>
+                                            <input type='text' id="end_date" class='form-control Date_time' data-enabletime=true data-date-format="Y/m/d" placeholder="định dạng 21/10/2023">
+                                            @*<input placeholder="định dạng 08:30 21/10/2023" id="schedule_time" type="text" class="form-control">*@
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label>Mã Voucher</label>
+                                            <input required id="voucher_code" disabled type="text" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2" style="display:block">
+                                        <div class="form-group">
+                                            <label>Mã khách hàng</label>
+                                            <input required id="customer_code" type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <label>Khóa bảo mật</label>
+                                            <textarea id="code" rows="4" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            @*<label style="color:crimson">Số điện thoại gửi Zalo</label>*@
+                                            <input value="84941845992" placeholder="Số điện thoại gửi Zalo (thay 0 = 84)" id="phone_sendzalo" type="text" class="form-control" required minlength="9">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <button type='button' id="btn_sendVoucher" class="common-btn">
+                                            <span class="one"></span>
+                                            <span class="two"></span>
+                                            Gửi Voucher điện tử
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+</form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="checkout-area pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="background-color:darkcyan">
+                <form id="formInfo">
+                    <div class="billing">
+                        <h3>TRA CỨU THÔNG TIN GỬI VOUCHER</h3>
+
+                        <div class="col-lg-8">
+                            <input type='text' id="logvoucher_tungay" class='flatpickr' data-date-format="Y/m/d" placeholder="TỪ NGÀY">
+                            <input type='text' id="logvoucher_denngay" class='flatpickr' data-date-format="Y/m/d" placeholder="ĐẾN NGÀY">
+                            <button type='button' id="tracuu_logvoucher_theongaydat" class="common-btn" >
+                                <span class="one"></span>
+                                <span class="two"></span>
+                                LẤY DANH SÁCH
+                            </button>
+                        </div>
+
+                        <table id="table_tracuu_logVoucher" class="display" cellspacing="0" width="100%" style="display:none">
+                            <thead>
+                                <tr>
+                                    <th>Ngày gửi</th>
+                                    <th>Sự kiện tham gia</th>
+                                    <th>Họ Tên</th>
+                                    <th>NS</th>
+
+                                    <th>Điện thoại</th>
+
+                                    <th>Mã Voucher</th>
+                                    <th>Thời hạn</th>
+                                    <th>Kết quả gửi</th>
+                                    <th>Người thực hiện</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
