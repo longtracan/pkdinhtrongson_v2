@@ -33,6 +33,7 @@ namespace TLBD
             WebSecurity.InitializeDatabaseConnection("EntitiesDataConnection", "webpages_UserProfile", "UserId", "UserName", autoCreateTables: true);
 
             HttpRuntime.Cache["online"] = 0;
+            TelegramBotService.Start();
         }
 
         protected void Session_Start(object sender, EventArgs e)
