@@ -344,6 +344,64 @@
     </div>
 </div>
 
+<div class="checkout-area pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="background-color:darkslategrey">
+                <form id="formInfo">
+                    <div class="billing">
+                        <h3>GỬI ĐÁNH GIÁ V2</h3>
+
+                        <div class="col-lg-12">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>Mã Code</label>
+                                    <textarea id="code_danh_gia_v2" rows="4" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            
+
+                            <textarea id="json_input" style="width:100%;height:120px"
+                                      placeholder="Paste JSON tại đây"></textarea>
+
+                            <br><br>
+                                <button type='button' id="export_excel" class="common-btn">
+                                    <span class="one"></span>
+                                    <span class="two"></span>
+                                    Xuất Excel (chưa gửi)
+                                </button>
+
+
+
+
+
+
+                        </div>
+
+                        <table id="danh_sach_danh_gia_excel" class="display" cellspacing="0" width="100%">
+                            <thead>
+                                @*<tr>
+
+                                    <th>MÃ KCB</th>
+                                    <th>HỌ VÀ TÊN</th>
+                                    <th>NGÀY KHÁM</th>
+                                    <th>SỐ ĐIỆN THOẠI</th>
+                                    <th>SỐ THẺ BHYT</th>
+
+                                </tr>*@
+                            </thead>
+
+                        </table>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
 
 
 

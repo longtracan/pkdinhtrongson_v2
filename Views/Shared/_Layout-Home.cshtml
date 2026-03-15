@@ -83,6 +83,61 @@
 
     <div>
         @RenderBody()
+        <!-- Zalo -->
+        <style>
+            /* Khung chứa Zalo widget + label */
+            .zalo-widget-wrapper {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                z-index: 999999;
+            }
+
+            /* Label */
+            .zalo-label {
+                background: #0068ff;
+                color: white;
+                padding: 8px 12px;
+                border-radius: 10px;
+                font-size: 14px;
+                font-weight: 500;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                white-space: nowrap;
+                animation: fadeIn 0.6s ease-out;
+            }
+
+            /* hiệu ứng xuất hiện đẹp */
+            @@keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(10px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+        </style>
+
+        <div class="zalo-widget-wrapper">
+
+            <div class="zalo-label">Liên hệ với chúng tôi</div>
+
+            <div class="zalo-chat-widget"
+                 data-oaid="3376748631085780924"
+                 data-welcome-message="Rất vui khi được hỗ trợ bạn!"
+                 data-autopopup="0"
+                 data-width=""
+                 data-height="">
+            </div>
+
+        </div>
+
+
     </div>
     @*@Html.Action("Partner", "Home")*@
     @Html.Action("Footer", "Home")
@@ -118,7 +173,7 @@
 
     <script src="~/assets/js/custom.js"></script>
     @*<link href="~/assets/css/CSSbyHuy.css" rel="stylesheet" /*@>
-
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
 
 
 
@@ -527,7 +582,7 @@
             });
             // autofill
             $('#customer_name').on('input propertychange paste', function () {
-                $("#voucher_code").val($("#event_code").val()+ "-" + getFirstChar($("#customer_name").val()) + $("#customer_year").val().slice(-2) + "-" + $('#phone_number').val().slice(-3));
+                $("#voucher_code").val($("#event_code").val() + "-" + getFirstChar($("#customer_name").val()) + $("#customer_year").val().slice(-2) + "-" + $('#phone_number').val().slice(-3));
             });
 
             // autofill
@@ -719,7 +774,16 @@
                                 { "data": "trackingId" },
                                 { "data": "note" },
                                 { "data": "feedbacks" },
-                                { "data": "submitDate" },
+                                {
+                                    "data": "submitDate",
+                                    "render": function (data) {
+                                        var d = new Date(parseInt(data));
+                                        var day = ("0" + d.getDate()).slice(-2);
+                                        var month = ("0" + (d.getMonth() + 1)).slice(-2);
+                                        var year = d.getFullYear();
+                                        return day + "/" + month + "/" + year;
+                                    }
+                                },
 
                             ]
                         });
@@ -1045,8 +1109,217 @@
 
             });
 
+            //Gui danh gia v2
+            let table_danh_gia_v2;
+
+            // ============================
+            // TẠO BẢNG TỪ JSON
+            // ============================
+            function renderTable(data) {
+
+                table_danh_gia_v2 = $('#danh_sach_danh_gia_excel').DataTable({
+                    destroy: true,
+                    data: data,
+                    columns: [
+
+                        { data: "ma", title: "Mã" },
+
+                        { data: "ho_ten", title: "Họ tên" },
+
+                        { data: "bhyt", title: "BHYT" },
+
+                        { data: "ngay", title: "Ngày" },
+
+                        { data: "phong", title: "Phòng" },
+
+                        { data: "so_dien_thoai", title: "Số điện thoại" },
+
+                        { data: "nguoi_lien_he", title: "Người liên hệ" },
+                        { data: "gioi_tinh", title: "Giới tính" },
+
+                        { data: "nam_sinh", title: "Năm sinh" },
+
+                        {
+                            data: null,
+                            title: "Thao tác",
+                            render: function () {
+                                return '<button class="btn_gui_danh_gia">Gửi</button>';
+                            }
+                        }
+
+                    ],
+                    scrollX: true
+                });
+
+            }
 
 
+            // ============================
+            // PARSE JSON KHI PASTE
+            // ============================
+            $("#json_input").on("input", function () {
+
+                let text = $(this).val().trim();
+
+                if (text.length < 10) return;
+
+                let json;
+
+                try {
+
+                    json = JSON.parse(text);
+
+                } catch (e) {
+
+                    return;
+
+                }
+
+                let data = [];
+
+                json.forEach(function (row) {
+                    if (!row.SO_DIEN_THOAI || row.SO_DIEN_THOAI.toString().trim() === "") {
+                        return;
+                    }
+
+           
+
+                    let phone = row.SO_DIEN_THOAI.replace(/\D/g, '');
+
+                    if (phone.startsWith("0")) {
+
+                        phone = "84" + phone.substring(1);
+
+                    }
+
+                    let nguoi_lh = "";
+
+                    if (row.HO_TEN_CHA) nguoi_lh += row.HO_TEN_CHA;
+
+                    if (row.HO_TEN_ME) nguoi_lh += (nguoi_lh ? " - " : "") + row.HO_TEN_ME;
+                    let gioi_tinh = row.GIOI_TINH == 1 ? "Nam" : "Nữ";
+
+                    let nam_sinh = "";
+
+                    if (row.NGAY_SINH) {
+
+                        nam_sinh = row.NGAY_SINH.toString().substring(0, 4);
+
+                    }
+
+                    data.push({
+
+                        ma: row.MA_BENH_NHAN,
+
+                        ho_ten: row.TEN_BENH_NHAN,
+
+                        bhyt: row.SO_THE_BHYT,
+
+                        ngay: row.NGAYTIEPNHAN,
+
+                        phong: row.TEN_PHONG_BENH,
+
+                        so_dien_thoai: phone,
+
+                        nguoi_lien_he: nguoi_lh,
+
+                        gioi_tinh: gioi_tinh,
+
+                        nam_sinh: nam_sinh,
+
+                        sent: false
+
+                    });
+
+                });
+
+                renderTable(data);
+
+            });
+
+
+            // ============================
+            // CLICK GỬI
+            // ============================
+            $('#danh_sach_danh_gia_excel').on('click', '.btn_gui_danh_gia', function (e) {
+
+                e.preventDefault();
+
+                let btn = $(this);
+
+                let rowData = table_danh_gia_v2.row($(this).closest('tr')).data();
+
+                $.ajax({
+
+                    url: '/NhomBaiViet/SendAPIZalo_danhgiadichvu',
+
+                    type: 'POST',
+
+                    dataType: 'json',
+
+                    data: {
+
+                        phone: rowData.so_dien_thoai,
+
+                        schedule_date: rowData.ngay,
+
+                        customer_name: rowData.ho_ten,
+
+                        customer_code: rowData.ma,
+
+                        token: $("#code_danh_gia_v2").val()
+
+                    },
+
+                    success: function (res) {
+
+                        if (res.error === 0 && res.message === "Success") {
+
+                            btn.replaceWith('<span style="color:green">Đã gửi</span>');
+
+                            rowData.sent = true;
+
+                        } else {
+
+                            alert("Gửi thất bại");
+
+                        }
+
+                    }
+
+                });
+
+            });
+
+
+            // ============================
+            // XUẤT EXCEL DÒNG CHƯA GỬI
+            // ============================
+            $("#export_excel").click(function () {
+
+                let data = table_danh_gia_v2.rows().data().toArray();
+
+                let exportData = data.filter(x => !x.sent);
+
+                if (exportData.length === 0) {
+
+                    alert("Không có dữ liệu để xuất");
+
+                    return;
+
+                }
+
+                let ws = XLSX.utils.json_to_sheet(exportData);
+
+                let wb = XLSX.utils.book_new();
+
+                XLSX.utils.book_append_sheet(wb, ws, "DanhSach");
+
+                XLSX.writeFile(wb, "danh_sach_chua_gui.xlsx");
+
+            });
+
+            //END Gui danh gia v2
 
             //end
         });
@@ -1076,6 +1349,8 @@
 
 
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <!-- SheetJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
     @*<script type="text/javascript" src="h ttps://cdn.jsdelivr.net/npm/nanogallery2@3/dist/jquery.nanogallery2.min.js"></script>*@
 
