@@ -612,6 +612,125 @@
 
             // Handle click event on group checkbox
             // gui zalo dat lich kham
+            function vietHoaChuCaiDau(str) {
+                return str
+                    .toLowerCase()
+                    .split(" ")
+                    .filter(word => word)
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(" ");
+            }
+
+
+            // Validate số điện thoại VN
+            function isValidPhone(phone) {
+                // đầu số phổ biến VN
+                let regex = /^(03|05|07|08|09)\d{8}$/;
+                return regex.test(phone);
+            }
+
+
+            function tachThongTin(input) {
+
+                if (!input.trim()) {
+                    $("#customer_name").val("");
+                    $("#number").val("");
+                    $("#phone_number").val("");
+                    $("#phone_sendzalo").val("");
+                    $("#phone_error").text("");
+                    return;
+                }
+
+                // Chuẩn hóa chuỗi
+                input = input
+                    .replace(/\n/g, " ")
+                    .replace(/[-*_]+/g, " ")
+                    .replace(/\s+/g, " ")
+                    .trim();
+
+
+                // Tìm số điện thoại
+                let phoneMatch = input.match(/(0\d{9})/);
+                let phone = "";
+
+                if (phoneMatch) {
+                    phone = phoneMatch[0];
+                }
+
+
+                // Tìm ngày sinh
+                let birthMatch = input.match(/(\d{2}[\/\-]\d{2}[\/\-]\d{4})/);
+                let birth = "";
+
+                if (birthMatch) {
+                    birth = birthMatch[0];
+                }
+
+
+                // Tìm năm sinh
+                let yearMatch = input.match(/\b(19|20)\d{2}\b/);
+                let year = "";
+
+                if (yearMatch) {
+                    year = yearMatch[0];
+                }
+
+                if (birth) {
+                    year = birth.split(/[\/\-]/)[2];
+                }
+
+
+                // Lấy họ tên
+                let name = input
+                    .replace(phone, "")
+                    .replace(birth, "")
+                    .replace(year, "")
+                    .replace(/\d+/g, "")
+                    .trim();
+
+                name = vietHoaChuCaiDau(name);
+
+
+                // Validate phone
+                let phoneZalo = "";
+
+                if (phone) {
+                    if (isValidPhone(phone)) {
+                        
+
+                        phoneZalo = "84" + phone.substring(1);
+
+                        $("#phone_number").val(phone);
+                        $("#phone_sendzalo").val(phoneZalo);
+                    }
+                    else {
+                       alert("Kiểm tra lại Số điện thoại không đúng định dạng!");
+
+                        $("#phone_number").val("");
+                        $("#phone_sendzalo").val("");
+                    }
+                }
+                else {
+
+                    $("#phone_number").val("");
+                    $("#phone_sendzalo").val("");
+                }
+
+
+                // Fill name + year
+                $("#customer_name").val(name);
+                $("#number").val(year);
+                $("#customer_code").val(randString(4));
+
+            }
+
+
+            $("#raw_data").on("input", function () {
+                let data = $(this).val();
+
+                tachThongTin(data);
+            });
+            
             $("#SendAPIZalo").click(function () {
                 if ($("#phone_sendzalo").val().substring(0, 2) != "84") {
                     alert("Số điện thoại gửi zalo phải bắt đầu bằng 84");
@@ -655,6 +774,8 @@
                     }
                 });
             });
+            // END gui zalo dat lich kham
+
             // danh gia dich vu
             $("#SendAPIZalo_2").click(function () {
                 //alert('123');
@@ -1139,6 +1260,8 @@
 
                         { data: "nam_sinh", title: "Năm sinh" },
 
+                        { data: "trang_thai", title: "Trạng Thái" },
+
                         {
                             data: null,
                             title: "Thao tác",
@@ -1198,6 +1321,7 @@
 
                     if (row.HO_TEN_ME) nguoi_lh += (nguoi_lh ? " - " : "") + row.HO_TEN_ME;
                     let gioi_tinh = row.GIOI_TINH == 1 ? "Nam" : "Nữ";
+                    let trang_thai = row.TRANG_THAI == 3 ? "Đã khám" : " ";
 
                     let nam_sinh = "";
 
@@ -1226,6 +1350,10 @@
                         gioi_tinh: gioi_tinh,
 
                         nam_sinh: nam_sinh,
+
+                        trang_thai: trang_thai,
+
+
 
                         sent: false
 
