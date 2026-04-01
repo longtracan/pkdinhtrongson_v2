@@ -186,18 +186,20 @@ namespace TLBD.Controllers
         private static readonly string ZALO_APP_ID = "1915518086623078051";
 
         [HttpPost]
-        [POST("TelegramGetToken")]
-        public async Task<ActionResult> TelegramGetToken()
+        [POST("TelegramGetTokenOld")]
+        public async Task<ActionResult> TelegramGetToken_old()
         {
+          
+
             try
             {
                 // Nhận JSON từ telegram bot gửi lên
-                string body = new StreamReader(Request.InputStream).ReadToEnd();
+                string body  = new StreamReader(Request.InputStream).ReadToEnd();
                 dynamic data = JObject.Parse(body);
 
                 string refreshToken = data.refresh_token;
                 string chatId = "781284765";
-
+                
                 // GỌI ZALO API ĐỂ LẤY ACCESS TOKEN
                 var httpClient = new HttpClient();
                 httpClient.DefaultRequestHeaders.Add("secret_key", ZALO_SECRET_KEY);
@@ -211,30 +213,146 @@ namespace TLBD.Controllers
 
                 var zaloResponse = await httpClient.PostAsync("https://oauth.zaloapp.com/v4/oa/access_token", content);
                 string zaloRaw = await zaloResponse.Content.ReadAsStringAsync();
-
+               
                 // Parse JSON Zalo trả về
                 dynamic zaloJson = JObject.Parse(zaloRaw);
                 string newAccessToken = zaloJson.access_token;
                 string newRefreshToken = zaloJson.refresh_token;
+                
                 // GỬI TRẢ NGƯỢC VỀ TELEGRAM
                 var botClient = new TelegramBotClient(TELEGRAM_BOT_TOKEN);
 
-                string message = "Lấy token thành công:\n\n" +
-                                 $"🔑 Access Token:\n{newAccessToken}\n\n" +
-                                 $"♻ Refresh Token:\n{newRefreshToken}";
+                //string message_accessToken = "Lấy token thành công: Access_Token (sử dụng trong 24h): " + newAccessToken;
+
+                //string message_refreshToken = "Refresh_Token (sử dụng để lấy Acess_token mới): " + newRefreshToken;
+
+                string message_accessToken = $"<b>Lấy token thành công: Access_Token (sử dụng trong 24h): </b>  \n{newAccessToken}";
+
+                string message_refreshToken = $"<b>Refresh Token (sử dụng để lấy Access_token mới):  </b> \n {newRefreshToken}";
 
                 await botClient.SendTextMessageAsync(
                     chatId: long.Parse(chatId),
-                    text: message
+                    text: message_accessToken,
+                    parseMode: Telegram.Bot.Types.Enums.ParseMode.Html
                 );
 
-                return Json(new { status = "OK" });
+                await botClient.SendTextMessageAsync(
+                    chatId: long.Parse(chatId),
+                    text: message_refreshToken,
+                    parseMode: Telegram.Bot.Types.Enums.ParseMode.Html
+                );
+
+                return Json(new { status = "OK", accessToken = message_accessToken, refreshToken = message_refreshToken });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { status = "ERROR", message = ex.Message  });
+            }
+        }
+
+        [HttpPost]
+        [POST("TelegramGetToken")]
+        public async Task<ActionResult> TelegramGetToken()
+        {
+            try
+            {
+                // 1) Nhận JSON từ Telegram
+                string body = new StreamReader(Request.InputStream).ReadToEnd();
+                dynamic update = JObject.Parse(body);
+
+                // ---- Lấy message và chat_id ----
+                string message = update?.message?.text;
+                string chatId = update?.message?.chat?.id?.ToString();
+
+                if (string.IsNullOrEmpty(message) || string.IsNullOrEmpty(chatId))
+                {
+                    return Json(new { status = "ignored", message = "Không có message hoặc chatId" });
+                }
+                // ---- Lấy tên user Telegram ----
+                string firstName = update?.message?.from?.first_name;
+                string username = update?.message?.from?.username;
+
+                // ưu tiên username, nếu không có thì lấy first_name
+                string displayName = !string.IsNullOrEmpty((string)username)
+                    ? "@" + username
+                    : firstName;
+
+                // 2) Kiểm tra cú pháp /layma {refresh_token}
+                if (!message.StartsWith("/layma"))
+                {
+                    return Json(new { status = "ignored", message = "Không phải lệnh /layma" });
+                }
+
+                string[] parts = message.Split(new[] { " " }, 2, StringSplitOptions.None);
+                if (parts.Length < 2)
+                {
+                    await SendTelegram(chatId, "SAI CÚ PHÁP => Cú pháp đúng:\n/layma <refresh_token>");
+                    return Json(new { status = "error", message = "Thiếu refresh token" });
+                }
+
+                string refreshToken = parts[1].Trim();
+
+                await SendTelegram(chatId, $"⏳ Đang xử lý... {displayName}, vui lòng đợi 1 lát.");
+
+                // 3) GỌI ZALO API LẤY ACCESS TOKEN
+                var httpClient = new HttpClient();
+                httpClient.DefaultRequestHeaders.Add("secret_key", ZALO_SECRET_KEY);
+
+                var content = new FormUrlEncodedContent(new Dictionary<string, string>
+                    {
+                        { "refresh_token", refreshToken },
+                        { "app_id", ZALO_APP_ID },
+                        { "grant_type", "refresh_token" }
+                    });
+
+                var zaloResponse = await httpClient.PostAsync("https://oauth.zaloapp.com/v4/oa/access_token", content);
+                string zaloRaw = await zaloResponse.Content.ReadAsStringAsync();
+
+                dynamic zaloJson = JObject.Parse(zaloRaw);
+
+                if (zaloJson.access_token == null)
+                {
+                    await SendTelegram(chatId, "❌ Zalo trả lỗi:\n" + zaloRaw);
+                    return Json(new { status = "error", message = zaloRaw });
+                }
+
+                string newAccessToken = zaloJson.access_token;
+                string newRefreshToken = zaloJson.refresh_token;
+
+                // 4) GỬI TRẢ NGƯỢC VỀ TELEGRAM
+                string msg1 = $"<b>Access_Token (sử dụng trong 24h):</b>\n{newAccessToken}";
+                string msg2 = $"<b>Refresh Token (sử dụng để lấy Access_token mới):</b>\n{newRefreshToken}";
+
+                await SendTelegram(chatId, msg1);
+                await SendTelegram(chatId, msg2);
+
+                return Json(new
+                {
+                    status = "OK",
+                    accessToken = newAccessToken,
+                    refreshToken = newRefreshToken
+                });
             }
             catch (Exception ex)
             {
                 return Json(new { status = "ERROR", message = ex.Message });
             }
         }
+
+
+        // ----------------------------
+        // Hàm gửi tin nhắn Telegram
+        // ----------------------------
+        private async Task SendTelegram(string chatId, string text)
+        {
+            var botClient = new Telegram.Bot.TelegramBotClient(TELEGRAM_BOT_TOKEN);
+            await botClient.SendTextMessageAsync(
+                chatId: long.Parse(chatId),
+                text: text,
+                parseMode: Telegram.Bot.Types.Enums.ParseMode.Html
+            );
+        }
+
 
         public string SendAPIZalo(string phone, string number, string schedule_time, string phone_number, string customer_name, string product_name, string customer_code, string token, string note, string staff_name)
         {
@@ -502,6 +620,13 @@ namespace TLBD.Controllers
         {
 
             return View("SendVoucher");
+        }
+
+        [GET("ThongKe")]
+        public ActionResult ThongKe() /*Danh sách bài viết theo nhóm bài viết*/
+        {
+
+            return View("ThongKe");
         }
 
         [GET("tra-cuu-Voucher")]

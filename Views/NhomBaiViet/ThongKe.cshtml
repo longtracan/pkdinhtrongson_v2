@@ -1,0 +1,968 @@
+﻿@{
+    ViewBag.Title = "SendZalo";
+    Layout = "~/Views/Shared/_Layout-Home.cshtml";
+}
+
+@*style cho ThongKe*@
+<style>
+
+
+    /* WRAPPER */
+    .tk-wrapper {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    /* CARD CHUNG */
+    .tk-input, .tk-result {
+        background: #ffffff;
+        padding: 18px;
+        border-radius: 14px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        transition: all 0.2s ease;
+    }
+
+        .tk-input:hover, .tk-result:hover {
+            transform: translateY(-2px);
+        }
+
+    /* WIDTH */
+    .tk-input {
+        width: 30%;
+        border-left: 5px solid #3b82f6;
+    }
+
+    .tk-result {
+        width: 70%;
+        border-left: 5px solid #10b981;
+    }
+
+    /* TITLE */
+    .tk-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: #1e293b;
+    }
+
+    /* ROW */
+    .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    /* INPUT */
+    input.money-input {
+        width: 130px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        text-align: right;
+        transition: 0.2s;
+    }
+
+        input.money-input:focus {
+            border-color: #3b82f6;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59,130,246,0.15);
+        }
+
+    /* GRID */
+    .tk-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 30px;
+    }
+
+    /* ITEM */
+    .tk-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        border-bottom: 1px dashed #eee;
+    }
+
+        /* LABEL */
+        .tk-item span:first-child {
+            color: #64748b;
+        }
+
+        /* VALUE */
+        .tk-item span:last-child {
+            font-weight: 600;
+            color: #111827;
+        }
+
+    /* TOTAL */
+    .tk-total span:last-child {
+        color: #dc2626;
+        font-size: 15px;
+    }
+
+    /* LỆCH BLOCK */
+    .tk-lech {
+        margin-top: 15px;
+        padding-top: 12px;
+        border-top: 2px solid #e5e7eb;
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    /* LỆCH INPUT */
+    #lech {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    /* TRẠNG THÁI */
+    .ok {
+        color: #16a34a !important;
+    }
+
+    .bad {
+        color: #dc2626 !important;
+    }
+
+    /* TABLE */
+    #table_dulieu {
+        margin-top: 25px;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    /* DATATABLE HEADER */
+    .dataTables_wrapper .dataTables_filter input {
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        padding: 5px;
+    }
+
+    /* CHECKBOX */
+    input[type="checkbox"] {
+        transform: scale(1.2);
+        cursor: pointer;
+    }
+
+    /* HOVER ROW */
+    #table_dulieu tbody tr:hover {
+        background: #f9fafb;
+    }
+
+    #table_dulieu .hc {
+        width: 60px;
+        padding: 2px 4px;
+        text-align: center;
+    }
+    #table_dulieu .gia_gui {
+        width: 80px;
+        padding: 2px 4px;
+        text-align: center;
+    }
+    .item-gui {
+        padding: 4px 0;
+    }
+    .gm-card {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 12px 16px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        border: 1px solid #eee;
+        margin-top: 10px;
+    }
+
+    .gm-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 6px;
+    }
+
+    #gm_total {
+        color: #d9534f;
+        font-size: 16px;
+    }
+
+    .gm-body {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+
+    .gm-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 8px;
+        border-radius: 6px;
+        background: #fafafa;
+        font-weight: 600;
+        color: #2c3e50;
+    }
+
+        .gm-item span:last-child {
+            font-weight: 500;
+            color: #333;
+        }
+    .gm-filter-group {
+        display: inline-flex;
+        margin-left: 12px;
+        border: 1px solid #ddd;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #f8f9fa;
+    }
+
+    .gm-btn {
+        border: none;
+        background: transparent;
+        padding: 6px 12px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: #555;
+    }
+
+        .gm-btn:hover {
+            background: #e9ecef;
+        }
+
+        .gm-btn.active {
+            background: #007bff;
+            color: #fff;
+            font-weight: 500;
+        }
+</style>
+
+
+@*//END STYLE ThongKe*@
+
+
+
+
+
+<div class="checkout-area pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="background-color: darkcyan ">
+                <form id="formInfo">
+                    <div class="billing">
+                        <br />
+                        <h3>NẠP DỮ LIỆU TỪ HIS</h3>
+
+                        <div class="col-lg-8">
+                            <input type='text' id="tungay_getJson" class='flatpickr' data-date-format="Y/m/d" placeholder="TỪ NGÀY">
+                            <input type='text' id="denngay_getJson" class='flatpickr' data-date-format="Y/m/d" placeholder="ĐẾN NGÀY">
+                            <button type='button' id="getJson_HIS" class="common-btn">
+                                <span class="one"></span>
+                                <span class="two"></span>
+                                LẤY DỮ LIỆU
+                            </button>
+                        </div>
+
+                        <div class="col-lg-12">
+                            <textarea id="jsonInput" style="width:100%;height:120px"
+                                      placeholder="Paste data JSON tại đây"></textarea>
+                        </div>
+
+
+
+                        <table id="table_dulieu" class="display" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Họ và tên</th>
+                                    <th>Dịch vụ/Thuốc</th>
+                                    <th>Loại</th>
+                                    <th>Đơn giá</th>
+                                    <th>SL</th>
+                                    <th>Thành tiền</th>
+                                    <th>
+                                        TM <br>
+                                        <input type="checkbox" id="checkAllTM">
+                                    </th>
+                                    <th>
+                                        CK <br>
+                                        <input type="checkbox" id="checkAllCK">
+                                    </th>
+                                    <th>
+                                        GM
+
+                                    </th>
+                                    <th>Nơi gửi</th>
+                                    <th>
+                                        Giá gửi
+
+                                    </th>
+                                    <th>Ngày TT</th>
+                                    <th>Hiệu chỉnh</th>
+                                </tr>
+                            </thead>
+
+                        </table>
+
+
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="checkout-area pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="background-color: darkcyan ">
+                <form id="formInfo">
+                    <div class="billing">
+                        <h3>Xử lý số liệu</h3>
+                        <div class="tk-wrapper">
+
+                            <!-- KHỐI NHẬP LIỆU -->
+                            <div class="tk-input">
+                                <div class="tk-title">NHẬP DỮ LIỆU</div>
+
+                                <div class="row">
+                                    <span>Số tiền đầu ngày</span>
+                                    <input class="money-input" id="dauNgay">
+                                </div>
+
+                                <div class="row">
+                                    <span>Thu ngoài</span>
+                                    <input class="money-input" id="thuNgoai">
+                                </div>
+
+                                <div class="row">
+                                    <span> Chuyển khoản ra (UNC)</span>
+                                    <input class="money-input" id="unc">
+                                </div>
+
+                                <div class="row">
+                                    <span>Số dư NH (Kế toán nhập)</span>
+                                    <input class="money-input" id="ktNhap">
+                                </div>
+                            </div>
+
+
+                            <!-- KHỐI TÍNH TOÁN -->
+                            <div class="tk-result">
+                                <div class="tk-title">XỬ LÝ SỐ LIỆU</div>
+
+                                <div class="tk-grid">
+
+                                    <div class="tk-item">
+                                        <span>Tiền mặt Dịch vụ</span>
+                                        <span id="tm_dv">0</span>
+                                    </div>
+
+                                    <div class="tk-item">
+                                        <span>Chuyển khoản Dịch vụ</span>
+                                        <span id="ck_dv">0</span>
+                                    </div>
+
+                                    <div class="tk-item">
+                                        <span>Tiền mặt Thuốc</span>
+                                        <span id="tm_thuoc">0</span>
+                                    </div>
+
+                                    <div class="tk-item">
+                                        <span>Chuyển khoản Thuốc</span>
+                                        <span id="ck_thuoc">0</span>
+                                    </div>
+
+
+
+                                    <div class="tk-item dv-total">
+                                        <span>Tổng thu Dịch Vụ</span>
+                                        <span id="tongtien_dichvu">0</span>
+                                    </div>
+                                    <div class="tk-item thuoc-total">
+                                        <span>Tổng thu thuốc</span>
+                                        <span id="tongtien_thuoc">0</span>
+                                    </div>
+
+                                    <div class="tk-item tk-total">
+                                        <span>Số dư cuối ngày TK Ngân Hàng</span>
+                                        <span id="cuoiNgay">0</span>
+                                    </div>
+
+                                </div>
+
+                                <!-- LỆCH -->
+                                <div class="tk-lech">
+                                    <div class="tk-item">
+                                        <span class="tk-total">Lệch</span>
+                                        <input id="lech" class="money-input" readonly>
+                                    </div>
+                                </div>
+
+                                <div id="tong_gui_mau" class="gm-card">
+                                    <div class="gm-header">
+                                        <span>Tổng Chi phí gửi mẫu</span>
+                                        <span id="gm_total">0</span>
+                                    </div>
+                                    <div class="gm-body"></div>
+                                </div>
+                                 <br />
+                                <button type='button' id="btnExportExcel" class="common-btn">
+                                    <span class="one"></span>
+                                    <span class="two"></span>
+                                    Xuất Excel
+                                </button>
+
+
+
+                            </div>
+                          
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+<div class="checkout-area pb-20">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="background-color: darkcyan ">
+                <form id="formInfo">
+                    <div class="billing">
+                        <br />
+                        <h3>BẢNG DỮ LIỆU GỬI MẪU</h3>
+                        <br>
+                        <textarea id="json_guimau" style="width:100%;height:200px;">
+                        [
+                        {
+                            "TÊN DỊCH VỤ": "Sinh thiết Polyp Cổ tử cung",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "SG Lab",
+                            "ĐƠN GIÁ THU": 750000,
+                            "ĐƠN GIÁ GỬI": 470000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "PCR HPV Genotype",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "SG Lab",
+                            "ĐƠN GIÁ THU": 500000,
+                            "ĐƠN GIÁ GỬI": 240000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Liqui-Prep",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "SG Lab",
+                            "ĐƠN GIÁ THU": 500000,
+                            "ĐƠN GIÁ GỬI": 250000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Thin-prep",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "SG Lab",
+                            "ĐƠN GIÁ THU": 700000,
+                            "ĐƠN GIÁ GỬI": 380000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Double Test",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "SG Lab",
+                            "ĐƠN GIÁ THU": 500000,
+                            "ĐƠN GIÁ GỬI": 210000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Triple Test (Từ tuần 15 đến tuần 21)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "SG Lab",
+                            "ĐƠN GIÁ THU": 500000,
+                            "ĐƠN GIÁ GỬI": 210000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Xét nghiệm nồng độ PLGF",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 1200000,
+                            "ĐƠN GIÁ GỬI": 700000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Xét nghiệm sFlt-1/ PLGF",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 2500000,
+                            "ĐƠN GIÁ GỬI": 1650000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "GBS PCR (Liên cầu khuẩn nhóm B)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 620000,
+                            "ĐƠN GIÁ GỬI": 220000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Nipt - Precare Basic",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 1950000,
+                            "ĐƠN GIÁ GỬI": 1100000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Nipt Precare 4",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 2400000,
+                            "ĐƠN GIÁ GỬI": 1550000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Nipt Precare 4 + BLM6",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 3350000,
+                            "ĐƠN GIÁ GỬI": 1950000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Nipt - Precare 7",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 2900000,
+                            "ĐƠN GIÁ GỬI": 1750000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Nipt - Precare 7 + BLM",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 3450000,
+                            "ĐƠN GIÁ GỬI": 2150000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Nipt Precare 26",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 4500000,
+                            "ĐƠN GIÁ GỬI": 2750000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Nipt Precare 26 + BLM",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 5000000,
+                            "ĐƠN GIÁ GỬI": 3150000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Karyotype",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 1500000,
+                            "ĐƠN GIÁ GỬI": 750000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng Cortisol",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 72000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Calci ion",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 50000,
+                            "ĐƠN GIÁ GỬI": 0
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng 25OH Vitamin D(D3)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 290000,
+                            "ĐƠN GIÁ GỬI": 216000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng Zn (Kẽm) huyết thanh",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 260000,
+                            "ĐƠN GIÁ GỬI": 188000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Xét nghiệm vi chất ( vitamin - khoáng chất - điện giải tổng hợp)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 1550000,
+                            "ĐƠN GIÁ GỬI": 758000
+                        },
+
+                        {
+                            "TÊN DỊCH VỤ": "RPR định lượng (VDRL) (giang mai)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 72000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Rubella - IgG",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 175000,
+                            "ĐƠN GIÁ GỬI": 96000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Rubella - IgM",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 175000,
+                            "ĐƠN GIÁ GỬI": 96000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Estradiol (E2)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 140000,
+                            "ĐƠN GIÁ GỬI": 72000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Progesteron",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 140000,
+                            "ĐƠN GIÁ GỬI": 72000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Testosteron",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 140000,
+                            "ĐƠN GIÁ GỬI": 72000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "FSH (Follicle-stimulating hormone)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 140000,
+                            "ĐƠN GIÁ GỬI": 72000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "LH (Luteinizing Hormone)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 140000,
+                            "ĐƠN GIÁ GỬI": 72000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng virus viêm gan B (HBsAg PCR DNA)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "BV Da liễu",
+                            "ĐƠN GIÁ THU": 720000,
+                            "ĐƠN GIÁ GỬI": 701700
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Thyroglobulin",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 190000,
+                            "ĐƠN GIÁ GỬI": 124000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Anti Thyroglobulin",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 190000,
+                            "ĐƠN GIÁ GỬI": 124000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng Bilirubin toàn phần [máu]",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 50000,
+                            "ĐƠN GIÁ GỬI": 16000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng Bilirubin trực tiếp [máu]",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 50000,
+                            "ĐƠN GIÁ GỬI": 16000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Thyroid Peroxidase Antibody (TPOAb)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 190000,
+                            "ĐƠN GIÁ GỬI": 136000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "KT kháng nhân (ANA)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 350000,
+                            "ĐƠN GIÁ GỬI": 240000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng Albumin",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 60000,
+                            "ĐƠN GIÁ GỬI": 52000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Điện giải đồ (Na, K, Cl)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 85000,
+                            "ĐƠN GIÁ GỬI": 52000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "INR",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 100000,
+                            "ĐƠN GIÁ GỬI": 52000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Sắt huyết thanh (Cobas Pure)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 50000,
+                            "ĐƠN GIÁ GỬI": 20000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Calcitonin",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 240000,
+                            "ĐƠN GIÁ GỬI": 480000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Giun đầu gai (Gnathostoma spinigerum)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 110000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Giun lươn (Strongyloides stercoralis)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 110000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Giun đũa chó (Toxocara canis)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 110000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Sán lá gan lớn (Fasciolae hepatica)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 110000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Sán dây lợn (Cysticercose IgG)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 110000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Xét nghiệm 12 tác nhân gây bệnh tình dục (PCR)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Med",
+                            "ĐƠN GIÁ THU": 2200000,
+                            "ĐƠN GIÁ GỬI": 1200000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng Bilirubin trực tiếp [máu]",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 50000,
+                            "ĐƠN GIÁ GỬI": 20000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng Cyfra 21-1",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 200000,
+                            "ĐƠN GIÁ GỬI": 152000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Trab",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Med",
+                            "ĐƠN GIÁ THU": 600000,
+                            "ĐƠN GIÁ GỬI": 440000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng CA 125 (cancer antigen 125)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 200000,
+                            "ĐƠN GIÁ GỬI": 152000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "CA 15-3 (vú)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Med",
+                            "ĐƠN GIÁ THU": 200000,
+                            "ĐƠN GIÁ GỬI": 152000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "CA 19-9 (tụy,ống mật)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 200000,
+                            "ĐƠN GIÁ GỬI": 152000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Định lượng CA 72-4",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "MED",
+                            "ĐƠN GIÁ THU": 200000,
+                            "ĐƠN GIÁ GỬI": 152000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Giun đầu gai (Gnathostoma spinigerum)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Hòa Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 115000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Giun lươn (Strongyloides stercoralis)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Hòa Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 115000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Giun đũa chó (Toxocara canis)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Hòa Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 115000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Sán lá gan lớn (Fasciolae hepatica)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Hòa Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 115000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Sán dây lợn (Cysticercose IgG)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Hòa Đức",
+                            "ĐƠN GIÁ THU": 150000,
+                            "ĐƠN GIÁ GỬI": 115000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Toxoplasma IgG",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 200000,
+                            "ĐƠN GIÁ GỬI": 110000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Toxoplasma IgM",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 200000,
+                            "ĐƠN GIÁ GỬI": 110000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "AMH (Anti-Mullerian Hormone )",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 800000,
+                            "ĐƠN GIÁ GỬI": 360000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "AMH (Anti-Mullerian Hormone )",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Mỹ Đức",
+                            "ĐƠN GIÁ THU": 800000,
+                            "ĐƠN GIÁ GỬI": 580000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Anti Phospholipid IgM",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 400000,
+                            "ĐƠN GIÁ GỬI": 186000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Anti Phospholipid IgG",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "Tâm An Đà Nẵng",
+                            "ĐƠN GIÁ THU": 400000,
+                            "ĐƠN GIÁ GỬI": 186000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Xét nghiệm 14 gen di truyền thể lặn (kèm theo gói NIPT)",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 1800000,
+                            "ĐƠN GIÁ GỬI": 1250000
+                        },
+                        {
+                            "TÊN DỊCH VỤ": "Xét nghiệm 14 gen di truyền thể lặn",
+                            "Mục": "Xét nghiệm [GM]",
+                            "Nơi gửi mẫu": "DNA Testing",
+                            "ĐƠN GIÁ THU": 2500000,
+                            "ĐƠN GIÁ GỬI": 1600000
+                        }
+                        ]
+                        </textarea>
+                        <button type="button" id="btnReloadGM">Làm mới</button>
+                        <br>
+
+                        <table id="table_guimau" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>TÊN DỊCH VỤ</th>
+                                    <th>Mục</th>
+                                    <th>Nơi gửi mẫu</th>
+                                    <th>ĐƠN GIÁ THU</th>
+                                    <th>ĐƠN GIÁ GỬI</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_data"></tbody>
+                        </table>
+
+
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

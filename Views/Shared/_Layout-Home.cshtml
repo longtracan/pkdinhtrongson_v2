@@ -50,7 +50,8 @@
     <link href="~/assets/css/Table.css" rel="stylesheet" />
 
 
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />
+    @*<link rel="stylesheet" href="ht tps://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" />*@
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href=" https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css" />
     <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
     <link type="text/css" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css" rel="stylesheet" />
@@ -136,6 +137,7 @@
             </div>
 
         </div>
+
 
 
     </div>
@@ -301,9 +303,6 @@
                 slideMargin: 0,
                 loop: true
             });
-
-
-
             var tenKH = " ";
             var namsinhKH = " ";
             var sodienthoaiKH = " ";
@@ -463,9 +462,6 @@
                     $('.group-checkbox').prop('checked', $selectAll.prop('checked'));
                 }, 0);
             });
-
-
-
             /* submit.addEventListener("click", validate);*/
 
             $("#inbanggia").click(function () {
@@ -1236,7 +1232,7 @@
             // ============================
             // TẠO BẢNG TỪ JSON
             // ============================
-            function renderTable(data) {
+            function renderTable_danh_gia_v2(data) {
 
                 table_danh_gia_v2 = $('#danh_sach_danh_gia_excel').DataTable({
                     destroy: true,
@@ -1361,7 +1357,7 @@
 
                 });
 
-                renderTable(data);
+                renderTable_danh_gia_v2(data);
 
             });
 
@@ -1449,6 +1445,1077 @@
 
             //END Gui danh gia v2
 
+            //===== THONGKE =====
+            if (window.location.pathname.startsWith("/ThongKe")) {
+
+                //ThongKe
+
+                $("#getJson_HIS").on("click", function () {
+
+                    let tuNgay = $("#tungay_getJson").val();
+                    let denNgay = $("#denngay_getJson").val();
+
+                    if (!tuNgay || !denNgay) {
+                        alert("Vui lòng chọn đầy đủ Từ ngày - Đến ngày");
+                        return;
+                    }
+
+                    // 🔥 Convert yyyy/mm/dd -> yyyy-mm-dd
+                    function convertDate(str) {
+                        return str.replace(/\//g, "-");
+                    }
+
+                    let tuNgayFormat = convertDate(tuNgay);
+                    let denNgayFormat = convertDate(denNgay);
+
+                    // 🔥 Build URL
+                    let url = `https://yte-binhdinh.vnpthis.vn/web_his/dsthutienchitiet_khoaphong?url=0%60%60%600%60%60%60${tuNgayFormat}%60%60%60${denNgayFormat}%60%60%6052207%60%60%600%60%60%600%60%60%600%60%60%60-1%60%60%60-1&phongbenh=0&_search=false&nd=1774276115356&rows=2000000&page=1&sidx=NHOM_CHI_PHI+asc%2C+TEN_PHONGBAN+asc%2C+NHOM_CHI_PHI&sord=asc`;
+
+                    // 🔥 Mở tab mới
+                    window.open(url, "_blank");
+                });
+
+
+                let table_thongke;
+                let rawData = [];
+                let state = {};
+
+                // ===== FORMAT =====
+                function fm(n) {
+                    return Number(n || 0).toLocaleString('vi-VN');
+                }
+
+                function pm(v) {
+                    return Number((v || "").toString().replace(/\./g, '')) || 0;
+                }
+
+                // ===== PHÂN LOẠI =====
+                function isThuoc(x) {
+                    return x.NHOM_CHI_PHI === "9. Thuốc bán tại quầy";
+                }
+
+                // ===== RENDER TABLE =====
+                function renderTable(data) {
+                    // 🔥 LỌC TRƯỚC
+                    let filteredData = data.filter(x => Number(x.DONGIA) !== 1);
+
+                    // GÁN LẠI
+                    rawData = filteredData;
+                    state = {};
+                    let guiMauMap = buildGuiMauMap();
+
+                    if (table_thongke) table_thongke.destroy();
+                    $("#table_dulieu tbody").empty();
+
+                    filteredData.forEach((x, i) => {
+                        // ❌ BỎ QUA DON_GIA = 1
+                        //if (Number(x.DONGIA) === 1) return;
+
+                        let loai = isThuoc(x) ? "Thuốc DV" : "Dịch vụ";
+                        let ngay = (x.NGAY_GIO_TAO || "").split(" ")[0];
+                        // so sanh voi table gui mau
+                        let dv = normalizeDV(x.NOIDUNG);
+                        let match = guiMauMap[dv] || [];
+
+                        let isMatch = match.length > 0;
+                        let isSingle = match.length === 1; // neu chi co 1 noi gui gui thi auto fill vao
+
+
+                        // build options
+                        let options = '<option value="">--Chọn--</option>';
+                        match.forEach(m => {
+                            options += `<option value="${m.noi}" data-gia="${m.gia}">${m.noi}</option>`;
+                        });
+
+                        // 🔥 DEFAULT VALUE
+                        let defaultNoi = '';
+                        let defaultGia = '';
+
+                        if (isSingle) {
+                            defaultNoi = match[0].noi;
+                            defaultGia = fm(match[0].gia);
+                        }
+
+
+                        $("#table_dulieu tbody").append(`
+                    <tr data-index="${i}">
+                      <td>${i + 1}</td>
+                      <td>${x.TEN_BENH_NHAN || ""}</td>
+                      <td>${x.NOIDUNG || ""}</td>
+                      <td>${loai}</td>
+                      <td>${fm(x.DONGIA)}</td>
+                      <td>${x.SOLUONG}</td>
+                      <td class="tien">${fm(x.THANHTIEN)}</td>
+                      <td><input type="checkbox" class="tm" checked></td>
+                      <td><input type="checkbox" class="ck"></td>
+                      
+                        <td>
+                            <input type="checkbox" class="gm"
+                                ${isMatch ? 'checked' : ''} 
+                                ${isMatch ? '' : 'disabled'}>
+                        </td>
+
+                        
+                        <td>
+                            <select class="noi_gui" ${isMatch ? '' : 'disabled'}>
+                                ${options}
+                            </select>
+                        </td>
+
+                      
+                        <td>
+                            <input class="gia_gui" readonly value="${defaultGia}">
+                        </td>
+                      <td>${ngay}</td>
+                      <td><input class="hc"></td>
+                  </tr>
+                `);
+
+                        let lastRow = $("#table_dulieu tbody tr").last();
+
+                        if (isSingle) {
+                            lastRow.find(".noi_gui").val(defaultNoi);
+                        }
+
+                        state[i] = state[i] || {};
+                        state[i].gm = isMatch;
+
+                    });
+
+
+                    table_thongke = $("#table_dulieu").DataTable({
+                        pageLength: 15,
+                        destroy: true,
+                        initComplete: function () {
+
+                            let api = this.api();
+
+                            let filterHtml = `
+                            <div class="gm-filter-group">
+                                 <button type="button" class="gm-btn active" data-type="">Tất cả</button>
+                                <button type="button" class="gm-btn" data-type="gm">Có GM</button>
+                                <button type="button" class="gm-btn" data-type="nogm">Không GM</button>
+                            </div>
+                        `;
+
+                            let container = $(api.table().container()).find('.dataTables_filter');
+                            container.append(filterHtml);
+
+                            // EVENT CLICK
+                            container.on('click', '.gm-btn', function () {
+
+                                let val = $(this).data('type');
+
+                                // active UI
+                                $('.gm-btn').removeClass('active');
+                                $(this).addClass('active');
+
+                                // reset filter
+                                $.fn.dataTable.ext.search = [];
+
+                                if (val === 'gm') {
+                                    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                                        let row = api.row(dataIndex).node();
+                                        return $(row).find(".gm").is(":checked");
+                                    });
+                                }
+
+                                if (val === 'nogm') {
+                                    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+                                        let row = api.row(dataIndex).node();
+                                        return !$(row).find(".gm").is(":checked");
+                                    });
+                                }
+
+                                api.draw();
+                            });
+                        }
+
+                    });
+
+                    bindEvents();
+                    calculate();
+                    calculateGuiMau();
+                }
+
+                // ===== BIND EVENTS =====
+                function bindEvents() {
+
+
+                    // TM
+                    $(document).off("change", ".tm").on("change", ".tm", function () {
+
+                        let tr = $(this).closest("tr");
+                        let i = tr.data("index");
+                        let ck = tr.find(".ck");
+
+                        state[i] = state[i] || {};
+                        state[i].tm = this.checked;
+
+                        if (this.checked) {
+                            ck.prop("checked", false);
+                            state[i].ck = false;
+                        } else {
+                            // ❗ không cho cả 2 off
+                            if (!ck.is(":checked")) {
+                                ck.prop("checked", true);
+                                state[i].ck = true;
+                            }
+                        }
+
+                        calculate();
+                    });
+
+                    // CK
+                    $(document).off("change", ".ck").on("change", ".ck", function () {
+
+                        let tr = $(this).closest("tr");
+                        let i = tr.data("index");
+                        let tm = tr.find(".tm");
+
+                        state[i] = state[i] || {};
+                        state[i].ck = this.checked;
+
+                        if (this.checked) {
+                            tm.prop("checked", false);
+                            state[i].tm = false;
+                        } else {
+                            // ❗ không cho cả 2 off
+                            if (!tm.is(":checked")) {
+                                tm.prop("checked", true);
+                                state[i].tm = true;
+                            }
+                        }
+
+                        calculate();
+                    });
+
+                    // HIỆU CHỈNH
+                    $(document).off("input", ".hc").on("input", ".hc", function () {
+
+                        let cursorPos = this.selectionStart;
+                        let oldLength = $(this).val().length;
+
+                        let v = pm($(this).val());
+                        let formatted = v ? fm(v) : "";
+
+                        $(this).val(formatted);
+
+                        let newLength = formatted.length;
+                        this.selectionEnd = cursorPos + (newLength - oldLength);
+
+                        let tr = $(this).closest("tr");
+                        let i = tr.data("index");
+
+                        state[i] = state[i] || {};
+                        state[i].hc = v;
+
+                        let tm = tr.find(".tm");
+                        let ck = tr.find(".ck");
+
+                        if (v > 0) {
+                            ck.prop("checked", true);
+                            tm.prop("checked", false);
+
+                            state[i].ck = true;
+                            state[i].tm = false;
+                        }
+
+                        calculate();
+                    });
+
+                    // INPUT TIỀN
+                    $(".money").off().on("input", function () {
+                        let v = pm($(this).val());
+                        $(this).val(fm(v));
+                        calculate();
+                    });
+                    // ===== CHECK ALL TM (CHỈ TRANG HIỆN TẠI) =====
+                    $(document).off("change", "#checkAllTM").on("change", "#checkAllTM", function () {
+
+                        let isChecked = this.checked;
+
+                        // 🔥 chỉ lấy rows đang hiển thị
+                        let rows = table_thongke.rows({ page: 'current' }).nodes();
+
+                        $(rows).each(function () {
+
+                            let tr = $(this);
+                            let i = tr.data("index");
+
+                            let tm = tr.find(".tm");
+                            let ck = tr.find(".ck");
+
+                            tm.prop("checked", isChecked);
+
+                            state[i] = state[i] || {};
+                            state[i].tm = isChecked;
+
+                            if (isChecked) {
+                                ck.prop("checked", false);
+                                state[i].ck = false;
+                            } else {
+                                // ❗ đảm bảo không cả 2 off
+                                ck.prop("checked", true);
+                                state[i].ck = true;
+                            }
+                        });
+
+                        calculate();
+                    });
+
+
+                    // ===== CHECK ALL CK =====
+                    $(document).off("change", "#checkAllCK").on("change", "#checkAllCK", function () {
+
+                        let isChecked = this.checked;
+
+                        let rows = table_thongke.rows({ page: 'current' }).nodes();
+
+                        $(rows).each(function () {
+
+                            let tr = $(this);
+                            let i = tr.data("index");
+
+                            let tm = tr.find(".tm");
+                            let ck = tr.find(".ck");
+
+                            ck.prop("checked", isChecked);
+
+                            state[i] = state[i] || {};
+                            state[i].ck = isChecked;
+
+                            if (isChecked) {
+                                tm.prop("checked", false);
+                                state[i].tm = false;
+                            } else {
+                                tm.prop("checked", true);
+                                state[i].tm = true;
+                            }
+                        });
+
+                        calculate();
+                    });
+
+                    // ===== CHỌN NƠI GỬI =====
+                    $(document).off("change", ".noi_gui").on("change", ".noi_gui", function () {
+
+                        let selected = $(this).find("option:selected");
+                        let gia = selected.data("gia") || 0;
+
+                        let tr = $(this).closest("tr");
+                        tr.find(".gia_gui").val(fm(gia));
+                        calculateGuiMau(); // tinh tong gui mau
+                    });
+
+                    $(document).off("change", ".gm").on("change", ".gm", function () {
+
+                        let tr = $(this).closest("tr");
+                        let i = tr.data("index");
+
+                        state[i] = state[i] || {};
+                        state[i].gm = this.checked;
+
+                        let enable = this.checked;
+                        let select = tr.find(".noi_gui");
+                        let input = tr.find(".gia_gui");
+
+                        select.prop("disabled", !enable);
+
+                        if (!enable) {
+                            select.val('');
+                            input.val('');
+                        } else {
+                            let first = select.find("option:eq(1)");
+                            select.val(first.val());
+                            input.val(fm(first.data("gia") || 0));
+                        }
+
+                        calculateGuiMau();
+                    });
+
+                }
+
+                // ===== CALCULATE =====
+                function calculate() {
+
+                    let tm_dv = 0, ck_dv = 0, tm_thuoc = 0, ck_thuoc = 0;
+                    let tong_dv = 0;
+                    let tong_thuoc = 0;
+
+                    rawData.forEach((x, i) => {
+
+                        let thuoc = isThuoc(x);
+                        let tien = Number(x.THANHTIEN) || 0;
+
+                        // 🔥 TÍNH TỔNG DỊCH VỤ / THUỐC
+                        if (thuoc) {
+                            tong_thuoc += tien;
+                        } else {
+                            tong_dv += tien;
+                        }
+
+                        let row = state[i] || {};
+                        let hc = row.hc || 0;
+
+                        let isTM = (row.tm !== false);
+                        let isCK = (row.ck === true);
+
+                        // ===== TIỀN MẶT =====
+                        if (isTM) {
+                            thuoc ? tm_thuoc += tien : tm_dv += tien;
+                        }
+
+                        // ===== CHUYỂN KHOẢN =====
+                        if (isCK) {
+
+                            let value = tien;
+
+                            if (hc > 0) {
+                                value = tien - hc;
+
+                                // 🔥 PHẦN BÙ VÀO TIỀN MẶT
+                                if (thuoc) {
+                                    tm_thuoc += hc;
+                                } else {
+                                    tm_dv += hc;
+                                }
+                            }
+
+                            thuoc ? ck_thuoc += value : ck_dv += value;
+                        }
+                    });
+
+                    $("#tm_dv").text(fm(tm_dv));
+                    $("#ck_dv").text(fm(ck_dv));
+                    $("#tm_thuoc").text(fm(tm_thuoc));
+                    $("#ck_thuoc").text(fm(ck_thuoc));
+                    $("#tongtien_dichvu").text(fm(tong_dv));
+                    $("#tongtien_thuoc").text(fm(tong_thuoc));
+
+
+                    // INPUT
+                    let dauNgay = pm($("#dauNgay").val());
+                    let thuNgoai = pm($("#thuNgoai").val());
+                    let unc = pm($("#unc").val());
+                    let ktNhap = pm($("#ktNhap").val());
+
+                    // CUỐI NGÀY
+                    // ===== CUỐI NGÀY (ĐÃ TRỪ UNC) =====
+                    let cuoiNgay = dauNgay + ck_dv + ck_thuoc + thuNgoai - unc;
+                    $("#cuoiNgay").text(fm(cuoiNgay));
+
+                    // LỆCH
+                    let lech = ktNhap - cuoiNgay;
+
+                    $("#lech")
+                        .val(fm(lech))
+                        .removeClass("ok bad")
+                        .addClass(lech === 0 ? "ok" : "bad");
+
+                    // (nếu có summary bar)
+                    $("#s_tm_dv").text(fm(tm_dv));
+                    $("#s_ck_dv").text(fm(ck_dv));
+                    $("#s_tm_thuoc").text(fm(tm_thuoc));
+                    $("#s_ck_thuoc").text(fm(ck_thuoc));
+                    $("#s_cuoi").text(fm(cuoiNgay));
+                }
+
+                function calculateGuiMau() {
+                    let map = {};
+                    let total = 0;
+
+                    let table = $("#table_dulieu").DataTable();
+
+                    // 🔥 lấy toàn bộ rows (không phụ thuộc pagination)
+                    table.rows().every(function () {
+
+                        let row = this.node(); // DOM row
+
+                        let gm = $(row).find(".gm").is(":checked");
+                        if (!gm) return;
+
+                        let noi = $(row).find(".noi_gui").val();
+                        let gia = pm($(row).find(".gia_gui").val());
+
+                        if (!noi) return;
+
+                        if (!map[noi]) map[noi] = 0;
+
+                        map[noi] += gia;
+                        total += gia;
+                    });
+
+                    // ===== render =====
+                    let html = '';
+
+                    Object.keys(map).forEach(noi => {
+                        html += `
+                <div class="gm-item">
+                    <span>${noi}</span>
+                    <span>${fm(map[noi])}</span>
+                </div>`;
+                    });
+
+                    $(".gm-body").html(html);
+                    $("#gm_total").text(fm(total));
+                }
+
+                function getGuiMauSummary() {
+                    let map = {};
+                    let total = 0;
+
+                    let table = $("#table_dulieu").DataTable();
+
+                    table.rows().every(function () {
+
+                        let row = this.node();
+
+                        let gm = $(row).find(".gm").is(":checked");
+                        if (!gm) return;
+
+                        let noi = $(row).find(".noi_gui").val();
+                        let gia = pm($(row).find(".gia_gui").val());
+
+                        if (!noi) return;
+
+                        if (!map[noi]) map[noi] = 0;
+
+                        map[noi] += gia;
+                        total += gia;
+                    });
+
+                    return { map, total };
+                }
+
+                // ===== JSON INPUT =====
+                function handleJSON(text) {
+
+                    if (!text.trim()) {
+                        $("#error").text("");
+                        return;
+                    }
+
+                    $("#loading").show();
+
+                    setTimeout(() => {
+                        try {
+                            let data = JSON.parse(text);
+
+                            if (!Array.isArray(data)) {
+                                throw "JSON phải là mảng []";
+                            }
+
+                            $("#error").text("");
+                            renderTable(data);
+
+                        } catch (e) {
+                            $("#error").text("❌ JSON không hợp lệ: " + e);
+                        }
+
+                        $("#loading").hide();
+
+                    }, 200);
+                }
+
+                // ===== AUTO PASTE =====
+                $("#jsonInput").on("paste input", function () {
+
+                    clearTimeout(this.timer);
+
+                    this.timer = setTimeout(() => {
+                        handleJSON($(this).val());
+                    }, 300);
+
+                });
+
+                // xuat excel
+
+                function styleHeader(ws, range) {
+                    for (let C = range.s.c; C <= range.e.c; C++) {
+                        let cell = ws[XLSX.utils.encode_cell({ r: range.s.r, c: C })];
+                        if (!cell) continue;
+
+                        cell.s = {
+                            font: { bold: true },
+                            alignment: { horizontal: "center", vertical: "center" }
+                        };
+                    }
+                }
+
+                function styleBoldRow(ws, rowIndex, colCount) {
+                    for (let C = 0; C < colCount; C++) {
+                        let cell = ws[XLSX.utils.encode_cell({ r: rowIndex, c: C })];
+                        if (!cell) continue;
+
+                        cell.s = {
+                            font: { bold: true }
+                        };
+                    }
+                }
+
+                // auto width theo content
+                function autoWidth(ws, data) {
+                    let colWidths = [];
+
+                    data.forEach(row => {
+                        row.forEach((cell, i) => {
+                            let len = (cell ? cell.toString().length : 0);
+                            colWidths[i] = Math.max(colWidths[i] || 10, len + 2);
+                        });
+                    });
+
+                    ws['!cols'] = colWidths.map(w => ({ wch: w }));
+                }
+
+                $("#btnExportExcel").on("click", function () {
+
+                    let wb = XLSX.utils.book_new();
+                    let ws_data = [];
+
+                    // =========================
+                    // HELPER
+                    // =========================
+                    function getRowState(i) {
+                        let row = state[i] || {};
+                        return {
+                            isTM: (row.tm !== false),
+                            isCK: (row.ck === true),
+                            isGM: (row.gm === true),
+                            hc: row.hc || 0
+                        };
+                    }
+
+                    function getLoai(x) {
+                        return isThuoc(x) ? "Thuốc DV" : "Dịch vụ";
+                    }
+
+                    // =========================
+                    // ===== TÍNH TỔNG =========
+                    // =========================
+                    let tong_dv = 0;
+                    let tong_thuoc = 0;
+
+                    rawData.forEach(x => {
+                        let tien = Number(x.THANHTIEN) || 0;
+                        if (isThuoc(x)) tong_thuoc += tien;
+                        else tong_dv += tien;
+                    });
+
+                    // =========================
+                    // ===== HEADER ============
+                    // =========================
+                    ws_data.push([
+                        "STT", "Ngay", "Tên bệnh nhân", "Nội dung",
+                        "Loại", "Đơn giá", "Số lượng", "Thành tiền",
+                        "TM", "CK", "GM", "Hiệu chỉnh"
+                    ]);
+
+                    // =========================
+                    // ===== BODY ==============
+                    // =========================
+                    rawData.forEach((x, i) => {
+
+                        let st = getRowState(i);
+                        let ngay = (x.NGAY_GIO_TAO || "").split(" ")[0];
+
+                        ws_data.push([
+                            i + 1,
+                            ngay,
+                            x.TEN_BENH_NHAN || "",
+                            x.NOIDUNG || "",
+                            getLoai(x),
+                            Number(x.DONGIA) || 0,
+                            x.SOLUONG || 0,
+                            Number(x.THANHTIEN) || 0,
+                            st.isTM ? 1 : 0,
+                            st.isCK ? 1 : 0,
+                            st.isGM ? 1 : 0,
+                            st.hc
+                        ]);
+                    });
+
+                    // =========================
+                    // ===== GỬI MẪU ===========
+                    // =========================
+                    let gmData = getGuiMauSummary();
+
+                    // =========================
+                    // ===== DÒNG TRỐNG ========
+                    // =========================
+                    ws_data.push([]);
+
+                    // =========================
+                    // ===== TỔNG KẾT ==========
+                    ws_data.push(["Số tiền đầu ngày", pm($("#dauNgay").val())]);
+                    ws_data.push(["Thu ngoài", pm($("#thuNgoai").val())]);
+                    ws_data.push(["Tiền mặt DV", pm($("#tm_dv").text())]);
+                    ws_data.push(["Chuyển khoản DV", pm($("#ck_dv").text())]);
+                    ws_data.push(["Tiền mặt Thuốc", pm($("#tm_thuoc").text())]);
+                    ws_data.push(["Chuyển khoản thuốc", pm($("#ck_thuoc").text())]);
+                    ws_data.push(["Chuyển khoản ra (UNC)", pm($("#unc").val())]);
+                    ws_data.push(["Số dư cuối ngày TK Ngân Hàng", pm($("#cuoiNgay").text())]);
+                    ws_data.push(["Lệch", pm($("#lech").val())]);
+
+                    // =========================
+                    // ===== THỐNG KÊ ==========
+                    // =========================
+                    ws_data.push([]);
+                    ws_data.push(["===== TỔNG HỢP ====="]);
+                    ws_data.push(["Tổng tiền Dịch vụ", tong_dv]);
+                    ws_data.push(["Tổng tiền Thuốc", tong_thuoc]);
+
+                    // =========================
+                    // ===== GỬI MẪU ===========
+                    // =========================
+                    ws_data.push([]);
+                    ws_data.push(["===== CHI PHÍ GỬI MẪU ====="]);
+
+                    Object.keys(gmData.map).forEach(noi => {
+                        ws_data.push([noi, gmData.map[noi]]);
+                    });
+
+                    ws_data.push(["TỔNG GỬI MẪU", gmData.total]);
+
+                    // =========================
+                    // ===== SHEET 1 ===========
+                    // =========================
+                    let ws1 = XLSX.utils.aoa_to_sheet(ws_data);
+
+                    // format số
+                    let range = XLSX.utils.decode_range(ws1['!ref']);
+
+                    for (let R = 1; R <= rawData.length; R++) {
+                        ["E", "F", "G", "K"].forEach(col => {
+                            let cell = ws1[col + (R + 1)];
+                            if (cell && typeof cell.v === "number") {
+                                cell.z = "#,##0";
+                            }
+                        });
+                    }
+
+                    let startRow = rawData.length + 15;
+
+                    for (let R = startRow; R < startRow + 20; R++) {
+                        let cell = ws1["B" + (R + 1)];
+                        if (cell && typeof cell.v === "number") {
+                            cell.z = "#,##0";
+                        }
+                    }
+
+                    // auto width
+                    ws1['!cols'] = [
+                        { wch: 6 },
+                        { wch: 12 },
+                        { wch: 25 },
+                        { wch: 35 },
+                        { wch: 12 },
+                        { wch: 15 },
+                        { wch: 10 },
+                        { wch: 18 },
+                        { wch: 6 },
+                        { wch: 6 },
+                        { wch: 6 },  // GM
+                        { wch: 15 }
+                    ];
+
+                    XLSX.utils.book_append_sheet(wb, ws1, "BaoCao");
+                    styleHeader(ws1, {
+                        s: { r: 0, c: 0 },
+                        e: { r: 0, c: 10 }
+                    });
+                   
+                    autoWidth(ws1, ws_data);
+
+                    // =========================
+                    // ===== SHEET 2 ===========
+                    // (GIỮ NGUYÊN CODE OK CỦA BẠN)
+                    // =========================
+
+                    let dvMap = {};
+
+                    rawData.forEach((x, i) => {
+
+                        let ten = (x.NOIDUNG || "").trim();
+                        if (!ten) return;
+
+                        let dongia = Number(x.DONGIA) || 0;
+                        let soluong = Number(x.SOLUONG) || 0;
+                        let loai = getLoai(x);
+
+                        let key = ten + "|" + dongia + "|" + loai;
+
+                        if (!dvMap[key]) {
+                            dvMap[key] = {
+                                ten,
+                                loai,
+                                dongia,
+                                sl: 0,
+                                sl_tm: 0,
+                                sl_ck: 0,
+                                tien_tm: 0,
+                                tien_ck: 0
+                            };
+                        }
+
+                        let st = getRowState(i);
+
+                        dvMap[key].sl += soluong;
+
+                        if (st.isTM) {
+                            dvMap[key].sl_tm += soluong;
+                            dvMap[key].tien_tm += soluong * dongia;
+                        }
+
+                        if (st.isCK) {
+                            dvMap[key].sl_ck += soluong;
+                            dvMap[key].tien_ck += soluong * dongia;
+                        }
+                    });
+
+                    let dvArr = Object.values(dvMap).sort((a, b) => a.ten.localeCompare(b.ten, 'vi'));
+
+                    let ws2_data = [];
+
+                    ws2_data.push(["BÁO CÁO DỊCH VỤ - THUỐC"]);
+                    ws2_data.push([]);
+
+                    ws2_data.push([
+                        "STT",
+                        "Dịch vụ/Thuốc",
+                        "Loại",
+                        "SL",
+                        "Đơn giá",
+                        "Thành tiền",
+                        "SL CK",
+                        "Tiền CK",
+                        "SL TM",
+                        "Tiền TM"
+                    ]);
+
+                    let tongTien = 0;
+
+                    dvArr.forEach((item, i) => {
+                        let thanhTien = item.sl * item.dongia;
+                        tongTien += thanhTien;
+
+                        ws2_data.push([
+                            i + 1,
+                            item.ten,
+                            item.loai,
+                            item.sl,
+                            item.dongia,
+                            thanhTien,
+                            item.sl_ck,
+                            item.tien_ck,
+                            item.sl_tm,
+                            item.tien_tm
+                        ]);
+                    });
+
+                    ws2_data.push(["", "TỔNG CỘNG", "", "", "", tongTien]);
+
+                    let ws2 = XLSX.utils.aoa_to_sheet(ws2_data);
+
+                    ws2['!merges'] = [
+                        { s: { r: 0, c: 0 }, e: { r: 0, c: 9 } }
+                    ];
+
+                    for (let R = 3; R < dvArr.length + 3; R++) {
+                        ["D", "E", "F", "H", "J"].forEach(col => {
+                            let cell = ws2[col + (R + 1)];
+                            if (cell && typeof cell.v === "number") {
+                                cell.z = "#,##0";
+                            }
+                        });
+                    }
+
+                    ws2['!cols'] = [
+                        { wch: 6 },
+                        { wch: 35 },
+                        { wch: 12 },
+                        { wch: 10 },
+                        { wch: 15 },
+                        { wch: 18 },
+                        { wch: 10 },
+                        { wch: 18 },
+                        { wch: 10 },
+                        { wch: 18 }
+                    ];
+
+                    XLSX.utils.book_append_sheet(wb, ws2, "DichVu-Thuoc");
+                    styleBoldRow(ws2, 0, 10);
+                    styleHeader(ws2, {
+                        s: { r: 2, c: 0 },
+                        e: { r: 2, c: 9 }
+                    });
+                    let totalRowIndex = dvArr.length + 3;
+
+                    styleBoldRow(ws2, totalRowIndex, 10);
+                    autoWidth(ws2, ws2_data);
+
+                    // =========================
+                    // EXPORT
+                    // =========================
+                    XLSX.writeFile(wb, "bao_cao_thu_chi.xlsx");
+                });
+
+                // ===== RENDER TABLE GUI MAU =====
+                function renderTable_guimau(data) {
+
+                    // 🔥 destroy chuẩn
+                    if ($.fn.DataTable.isDataTable('#table_guimau')) {
+                        $('#table_guimau').DataTable().clear().destroy();
+                    }
+
+                    // 🔥 clear DOM
+                    $('#tbody_data').empty();
+                    let html = '';
+                    data.forEach(row => {
+                        html += `
+            <tr>
+                <td contenteditable="true">${row["TÊN DỊCH VỤ"] || ''}</td>
+                <td contenteditable="true">${row["Mục"] || ''}</td>
+                <td contenteditable="true">${row["Nơi gửi mẫu"] || ''}</td>
+                <td contenteditable="true">${row["ĐƠN GIÁ THU"] || ''}</td>
+                <td contenteditable="true">${row["ĐƠN GIÁ GỬI"] || ''}</td>
+               
+            </tr>`;
+                    });
+
+                    $('#tbody_data').html(html);
+
+                    $('#table_guimau').DataTable({
+                        pageLength: 5
+
+
+                    });
+                }
+
+                // ===== LOAD =====
+                let saved = localStorage.getItem('table_guimau');
+
+                if (saved) {
+                    $("#json_guimau").val(JSON.stringify(JSON.parse(saved), null, 2));
+                }
+
+                loadFromTextarea(); // render lần đầu
+
+                function loadFromTextarea() {
+                    try {
+                        let text = $("#json_guimau").val();
+                        let data = JSON.parse(text);
+
+                        renderTable_guimau(data);
+
+                        localStorage.setItem('table_guimau', JSON.stringify(data));
+
+                        updateGuiMauForAllRows(); // 🔥 update GM
+
+                    } catch (e) {
+                        alert("JSON không hợp lệ!");
+                    }
+                }
+                function updateGuiMauForAllRows() {
+
+                    let guiMauMap = buildGuiMauMap();
+
+                    $("#table_dulieu tbody tr").each(function () {
+
+                        let tr = $(this);
+                        let i = tr.data("index");
+
+                        let dv = normalizeDV(rawData[i].NOIDUNG);
+                        let match = guiMauMap[dv] || [];
+
+                        let gm = tr.find(".gm");
+                        let select = tr.find(".noi_gui");
+                        let giaInput = tr.find(".gia_gui");
+
+                        // build lại options
+                        let options = '<option value="">--Chọn--</option>';
+                        match.forEach(m => {
+                            options += `<option value="${m.noi}" data-gia="${m.gia}">${m.noi}</option>`;
+                        });
+
+                        select.html(options);
+
+                        if (match.length > 0) {
+
+                            gm.prop("checked", true).prop("disabled", false);
+                            select.prop("disabled", false);
+
+                            state[i] = state[i] || {};
+                            state[i].gm = true;
+
+                            // auto nếu 1 nơi
+                            if (match.length === 1) {
+                                let noi = match[0].noi;
+                                let gia = match[0].gia;
+
+                                select.val(noi);
+                                giaInput.val(fm(gia));
+
+                                state[i].noi = noi;
+                                state[i].gia = gia;
+                            }
+
+                        } else {
+
+                            gm.prop("checked", false).prop("disabled", true);
+                            select.prop("disabled", true).val('');
+                            giaInput.val('');
+
+                            state[i] = state[i] || {};
+                            state[i].gm = false;
+                            state[i].noi = null;
+                            state[i].gia = 0;
+                        }
+                    });
+
+                    calculateGuiMau(); // 🔥 cập nhật tổng
+                }
+
+
+                $("#btnReloadGM").on("click", function () {
+                    loadFromTextarea();
+                });
+
+                function buildGuiMauMap() {
+                    let map = {};
+
+                    let table = $('#table_guimau').DataTable();
+
+                    table.rows().every(function () {
+
+                        let row = this.node(); // DOM của row
+
+                        let ten = normalizeDV($(row).find('td:eq(0)').text());
+                        let noi = $(row).find('td:eq(2)').text().trim();
+                        let gia = pm($(row).find('td:eq(4)').text());
+
+                        if (!ten) return;
+
+                        if (!map[ten]) map[ten] = [];
+
+                        map[ten].push({ noi, gia });
+                    });
+
+                    return map;
+                }
+
+                function normalizeDV(str) {
+                    return (str || "")
+                        .toLowerCase()
+                        .replace(/\s+/g, ' ')   // gộp khoảng trắng
+                        .replace(/[-–]/g, '')   // bỏ dấu -
+                        .replace(/\s*\(\s*/g, '(')
+                        .replace(/\s*\)\s*/g, ')')
+                        .trim();
+                }
+            }
+                // END ThongKe
+            
             //end
         });
     </script>
